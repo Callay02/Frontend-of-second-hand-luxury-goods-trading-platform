@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-01-09 21:43:38
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-01-13 21:54:08
+ * @LastEditTime: 2024-01-31 01:19:02
  * @FilePath: \vue\src\views\LoginView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -83,14 +83,43 @@ export default {
                     this.$request.post('/user/login', this.user).then(res => {
                         console.log(res)
                         if (res.code === 200) {
-                            this.$notify({
-                                title: '登录成功',
-                                message: '用户' + res.data.name + '欢迎回来',
-                                type: 'success',
-                                position: 'top-left'
-                            });
-                            sessionStorage.setItem("honey-user", JSON.stringify(res.data))  // 存储用户数据
-                            this.$router.push('/')
+                            sessionStorage.setItem("satoken", res.data.tokenValue)  // 存储用户数据
+                            console.log(res)
+                            if(res.msg=="0"){
+                                this.$notify({
+                                    title: '登录成功',
+                                    message: '用户' + res.data.name + '欢迎回来',
+                                    type: 'success',
+                                    position: 'top-left'
+                                });
+                                this.$router.push('/index/home')
+                            }
+                            else if(res.msg=="1"){
+                                this.$notify({
+                                    title: '登录成功',
+                                    message: '销售员' + res.data.name + '欢迎回来',
+                                    type: 'success',
+                                    position: 'top-left'
+                                });
+                            }
+                            else if(res.msg=="2"){
+                                this.$notify({
+                                    title: '登录成功',
+                                    message: '鉴定师' + res.data.name + '欢迎回来',
+                                    type: 'success',
+                                    position: 'top-left'
+                                });
+                            }
+                            else if(res.msg=="3"){
+                                this.$notify({
+                                    title: '登录成功',
+                                    message: '管理员' + res.data.name + '欢迎回来',
+                                    type: 'success',
+                                    position: 'top-left'
+                                });
+                            }
+                            
+                            
                         } else {
                             this.$message.error(res.msg)
                         }

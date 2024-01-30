@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-01-09 21:39:03
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-01-26 13:55:36
+ * @LastEditTime: 2024-01-30 21:47:21
  * @FilePath: \vue\src\router\index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -10,8 +10,10 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
-import IndexView from '../views/IndexView.vue'
 
+
+import IndexView from '../views/regularusers/IndexView.vue'
+import HomeView from '../views/regularusers/HomeView.vue'
 
 Vue.use(VueRouter)
 
@@ -20,12 +22,18 @@ Vue.use(VueRouter)
 const routes = [
   {
     path:'/',
-    redirect:'/index'
+    redirect:'/index/home'
   },
   {
     name:'index',
     path:'/index',
-    component:IndexView
+    component:IndexView,
+    children: [
+      {
+        path: 'home',
+        component: HomeView,
+      }
+    ],
   },
   {
     name:'login',
@@ -46,7 +54,7 @@ const router = new VueRouter({
 
 //登录跳转
 router.beforeEach((to,from,next)=>{
-  let isLogin = sessionStorage.getItem("honey-user");
+  let isLogin = sessionStorage.getItem("satoken");
   
   //登出
   if(to.path=='/logout'){
@@ -56,11 +64,11 @@ router.beforeEach((to,from,next)=>{
     next({path:'/login'});
   }else if(to.path=='/login'){
     if(isLogin!=null){
-      next({path:'/index'})
+      next({path:'/'})
     }
   }else if(to.path=='/register'){
     if(isLogin!=null){
-      next({path:'/index'})
+      next({path:'/'})
     }
   }else if(isLogin == null){
     next({path:'/login'});

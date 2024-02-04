@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-01-09 21:39:03
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-01-30 21:47:21
+ * @LastEditTime: 2024-02-02 14:10:11
  * @FilePath: \vue\src\router\index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -14,6 +14,7 @@ import RegisterView from '../views/RegisterView.vue'
 
 import IndexView from '../views/regularusers/IndexView.vue'
 import HomeView from '../views/regularusers/HomeView.vue'
+import GoodsTypeView from '../views/regularusers/GoodsTypeView.vue'
 
 Vue.use(VueRouter)
 
@@ -32,6 +33,10 @@ const routes = [
       {
         path: 'home',
         component: HomeView,
+      },
+      {
+        path: 'goodsType',
+        component: GoodsTypeView,
       }
     ],
   },
@@ -51,6 +56,12 @@ const routes = [
 const router = new VueRouter({
   routes
 })
+
+const originaPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(location) {
+  return originaPush.call(this, location).catch(err => err)
+}
+
 
 //登录跳转
 router.beforeEach((to,from,next)=>{
@@ -77,5 +88,8 @@ router.beforeEach((to,from,next)=>{
   next();
 
 })
+
+
+
 
 export default router

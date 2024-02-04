@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-01-13 17:28:16
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-01-26 13:56:58
+ * @LastEditTime: 2024-02-01 11:20:56
  * @FilePath: \vue\src\views\RegisterView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -136,7 +136,7 @@ export default {
                 if (valid) {
                     if (sessionStorage.getItem("verification-code") == this.verificationCode) {
                         // 验证通过
-                        this.$request.post('/user/register', this.user).then(res => {
+                        this.$request.post('user/register', this.user).then(res => {
                             console.log(res)
                             if (res.code === 200) {
                                 this.$notify({
@@ -145,7 +145,7 @@ export default {
                                     type: 'success',
                                     position: 'top-left'
                                 });
-                                sessionStorage.setItem("honey-user", JSON.stringify(res.data))  // 存储用户数据
+                                sessionStorage.setItem("satoken", res.data.tokenValue)
                                 this.$router.push('/')
                             } else {
                                 this.$message.error(res.msg)
@@ -159,13 +159,17 @@ export default {
         //获取验证码
         getCode() {
             if (this.user.email) {
-                this.$request.get('/user/getcode?email=' + this.user.email).then(res => {
-                    if(res.code === 200){
-                        sessionStorage.setItem("verification-code",res.data)
-                    }else{
+                this.$request.get('user/getcode?email=' + this.user.email).then(res => {
+                    if (res.code === 200) {
+                        this.$message({
+                            message: '验证码已发送',
+                            type: 'success'
+                        });
+                        sessionStorage.setItem("verification-code", res.data)
+                    } else {
                         this.$message.error(res.msg)
                     }
-                    
+
                 })
             } else {
                 this.$notify({

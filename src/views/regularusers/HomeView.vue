@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-01-30 16:32:01
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-02-06 13:21:24
+ * @LastEditTime: 2024-02-06 17:49:36
  * @FilePath: \vue\src\views\regularusers\HomeView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -16,10 +16,13 @@
                 </el-carousel-item>
             </el-carousel>
         </div>
+        <div style="display: flex;justify-content: center;font-size: xx-large;">
+            <p>热门推荐</p>
+        </div>
         <div>
             <el-row>
                 <el-col :span="3" v-for="item in goodsList" :key="item.id" :offset=1>
-                    <el-card :body-style="{ padding: '0px'}">
+                    <el-card :body-style="{ padding: '0px'}" shadow="hover" @click.native="toGoodsDetail(item.id)">
                         <img :src="item.img"
                             class="image">
                         <div style="padding: 14px;">
@@ -48,6 +51,17 @@ export default {
       count:24,
       goodsList:[]
     };
+  },
+  methods:{
+    toGoodsDetail(goodsId){
+        console.log(goodsId)
+        this.$router.push({
+                    path: "/index/goodsdetail",
+                    query: {
+                        goodsId: goodsId
+                    }
+                })
+    }
   },
   beforeMount(){
     this.$request.get("goods/getRandomGoodsInfo").then(res=>{

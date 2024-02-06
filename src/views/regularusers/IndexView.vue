@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-01-13 19:07:07
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-02-02 15:23:40
+ * @LastEditTime: 2024-02-06 17:46:42
  * @FilePath: \vue\src\views\regularusers\IndexView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -47,7 +47,7 @@ export default {
                 this.$router.push('/')
             }
             else if (keyPath[0] == 'goodsType') {
-                sessionStorage.setItem('goodsType', key)
+                //sessionStorage.setItem('goodsType', key)
                 this.$router.push({
                     path: "/index/goodsType",
                     query: {

@@ -2,32 +2,39 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-01 15:25:18
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-02-06 15:07:10
+ * @LastEditTime: 2024-02-06 17:33:34
  * @FilePath: \vue\src\views\regularusers\GoodsTypeView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <template>
     <div>
-        <el-row>
-            <el-col :span="3" v-for="item in goodsList" :key="item.id" :offset=1>
-                <el-card :body-style="{ padding: '0px' }">
-                    <img :src="item.img" class="image">
-                    <div style="padding: 14px;">
-                        <div style="line-height: 5px;">
-                            <p>{{ item.brandName }}</p>
-                            <p>{{ item.typeName }}</p>
+        <div>
+            <span style="margin-right: 5px;">品牌:</span>
+            <el-tag v-for="item in brands" :key="item.id" style="margin-right: 5px;">{{ item.name }}</el-tag>
+        </div>
+        <div>
+            <el-row>
+                <el-col :span="3" v-for="item in goodsList" :key="item.id" :offset=1>
+                    <el-card :body-style="{ padding: '0px' }" shadow="hover" @click.native="toGoodsDetail(item.id)">
+                        <img :src="item.img" class="image">
+                        <div style="padding: 14px;">
+                            <div style="line-height: 5px;">
+                                <p>{{ item.brandName }}</p>
+                                <p>{{ item.typeName }}</p>
+                            </div>
+                            <div>
+                                <p>{{ item.info }}</p>
+                                <p>成色：{{ item.fineness }}新</p>
+                                <!--<p class="price">现价：¥ {{item.price}}</p>-->
+                            </div>
                         </div>
-                        <div>
-                            <p>{{ item.info }}</p>
-                            <p>成色：{{ item.fineness }}新</p>
-                            <!--<p class="price">现价：¥ {{item.price}}</p>-->
-                        </div>
-                    </div>
-                </el-card>
-            </el-col>
-        </el-row>
+                    </el-card>
+                </el-col>
+            </el-row>
+        </div>
+
+
         <div class="block">
-            <span class="demonstration">显示总数</span>
             <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
                 :current-page.sync="currentPage" :page-size="pageSize" layout="total, prev, pager, next" :total="total">
             </el-pagination>
@@ -39,9 +46,10 @@
 export default {
     data() {
         return {
+            brands: [],
             type: "",
             currentPage: 1,
-            pageSize: 4,
+            pageSize: 6,
             total: 1,
             goodsList: []
         }
@@ -57,11 +65,26 @@ export default {
                 this.goodsList = res.data.goodsVoList
                 console.log(this.goods)
             })
-        }
+        },
+        handleClose(tag) {
+            this.tags.splice(this.tags.indexOf(tag), 1);
+        },
+        toGoodsDetail(goodsId){
+        console.log(goodsId)
+        this.$router.push({
+                    path: "/index/goodsdetail",
+                    query: {
+                        goodsId: goodsId
+                    }
+                })
+    }
     },
     beforeMount() {
         this.type = this.$route.query.type
         this.currentPage = 1
+        this.$request.get('goodsBrand/getGoodsBrand').then(res => {
+            this.brands = res.data
+        })
         this.$request.get('goods/getPageByType?type=' + this.$route.query.type + "&page=" + this.currentPage + "&rows=" + this.pageSize).then(res => {
             this.total = res.data.total
             this.goodsList = res.data.goodsVoList
@@ -90,6 +113,12 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.block {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+}
+
 .price {
     margin-bottom: 5px;
     margin-right: 5px;

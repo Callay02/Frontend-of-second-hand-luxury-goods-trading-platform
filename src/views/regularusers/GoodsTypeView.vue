@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-01 15:25:18
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-02-06 17:33:34
+ * @LastEditTime: 2024-02-07 14:57:42
  * @FilePath: \vue\src\views\regularusers\GoodsTypeView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -16,7 +16,13 @@
             <el-row>
                 <el-col :span="3" v-for="item in goodsList" :key="item.id" :offset=1>
                     <el-card :body-style="{ padding: '0px' }" shadow="hover" @click.native="toGoodsDetail(item.id)">
-                        <img :src="item.img" class="image">
+                        <div style="display: flex;justify-content: center;margin-top: 10px;">
+                            <el-image style="width: auto; height: 100px;" :src="item.img" fit="cover">
+                            <div slot="placeholder" class="image-slot">
+                                加载中<span class="dot">...</span>
+                            </div>
+                        </el-image>
+                        </div>
                         <div style="padding: 14px;">
                             <div style="line-height: 5px;">
                                 <p>{{ item.brandName }}</p>
@@ -63,7 +69,7 @@ export default {
             this.$request.get('goods/getPageByType?type=' + this.$route.query.type + "&page=" + this.currentPage + "&rows=" + this.pageSize).then(res => {
                 this.total = res.data.total
                 this.goodsList = res.data.goodsVoList
-                console.log(this.goods)
+                //console.log(this.goods)
             })
         },
         handleClose(tag) {
@@ -123,13 +129,6 @@ export default {
     margin-bottom: 5px;
     margin-right: 5px;
     float: right;
-}
-
-.image {
-    width: 100%;
-    height: 100px;
-    display: block;
-
 }
 
 .el-card {

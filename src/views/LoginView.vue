@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-01-09 21:43:38
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-02-01 15:03:31
+ * @LastEditTime: 2024-02-07 11:36:55
  * @FilePath: \vue\src\views\LoginView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -84,12 +84,12 @@ export default {
                         //console.log(res)
                         if (res.code === 200) {
                             sessionStorage.setItem("satoken", res.data.tokenValue)  // 存储token
-
-                            this.$request.get("user/getUserInfo?id="+res.data.loginId).then(res=>{
-                                sessionStorage.setItem("user",res.data)
-                                this.user=res.data
+                            sessionStorage.setItem("uid",res.data.loginId)
+                            //this.$request.get("user/getUserInfo?id="+res.data.loginId).then(res=>{
+                            //    sessionStorage.setItem("user",res.data)
+                            //    this.user=res.data
                                 //console.log(res)
-                            })
+                            //})
                             if(this.user.type==0){
                                 this.$notify({
                                     title: '登录成功',

@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-01-13 19:07:07
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-02-06 17:46:42
+ * @LastEditTime: 2024-02-07 19:04:42
  * @FilePath: \vue\src\views\regularusers\IndexView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -16,8 +16,11 @@
                         <el-menu-item v-for="item in goodsType" :index="item.type + ''" :key="item.type">{{ item.name
                         }}</el-menu-item>
                     </el-submenu>
+                    <el-menu-item style="float: right;" index="myInfo">
+                        <el-avatar size="small" src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"></el-avatar>
+                    </el-menu-item>
                     <el-menu-item style="float: right;" index="3">我的订单</el-menu-item>
-                    <el-menu-item style="float: right;" index="4">购物车</el-menu-item>
+                    <el-menu-item style="float: right;" index="shoppingCart">购物车</el-menu-item>
                 </el-menu></el-header>
             <el-main>
                 <router-view />
@@ -44,16 +47,21 @@ export default {
             //console.log(key, keyPath);
             //console.log(keyPath)
             if (keyPath[0] == 'home') {
-                this.$router.push('/')
+                this.$router.push('/index/home')
             }
             else if (keyPath[0] == 'goodsType') {
-                //sessionStorage.setItem('goodsType', key)
                 this.$router.push({
                     path: "/index/goodsType",
                     query: {
                         type: key
                     }
                 })
+            }
+            else if(keyPath[0]=='shoppingCart'){
+                this.$router.push('/index/shoppingCart')
+            }
+            else if(keyPath[0]=='myInfo'){
+                this.$router.push('/index/myInfo')
             }
 
         },

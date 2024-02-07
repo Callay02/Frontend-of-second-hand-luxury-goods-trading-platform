@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-01-09 21:39:03
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-02-06 18:26:46
+ * @LastEditTime: 2024-02-07 19:03:51
  * @FilePath: \vue\src\router\index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -16,6 +16,8 @@ import IndexView from '../views/regularusers/IndexView.vue'
 import HomeView from '../views/regularusers/HomeView.vue'
 import GoodsTypeView from '../views/regularusers/GoodsTypeView.vue'
 import GoodsDetailView from '../views/regularusers/GoodsDetailView.vue'
+import ShoppingCartView from '../views/regularusers/ShoppingCartView.vue'
+import MyInfoView from '../views/regularusers/MyInfoView.vue'
 
 Vue.use(VueRouter)
 
@@ -24,8 +26,19 @@ Vue.use(VueRouter)
 const routes = [
   {
     path:'/',
-    redirect:'/index/home'
+    redirect:'/login'
   },
+  {
+    name:'login',
+    path:'/login',
+    component:LoginView
+  },
+  {
+    name:'register',
+    path:'/register',
+    component:RegisterView
+  },
+  //普通用户
   {
     name:'index',
     path:'/index',
@@ -40,20 +53,18 @@ const routes = [
         component: GoodsTypeView,
       },
       {
-        path:'goodsdetail',
+        path:'goodsDetail',
         component:GoodsDetailView,
+      },
+      {
+        path:'shoppingCart',
+        component:ShoppingCartView,
+      },
+      {
+        path:'myInfo',
+        component:MyInfoView
       }
     ],
-  },
-  {
-    name:'login',
-    path:'/login',
-    component:LoginView
-  },
-  {
-    name:'register',
-    path:'/register',
-    component:RegisterView
   },
 ]
 

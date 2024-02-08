@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-07 19:02:48
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-02-07 21:16:52
+ * @LastEditTime: 2024-02-08 20:22:54
  * @FilePath: \vue\src\views\regularusers\MyInfoView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -10,7 +10,7 @@
     <div>
         <div style="display: flex;flex-direction: column;align-items: center;" size=500>
             <el-avatar> {{ this.userInfo.name }} </el-avatar>
-            <p style="font-size: x-large;font-weight: bold;">余额:{{ this.userInfo.money }}</p>
+            <p style="font-size: x-large;font-weight: bold;">余额:{{ this.userInfo.money }} ¥</p>
             <hr style="width: 30%;">
             <div style="display: flex;justify-content: center;">
                 <p style="width: 100px;font-size: medium;font-weight: bold;">手机号:</p><el-input v-model="userInfo.phone"
@@ -25,8 +25,8 @@
                     placeholder="请输入地址"></el-input>
             </div>
             <div style="display: flex;justify-content: center;">
-                <p style="width: 100px;font-size: medium;font-weight: bold;">密码:</p><el-input type="password" v-model="userInfo.password"
-                    placeholder="请输入密码"></el-input>
+                <p style="width: 100px;font-size: medium;font-weight: bold;">密码:</p><el-input type="password"
+                    v-model="userInfo.password" placeholder="请输入密码"></el-input>
             </div>
             <hr style="width:30%">
             <p style="font-size: large;font-weight: bold;">实名信息</p>
@@ -39,7 +39,7 @@
                     disabled></el-input>
             </div>
             <hr style="width:30%">
-            <el-button type="primary" style="margin-top: 10px;">修改</el-button>
+            <el-button type="primary" style="margin-top: 10px;" @click="submit">修改</el-button>
         </div>
     </div>
 </template>
@@ -55,7 +55,7 @@ export default {
         this.$request.get('regularUser/getUserInfoById?id=' + sessionStorage.getItem('uid')).then(res => {
             console.log(res)
             if (res.code == 200) {
-                if (res.msg != null) {
+                if (res.msg != "ok") {
                     this.$message({
                         message: res.msg,
                         type: 'warning'
@@ -66,9 +66,30 @@ export default {
                     this.userInfo.money = 0
                 }
             }
-
-
         })
+    },
+    methods: {
+        submit() {
+            this.$request.post('regularUser/updateUserInfoById', {
+                "id": sessionStorage.getItem("uid"),
+                "address": this.userInfo.address,
+                "phone": this.userInfo.phone,
+                "money": "",
+                "updateTime": ""
+            }).then(res=>{
+                if(res.code==200){
+                    this.$message({
+                        message: res.msg,
+                        type: 'success'
+                    })
+                }else{
+                    this.$message({
+                        message: res.msg,
+                        type: 'warning'
+                    })
+                }
+            })
+        }
     }
 }
 </script>
@@ -86,4 +107,5 @@ export default {
 .el-radio--medium.is-bordered .el-radio__label,
 .el-radio__label {
     font-size: 40px;
-}</style>
+}
+</style>

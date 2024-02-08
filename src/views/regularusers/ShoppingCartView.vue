@@ -65,14 +65,16 @@
                 </el-main>
                 <el-aside style="width: 20%;">
                     <div style="margin-top: 100px;">
-                        <p style="float: left;font-size: x-large;">总计：¥&ensp;</p><input type="text" v-model="totalPrice" style="border: 0px;outline:none;height: 80px;font-size: x-large;" />
+                        <p style="float: left;font-size: x-large;">总计：¥&ensp;</p><input type="text" v-model="totalPrice"
+                            style="border: 0px;outline:none;height: 80px;font-size: x-large;" />
                     </div>
                     <div style="margin-left: 15px;">
-                        <li  v-for="item in multipleSelection" :key="item.id">{{ item.info }}</li>
+                        <li v-for="item in multipleSelection" :key="item.id">{{ item.info }}</li>
                     </div>
-                    <div style="float: right;display: flex;justify-content: center;position:absolute;bottom: 30px;right: 30px;">
+                    <div
+                        style="float: right;display: flex;justify-content: center;position:absolute;bottom: 30px;right: 30px;">
                         <el-button @click="toggleSelection()">取消选择</el-button>
-                        <el-button type="primary">确认购买</el-button>
+                        <el-button type="primary" @click="createOrderForm">确认购买</el-button>
                     </div>
 
                 </el-aside>
@@ -102,6 +104,7 @@ export default {
         },
         handleSelectionChange(val) {
             this.multipleSelection = val;
+            //console.log(this.multipleSelection)
             this.getTotalPrice()
         },
         handleDelete(index, row) {
@@ -138,6 +141,45 @@ export default {
                 sum += item.price
             })
             this.totalPrice = sum;
+        },
+        createOrderForm() {
+            var list = []
+            for (var index in this.multipleSelection) {
+                list.push({
+                    "id": "",
+                    "uid": sessionStorage.getItem('uid'),
+                    "gid": this.multipleSelection[index].id,
+                    "logisticsNumber": "",
+                    "state": "",
+                    "createTime": ""
+                })
+            }
+            this.$request.post('orderForm/createOrderForm', list).then(res => {
+                if (res.code == 200) {
+                    this.$message({
+                        message: "购买成功",
+                        type: 'success'
+                    });
+                    //从购物车中删除
+                    for (var index in this.multipleSelection) {
+                        this.$request.get('shoppingCart/deleteShoppingCartById?uid=' + sessionStorage.getItem('uid') + '&gid=' + this.multipleSelection[index].id).then(res => {
+                            if (res.code != 200) {
+                                this.$message({
+                                    message: res.msg,
+                                    type: 'danger'
+                                });
+                            }
+                        })
+                    }
+                    this.$router.go(0)
+                }
+                else {
+                    this.$message({
+                        message: res.msg,
+                        type: 'warning'
+                    });
+                }
+            })
         }
     },
     beforeMount() {

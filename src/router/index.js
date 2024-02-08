@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-01-09 21:39:03
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-02-07 19:03:51
+ * @LastEditTime: 2024-02-09 00:35:22
  * @FilePath: \vue\src\router\index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -18,6 +18,7 @@ import GoodsTypeView from '../views/regularusers/GoodsTypeView.vue'
 import GoodsDetailView from '../views/regularusers/GoodsDetailView.vue'
 import ShoppingCartView from '../views/regularusers/ShoppingCartView.vue'
 import MyInfoView from '../views/regularusers/MyInfoView.vue'
+import OrderFormView from '../views/regularusers/OrderFormView.vue'
 
 Vue.use(VueRouter)
 
@@ -63,6 +64,10 @@ const routes = [
       {
         path:'myInfo',
         component:MyInfoView
+      },
+      {
+        path:'orderForm',
+        component:OrderFormView
       }
     ],
   },

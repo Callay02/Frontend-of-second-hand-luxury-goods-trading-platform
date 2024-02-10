@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-01-09 21:39:03
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-02-09 00:35:22
+ * @LastEditTime: 2024-02-10 14:22:08
  * @FilePath: \vue\src\router\index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -18,7 +18,15 @@ import GoodsTypeView from '../views/regularusers/GoodsTypeView.vue'
 import GoodsDetailView from '../views/regularusers/GoodsDetailView.vue'
 import ShoppingCartView from '../views/regularusers/ShoppingCartView.vue'
 import MyInfoView from '../views/regularusers/MyInfoView.vue'
-import OrderFormView from '../views/regularusers/OrderFormView.vue'
+import OrderFormView from '../views/regularusers/orderform/OrderFormView.vue'
+//待发货
+import ToBeShippedView from '../views/regularusers/orderform/ToBeShippedView.vue'
+//已发货
+import ShippedView from '../views/regularusers/orderform/ShippedView.vue'
+//待签收
+import ToBeSignedView from '../views/regularusers/orderform/ToBeSignedView.vue'
+//已签收
+import SignedView from '../views/regularusers/orderform/SignedView.vue'
 
 Vue.use(VueRouter)
 
@@ -67,7 +75,25 @@ const routes = [
       },
       {
         path:'orderForm',
-        component:OrderFormView
+        component:OrderFormView,
+        children:[
+          {
+            path:'toBeShipped',
+            component:ToBeShippedView
+          },
+          {
+            path:'shipped',
+            component:ShippedView
+          },
+          {
+            path:'toBeSigned',
+            component:ToBeSignedView
+          },
+          {
+            path:'signed',
+            component:SignedView
+          }
+        ]
       }
     ],
   },

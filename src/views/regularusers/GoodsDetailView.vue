@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-06 17:35:50
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-02-07 15:41:23
+ * @LastEditTime: 2024-02-10 16:02:57
  * @FilePath: \vue\src\views\regularusers\GoodsDetailView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -18,7 +18,7 @@
             <p>成色: {{ goods.fineness }}新</p>
             <p>定价:¥ {{ goods.price }}</p>
             <p>上架时间: {{ goods.addTime }}</p>
-            <el-button icon="el-icon-shopping-cart-2" plain @click="addToShoppingCart">加入购物车</el-button>
+            <el-button icon="el-icon-shopping-cart-2" plain @click="addToShoppingCart" v-if="goods.state==1">加入购物车</el-button>
         </div>
     </div>
 </template>
@@ -57,7 +57,7 @@ export default {
                     });
                 }
             })
-        }
+        },
     }
 }
 </script>

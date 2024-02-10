@@ -115,6 +115,7 @@ export default {
                         message: res.msg,
                         type: 'success'
                     });
+                    this.$router.go(0)
                 } else {
                     this.$message({
                         message: res.msg,
@@ -122,7 +123,6 @@ export default {
                     });
                 }
             })
-            this.$router.go(0)
         },
         checkSelectAble(row) {
             return row.state == 1
@@ -161,16 +161,16 @@ export default {
                         type: 'success'
                     });
                     //从购物车中删除
-                    for (var index in this.multipleSelection) {
-                        this.$request.get('shoppingCart/deleteShoppingCartById?uid=' + sessionStorage.getItem('uid') + '&gid=' + this.multipleSelection[index].id).then(res => {
-                            if (res.code != 200) {
-                                this.$message({
-                                    message: res.msg,
-                                    type: 'danger'
-                                });
-                            }
-                        })
-                    }
+                    //for (var index in this.multipleSelection) {
+                    //    this.$request.get('shoppingCart/deleteShoppingCartById?uid=' + sessionStorage.getItem('uid') + '&gid=' + this.multipleSelection[index].id).then(res => {
+                    //        if (res.code != 200) {
+                    //            this.$message({
+                    //                message: res.msg,
+                    //                type: 'danger'
+                    //            });
+                    //        }
+                    //    })
+                    //}
                     this.$router.go(0)
                 }
                 else {

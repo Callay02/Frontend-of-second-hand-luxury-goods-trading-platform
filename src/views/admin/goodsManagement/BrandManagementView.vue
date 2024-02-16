@@ -6,7 +6,11 @@
         <div>
             <el-button type="primary" style="" icon="el-icon-plus" @click="dialogFormVisible = true">添加</el-button>
             <el-dialog title="添加品牌" :visible.sync="dialogFormVisible">
-                <el-input v-model="newBrandName" placeholder="请输入品牌名"></el-input>
+                <div style="display: flex;justify-content: center;">
+                    <el-input v-model="newBrandId" placeholder="请输入id" style="width: 40%;margin-right: 10px;"></el-input>
+                    <el-input v-model="newBrandName" placeholder="请输入品牌名" style="width: 40%;margin-left: 10px;"></el-input>
+                </div>
+                
                 <div slot="footer" class="dialog-footer">
                     <el-button @click="dialogFormVisible = false">取 消</el-button>
                     <el-button type="primary" @click="addBrand">确 定</el-button>
@@ -67,6 +71,7 @@ export default {
             dialogFormVisible: false,
             dialogEditFormVisible:false,
             newBrandName: "",
+            newBrandId:"",
             brandName:""
         }
     },
@@ -111,19 +116,19 @@ export default {
             this.dialogFormVisible = false
             console.log(this.newBrandName)
             this.$request.post('goodsBrand/addBrand', {
-                "id": "",
+                "id": this.newBrandId,
                 "name": this.newBrandName
             }).then(res => {
                 if (res.code == 200) {
                     this.$message({
                         type: "success",
-                        message: "添加成功"
+                        message: res.msg
                     })
                     this.$router.go(0)
                 } else {
                     this.$message({
                         type: "warning",
-                        message: "添加失败"
+                        message: res.msg
                     })
                 }
             })

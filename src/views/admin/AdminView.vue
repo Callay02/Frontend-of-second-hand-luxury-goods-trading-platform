@@ -2,7 +2,7 @@
     <el-container style="height: 100vh; border: 1px solid #eee">
         <el-aside width="250px" style="background-color: rgb(238, 241, 246);">
             <div style="display:flex;justify-content:center">
-                <h1>管理后台</h1>
+                <p style="font-size: xx-large;font-weight: bolder;">管理后台</p>
             </div>
             <el-menu @select="handleSelect">
                 <el-menu-item index="0">

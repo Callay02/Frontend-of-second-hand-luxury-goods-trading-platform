@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-01-09 21:43:38
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-02-07 11:36:55
+ * @LastEditTime: 2024-02-16 12:40:27
  * @FilePath: \vue\src\views\LoginView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -84,7 +84,7 @@ export default {
                         //console.log(res)
                         if (res.code === 200) {
                             sessionStorage.setItem("satoken", res.data.tokenValue)  // 存储token
-                            sessionStorage.setItem("uid",res.data.loginId)
+                            sessionStorage.setItem('pwd',this.user.password)
                             //this.$request.get("user/getUserInfo?id="+res.data.loginId).then(res=>{
                             //    sessionStorage.setItem("user",res.data)
                             //    this.user=res.data
@@ -98,6 +98,7 @@ export default {
                                     position: 'top-left'
                                 });
                                 this.$router.push('/index/home')
+                                sessionStorage.setItem("uid",res.data.loginId)
                             }
                             else if(this.user.type==1){
                                 this.$notify({
@@ -122,6 +123,8 @@ export default {
                                     type: 'success',
                                     position: 'top-left'
                                 });
+                                this.$router.push('/admin/generalSituation')
+                                sessionStorage.setItem("aid",res.data.loginId)
                             }
                             
                             

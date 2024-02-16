@@ -2,6 +2,14 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-10 13:06:50
  * @LastEditors: Callay 2415993100@qq.com
+ * @LastEditTime: 2024-02-15 09:37:05
+ * @FilePath: \vue\src\views\regularusers\orderform\ToBeShippedView.vue
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
+<!--
+ * @Author: Callay 2415993100@qq.com
+ * @Date: 2024-02-10 13:06:50
+ * @LastEditors: Callay 2415993100@qq.com
  * @LastEditTime: 2024-02-10 17:14:45
  * @FilePath: \vue\src\views\regularusers\orderform\ToBeShippedView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE

@@ -2,7 +2,23 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-01-09 21:39:03
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-02-10 14:22:08
+ * @LastEditTime: 2024-02-16 13:23:32
+ * @FilePath: \vue\src\router\index.js
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
+/*
+ * @Author: Callay 2415993100@qq.com
+ * @Date: 2024-01-09 21:39:03
+ * @LastEditors: Callay 2415993100@qq.com
+ * @LastEditTime: 2024-02-16 13:17:21
+ * @FilePath: \vue\src\router\index.js
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
+/*
+ * @Author: Callay 2415993100@qq.com
+ * @Date: 2024-01-09 21:39:03
+ * @LastEditors: Callay 2415993100@qq.com
+ * @LastEditTime: 2024-02-15 13:39:25
  * @FilePath: \vue\src\router\index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -23,10 +39,20 @@ import OrderFormView from '../views/regularusers/orderform/OrderFormView.vue'
 import ToBeShippedView from '../views/regularusers/orderform/ToBeShippedView.vue'
 //已发货
 import ShippedView from '../views/regularusers/orderform/ShippedView.vue'
-//待签收
-import ToBeSignedView from '../views/regularusers/orderform/ToBeSignedView.vue'
 //已签收
 import SignedView from '../views/regularusers/orderform/SignedView.vue'
+
+//管理员
+import AdminView from '../views/admin/AdminView.vue'
+//概况
+import GeneralSituationView from '../views/admin/GeneralSituationView.vue'
+//品牌管理
+import BrandManagementView from '../views/admin/goodsManagement/BrandManagementView.vue'
+//类型管理
+import TypeManagementView from '../views/admin/goodsManagement/TypeMangementView.vue'
+//商品管理
+import GoodsManagementView from '../views/admin/goodsManagement/GoodsManagementView.vue'
+
 
 Vue.use(VueRouter)
 
@@ -86,10 +112,6 @@ const routes = [
             component:ShippedView
           },
           {
-            path:'toBeSigned',
-            component:ToBeSignedView
-          },
-          {
             path:'signed',
             component:SignedView
           }
@@ -97,6 +119,30 @@ const routes = [
       }
     ],
   },
+  //管理员
+  {
+    name:'admin',
+    path:'/admin',
+    component:AdminView,
+    children:[
+      {
+        path:'generalSituation',
+        component:GeneralSituationView
+      },
+      {
+        path:'goodsManagement',
+        component:GoodsManagementView
+      },
+      {
+        path:'brandManagement',
+        component:BrandManagementView
+      },
+      {
+        path:'typeManagement',
+        component:TypeManagementView
+      }
+    ]
+  }
 ]
 
 

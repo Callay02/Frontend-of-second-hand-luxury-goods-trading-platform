@@ -29,9 +29,19 @@
                     </el-table-column>
                     <el-table-column label="操作">
                         <template slot-scope="scope">
-                            <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-                            <el-button size="mini" type="danger"
-                                @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                            <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
+                                style="margin-right: 5px;">编辑</el-button>
+                            <el-dialog title="修改" :visible.sync="dialogEditFormVisible">
+                                <el-input v-model="brandName" placeholder="请输入品牌名"></el-input>
+                                <div slot="footer" class="dialog-footer">
+                                    <el-button @click="dialogEditFormVisible = false">取 消</el-button>
+                                    <el-button type="primary" @click="editBrand">确 定</el-button>
+                                </div>
+                            </el-dialog>
+
+                            <el-popconfirm title="确定删除吗？" @confirm="handleDelete(scope.$index, scope.row)">
+                                <el-button size="mini" type="danger" slot="reference">删除</el-button>
+                            </el-popconfirm>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -42,7 +52,7 @@
                 :current-page.sync="currentPage" :page-size="pageSize" layout="total, prev, pager, next" :total="total">
             </el-pagination>
         </div>
-            
+
     </div>
 </template>
   
@@ -54,16 +64,38 @@ export default {
             currentPage: 1,
             pageSize: 6,
             total: 1,
-            dialogFormVisible:false,
-            newBrandName:""
+            dialogFormVisible: false,
+            dialogEditFormVisible:false,
+            newBrandName: "",
+            brandName:""
         }
     },
     methods: {
         handleEdit(index, row) {
             console.log(index, row);
+            this.dialogEditFormVisible=true
+            sessionStorage.setItem("bid",row.id)
+            this.brandName=row.name
         },
         handleDelete(index, row) {
             console.log(index, row);
+            this.$request.post('goodsBrand/deleteBrandById', {
+                "id": row.id,
+                "name": ""
+            }).then(res => {
+                if (res.code == 200) {
+                    this.$message({
+                        type: "success",
+                        message: res.msg,
+                    })
+                    this.$router.go(0)
+                } else {
+                    this.$message({
+                        type: "warning",
+                        message: res.msg
+                    })
+                }
+            })
         },
         handleSizeChange(val) {
             console.log(`每页 ${val} 条`);
@@ -76,21 +108,42 @@ export default {
             })
         },
         addBrand() {
-            this.dialogFormVisible=false
+            this.dialogFormVisible = false
             console.log(this.newBrandName)
-            this.$request.post('goodsBrand/addBrand',{
-                "id":"",
-                "name":this.newBrandName
+            this.$request.post('goodsBrand/addBrand', {
+                "id": "",
+                "name": this.newBrandName
+            }).then(res => {
+                if (res.code == 200) {
+                    this.$message({
+                        type: "success",
+                        message: "添加成功"
+                    })
+                    this.$router.go(0)
+                } else {
+                    this.$message({
+                        type: "warning",
+                        message: "添加失败"
+                    })
+                }
+            })
+        },
+        editBrand(){
+            this.$request.post('goodsBrand/updateBrand',{
+                "id":sessionStorage.getItem("bid"),
+                "name":this.brandName
             }).then(res=>{
                 if(res.code==200){
                     this.$message({
                         type:"success",
-                        message:"添加成功"
+                        message:res.msg
                     })
+                    sessionStorage.removeItem('bid')
+                    this.$router.go(0)
                 }else{
                     this.$message({
                         type:"warning",
-                        message:"添加失败"
+                        message:res.msg
                     })
                 }
             })

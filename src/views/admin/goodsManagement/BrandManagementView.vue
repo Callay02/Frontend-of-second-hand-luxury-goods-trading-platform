@@ -18,7 +18,7 @@
             </el-dialog>
         </div>
         <div style="display: flex;margin-top: 15px;justify-content: center;">
-            <div style="width: 95%;">
+            <div style="width: 100%;">
                 <el-table :data="goodsBrandList" style="width: 100%" border>
                     <el-table-column label="id" width="180">
                         <template slot-scope="scope">
@@ -66,7 +66,7 @@ export default {
         return {
             goodsBrandList: [],
             currentPage: 1,
-            pageSize: 6,
+            pageSize: 10,
             total: 1,
             dialogFormVisible: false,
             dialogEditFormVisible:false,

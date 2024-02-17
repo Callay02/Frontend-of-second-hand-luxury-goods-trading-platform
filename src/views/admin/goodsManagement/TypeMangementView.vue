@@ -10,7 +10,7 @@
                     <el-input v-model="newTypeId" placeholder="请输入id" style="width: 40%;margin-right: 10px;"></el-input>
                     <el-input v-model="newTypeName" placeholder="请输入类型名" style="width: 40%;margin-left: 10px;"></el-input>
                 </div>
-                
+
                 <div slot="footer" class="dialog-footer">
                     <el-button @click="dialogFormVisible = false">取 消</el-button>
                     <el-button type="primary" @click="addType">确 定</el-button>
@@ -18,7 +18,7 @@
             </el-dialog>
         </div>
         <div style="display: flex;margin-top: 15px;justify-content: center;">
-            <div style="width: 95%;">
+            <div style="width: 100%;">
                 <el-table :data="goodsTypeList" style="width: 100%" border>
                     <el-table-column label="id" width="180">
                         <template slot-scope="scope">
@@ -66,25 +66,25 @@ export default {
         return {
             goodsTypeList: [],
             currentPage: 1,
-            pageSize: 6,
+            pageSize: 10,
             total: 1,
             dialogFormVisible: false,
-            dialogEditFormVisible:false,
+            dialogEditFormVisible: false,
             newTypeName: "",
-            newTypeId:"",
-            typeName:""
+            newTypeId: "",
+            typeName: ""
         }
     },
     methods: {
         handleEdit(index, row) {
             console.log(index, row);
-            this.dialogEditFormVisible=true
-            sessionStorage.setItem("type",row.type)
-            this.typeName=row.name
+            this.dialogEditFormVisible = true
+            sessionStorage.setItem("type", row.type)
+            this.typeName = row.name
         },
         handleDelete(index, row) {
             console.log(index, row);
-            this.$request.get('goodsType/deleteTypeById?type='+row.type).then(res => {
+            this.$request.get('goodsType/deleteTypeById?type=' + row.type).then(res => {
                 if (res.code == 200) {
                     this.$message({
                         type: "success",
@@ -104,9 +104,9 @@ export default {
         },
         handleCurrentChange(val) {
             console.log(`当前页: ${val}`);
-            this.$request.get('goodsBrand/getGoodsBrandPage?page=' + this.currentPage + "&rows=" + this.pageSize).then(res => {
+            this.$request.get('goodsType/getGoodsTypePage?page=' + this.currentPage + "&rows=" + this.pageSize).then(res => {
                 this.total = res.data.total
-                this.goodsBrandList = res.data.goodsBrandList
+                this.goodsTypeList = res.data.goodsTypeList
             })
         },
         addType() {
@@ -130,22 +130,22 @@ export default {
                 }
             })
         },
-        editBrand(){
-            this.$request.post('goodsType/updateTypeName',{
-                "type":sessionStorage.getItem("type"),
-                "name":this.typeName
-            }).then(res=>{
-                if(res.code==200){
+        editBrand() {
+            this.$request.post('goodsType/updateTypeName', {
+                "type": sessionStorage.getItem("type"),
+                "name": this.typeName
+            }).then(res => {
+                if (res.code == 200) {
                     this.$message({
-                        type:"success",
-                        message:res.msg
+                        type: "success",
+                        message: res.msg
                     })
                     sessionStorage.removeItem('type')
                     this.$router.go(0)
-                }else{
+                } else {
                     this.$message({
-                        type:"warning",
-                        message:res.msg
+                        type: "warning",
+                        message: res.msg
                     })
                 }
             })

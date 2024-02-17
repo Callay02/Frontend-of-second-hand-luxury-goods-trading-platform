@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-01-09 21:39:03
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-02-16 13:23:32
+ * @LastEditTime: 2024-02-17 17:31:27
  * @FilePath: \vue\src\router\index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -52,6 +52,8 @@ import BrandManagementView from '../views/admin/goodsManagement/BrandManagementV
 import TypeManagementView from '../views/admin/goodsManagement/TypeMangementView.vue'
 //商品管理
 import GoodsManagementView from '../views/admin/goodsManagement/GoodsManagementView.vue'
+//添加商品
+import AddGoodsView from '../views/admin/goodsManagement/AddGoodsView.vue'
 
 
 Vue.use(VueRouter)
@@ -140,6 +142,10 @@ const routes = [
       {
         path:'typeManagement',
         component:TypeManagementView
+      },
+      {
+        path:'addGoods',
+        component:AddGoodsView
       }
     ]
   }

@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            <el-page-header @back="goBack" content="添加商品">
+            <el-page-header @back="goBack" content="编辑商品">
             </el-page-header>
         </div>
 
@@ -199,6 +199,13 @@ export default {
         this.$request.get('goodsType/getGoodsType').then(res => {
             this.typeList = res.data
         })
+        //console.log(sessionStorage.getItem('gid'))
+        this.$request.get('goods/getGoodsByIdNoVo?id='+sessionStorage.getItem('gid')).then(res=>{
+            console.log(res)
+            this.goodsForm=res.data
+        })
+        sessionStorage.removeItem('gid')
+        
     }
 }
 </script>

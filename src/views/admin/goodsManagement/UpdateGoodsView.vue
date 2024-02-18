@@ -203,6 +203,7 @@ export default {
         this.$request.get('goods/getGoodsByIdNoVo?id='+sessionStorage.getItem('gid')).then(res=>{
             console.log(res)
             this.goodsForm=res.data
+            console.log("")
         })
         sessionStorage.removeItem('gid')
         

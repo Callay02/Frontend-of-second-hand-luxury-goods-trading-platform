@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-01 15:25:18
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-02-07 14:57:42
+ * @LastEditTime: 2024-02-18 23:08:11
  * @FilePath: \vue\src\views\regularusers\GoodsTypeView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -55,7 +55,7 @@ export default {
             brands: [],
             type: "",
             currentPage: 1,
-            pageSize: 6,
+            pageSize: 18,
             total: 1,
             goodsList: []
         }

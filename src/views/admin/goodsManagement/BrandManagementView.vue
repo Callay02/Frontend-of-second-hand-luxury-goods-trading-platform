@@ -31,7 +31,7 @@
                             <span style="margin-left: 10px">{{ scope.row.name }}</span>
                         </template>
                     </el-table-column>
-                    <el-table-column label="操作">
+                    <el-table-column label="操作" fixed="right">
                         <template slot-scope="scope">
                             <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
                                 style="margin-right: 5px;">编辑</el-button>

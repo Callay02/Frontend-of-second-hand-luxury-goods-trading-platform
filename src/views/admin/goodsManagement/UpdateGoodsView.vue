@@ -10,16 +10,22 @@
             <div>
                 <div>
                     <el-dialog title="上传照片" :visible.sync="dialogFormVisible">
+                        <div style="align-items: center;display: flex;justify-content: center;">
+                            <p>不更新照片，请不要上传</p>
+                        </div>
                         <div style="display: flex;justify-content: center;align-items: center;">
                             <el-upload class="upload-demo" :action="objData.host" :before-upload="getPolicy" :data="objData"
                                 :file-list="fileList" list-type="picture-card" :on-success="upLoadSuccess">
                                 <el-button size="small" type="primary" v-if="upLoadCount == 0">点击上传</el-button>
-                                <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+                                
                             </el-upload>
+                        </div>
+                        <div style="display: flex;align-items: center;justify-content: center;">
+                            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
                         </div>
                         <div slot="footer" class="dialog-footer">
                             <el-button @click="dialogFormVisible = false">取 消</el-button>
-                            <el-button type="primary" @click="addGoods">确 定</el-button>
+                            <el-button type="primary" @click="updateGoods">确 定</el-button>
                         </div>
                     </el-dialog>
                 </div>
@@ -165,16 +171,17 @@ export default {
             });
 
         },
-        addGoods(){
-            console.log(this.goodsForm)
+        updateGoods(){
+            
             this.goodsForm.userId=sessionStorage.getItem('aid')
-            this.$request.post('goods/addGoods',this.goodsForm).then(res=>{
+            console.log(this.goodsForm)
+            this.$request.post('goods/updateGoodsById',this.goodsForm).then(res=>{
                 if(res.code==200){
                     this.$message({
                         type:"success",
                         message:res.msg
                     })
-                    //this.goodsForm={}
+                    this.$router.back()
                 }else{
                     this.$message({
                         type:"warning",
@@ -182,7 +189,7 @@ export default {
                     })
                 }
             })
-            this.dialogFormVisible=false
+            this.dialogFormVisible=false   
         },
         upLoadSuccess(response, file, fileList){
             //console.log(fileList)
@@ -193,19 +200,21 @@ export default {
         }
     },
     beforeMount() {
-        this.$request.get('goodsBrand/getGoodsBrand').then(res => {
-            this.brandList = res.data
-        })
-        this.$request.get('goodsType/getGoodsType').then(res => {
-            this.typeList = res.data
-        })
-        //console.log(sessionStorage.getItem('gid'))
-        this.$request.get('goods/getGoodsByIdNoVo?id='+sessionStorage.getItem('gid')).then(res=>{
-            console.log(res)
-            this.goodsForm=res.data
-        })
-        sessionStorage.removeItem('gid')
-        
+        if(sessionStorage.getItem('gid')==null)
+            this.$router.push('goodsManagement')
+        else{
+            this.$request.get('goodsBrand/getGoodsBrand').then(res => {
+                this.brandList = res.data
+            })
+            this.$request.get('goodsType/getGoodsType').then(res => {
+                this.typeList = res.data
+            })
+            //console.log(sessionStorage.getItem('gid'))
+            this.$request.get('goods/getGoodsByIdNoVo?id='+sessionStorage.getItem('gid')).then(res=>{         
+                this.goodsForm=res.data
+            })
+            sessionStorage.removeItem('gid')
+        } 
     }
 }
 </script>

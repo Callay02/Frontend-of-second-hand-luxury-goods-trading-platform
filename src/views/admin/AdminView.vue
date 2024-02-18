@@ -1,53 +1,35 @@
+<!--
+ * @Author: Callay 2415993100@qq.com
+ * @Date: 2024-02-16 23:57:03
+ * @LastEditors: Callay 2415993100@qq.com
+ * @LastEditTime: 2024-02-18 23:42:54
+ * @FilePath: \vue\src\views\admin\AdminView.vue
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
 <template>
     <el-container style="height: 100vh; border: 1px solid #eee">
         <el-aside width="250px" style="background-color: rgb(238, 241, 246);">
             <div style="display:flex;justify-content:center">
                 <p style="font-size: xx-large;font-weight: bolder;">管理后台</p>
             </div>
-            <el-menu @select="handleSelect">
+            <el-menu @select="handleSelect" default-active="0" default-openeds="[1,2]">
                 <el-menu-item index="0">
                     <i class="el-icon-pie-chart"></i>
                     <span slot="title">概况</span>
                 </el-menu-item>
 
                 <el-submenu index="1">
-                    <template slot="title"><i class="el-icon-watch"></i>商品管理</template>
-                    <el-menu-item-group>
-                        <el-menu-item index="0">品牌管理</el-menu-item>
-                        <el-menu-item index="1">类型管理</el-menu-item>
-                        <el-menu-item index="2">商品详情管理</el-menu-item>
-                    </el-menu-item-group>
+                    <template slot="title"><i class="el-icon-goods"></i>商品管理</template>
+                        <el-menu-item index="1-0">品牌管理</el-menu-item>
+                        <el-menu-item index="1-1">类型管理</el-menu-item>
+                        <el-menu-item index="1-2">商品详情管理</el-menu-item>
                 </el-submenu>
 
                 <el-submenu index="2">
-                    <template slot="title"><i class="el-icon-menu"></i>导航二</template>
-                    <el-menu-item-group>
-                        <template slot="title">分组一</template>
-                        <el-menu-item index="2-1">选项1</el-menu-item>
-                        <el-menu-item index="2-2">选项2</el-menu-item>
-                    </el-menu-item-group>
-                    <el-menu-item-group title="分组2">
-                        <el-menu-item index="2-3">选项3</el-menu-item>
-                    </el-menu-item-group>
-                    <el-submenu index="2-4">
-                        <template slot="title">选项4</template>
-                        <el-menu-item index="2-4-1">选项4-1</el-menu-item>
-                    </el-submenu>
-                </el-submenu>
-                <el-submenu index="3">
-                    <template slot="title"><i class="el-icon-setting"></i>导航三</template>
-                    <el-menu-item-group>
-                        <template slot="title">分组一</template>
-                        <el-menu-item index="3-1">选项1</el-menu-item>
-                        <el-menu-item index="3-2">选项2</el-menu-item>
-                    </el-menu-item-group>
-                    <el-menu-item-group title="分组2">
-                        <el-menu-item index="3-3">选项3</el-menu-item>
-                    </el-menu-item-group>
-                    <el-submenu index="3-4">
-                        <template slot="title">选项4</template>
-                        <el-menu-item index="3-4-1">选项4-1</el-menu-item>
-                    </el-submenu>
+                    <template slot="title"><i class="el-icon-menu"></i>订单管理</template>
+                        <el-menu-item index="2-0">待发货订单</el-menu-item>
+                        <el-menu-item index="2-1">已发货订单</el-menu-item>
+                        <el-menu-item index="2-2">已签收订单</el-menu-item>
                 </el-submenu>
             </el-menu>
         </el-aside>
@@ -89,17 +71,22 @@ export default {
         handleSelect(key, keyPath) {
             console.log(key, keyPath);
             //概况
-            if(keyPath[0]==0){
-                console.log("hello")
+            if(keyPath[0]==0)
                 this.$router.push('/admin/generalSituation')
-            }
+            //商品管理
             else if(keyPath[0]==1){
-                if(keyPath[1]==0)
+                if(keyPath[1]=='1-0')
                     this.$router.push('/admin/brandManagement')
-                else if(keyPath[1]==1)
+                else if(keyPath[1]=='1-1')
                     this.$router.push('/admin/typeManagement')
-                else if(keyPath[1]==2)
+                else if(keyPath[1]=='1-2')
                     this.$router.push('/admin/goodsManagement')
+            }
+            else if(keyPath[0]==2){
+                if(keyPath[1]=='2-0')
+                    this.$router.push('/admin/toBeShippedConsole')
+                else if(keyPath[1]=='2-1')
+                    this.$router.push('/admin/shippedConsole')
             }
         },
         handleCommand(command) {

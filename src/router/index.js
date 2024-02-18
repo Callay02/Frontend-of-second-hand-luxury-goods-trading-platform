@@ -54,6 +54,8 @@ import TypeManagementView from '../views/admin/goodsManagement/TypeMangementView
 import GoodsManagementView from '../views/admin/goodsManagement/GoodsManagementView.vue'
 //添加商品
 import AddGoodsView from '../views/admin/goodsManagement/AddGoodsView.vue'
+//更新商品
+import UpdateGoodsView from '../views/admin/goodsManagement/UpdateGoodsView.vue'
 
 
 Vue.use(VueRouter)
@@ -146,6 +148,10 @@ const routes = [
       {
         path:'addGoods',
         component:AddGoodsView
+      },
+      {
+        path:'updateGoods',
+        component:UpdateGoodsView
       }
     ]
   }

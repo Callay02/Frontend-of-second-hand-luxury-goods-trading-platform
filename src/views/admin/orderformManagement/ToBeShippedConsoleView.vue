@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-18 23:35:39
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-02-19 00:07:09
+ * @LastEditTime: 2024-02-19 23:09:12
  * @FilePath: \vue\src\views\admin\orderformManagement\ToBeShippedConsoleView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -17,35 +17,30 @@
                     <el-table-column type="expand">
                         <template slot-scope="props">
                             <el-form label-position="left" inline class="demo-table-expand">
-                                <el-form-item label="商品名称">
+                                <el-form-item label="商品名称:">
+                                    <span>{{ props.row.info }}</span>
+                                </el-form-item>
+                                <el-form-item label="品牌:">
+                                    <span>{{ props.row.typeName }}</span>
+                                </el-form-item>
+                                <el-form-item label="类型:">
+                                    <span>{{ props.row.brandName }}</span>
+                                </el-form-item>
+                                <el-form-item label="用户名称:">
                                     <span>{{ props.row.name }}</span>
-                                </el-form-item>
-                                <el-form-item label="所属店铺">
-                                    <span>{{ props.row.shop }}</span>
-                                </el-form-item>
-                                <el-form-item label="商品 ID">
-                                    <span>{{ props.row.id }}</span>
-                                </el-form-item>
-                                <el-form-item label="店铺 ID">
-                                    <span>{{ props.row.shopId }}</span>
-                                </el-form-item>
-                                <el-form-item label="商品分类">
-                                    <span>{{ props.row.category }}</span>
-                                </el-form-item>
-                                <el-form-item label="店铺地址">
-                                    <span>{{ props.row.address }}</span>
-                                </el-form-item>
-                                <el-form-item label="商品描述">
-                                    <span>{{ props.row.desc }}</span>
                                 </el-form-item>
                             </el-form>
                         </template>
                     </el-table-column>
-                    <el-table-column label="商品 ID" prop="id">
+                    <el-table-column label="订单号" prop="id">
                     </el-table-column>
-                    <el-table-column label="商品名称" prop="name">
+                    <el-table-column label="商品id" prop="gid">
                     </el-table-column>
-                    <el-table-column label="描述" prop="desc">
+                    <el-table-column label="用户id" prop="uid">
+                    </el-table-column>
+                    <el-table-column label="联系电话" prop="phone">
+                    </el-table-column>
+                    <el-table-column label="地址" prop="address">
                     </el-table-column>
                     <el-table-column label="操作">
                         <template slot-scope="scope">
@@ -62,7 +57,13 @@
                     </el-table-column>
                 </el-table>
             </div>
+            <div class="block">
+                <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
+                    :current-page.sync="currentPage" :page-size="pageSize" layout="total, prev, pager, next" :total="total">
+                </el-pagination>
+            </div>
         </div>
+
     </div>
 </template>
 
@@ -70,40 +71,44 @@
 export default {
     data() {
         return {
-            tableData: [{
-                id: '12987122',
-                name: '好滋好味鸡蛋仔',
-                category: '江浙小吃、小吃零食',
-                desc: '荷兰优质淡奶，奶香浓而不腻',
-                address: '上海市普陀区真北路',
-                shop: '王小虎夫妻店',
-                shopId: '10333'
-            }, {
-                id: '12987123',
-                name: '好滋好味鸡蛋仔',
-                category: '江浙小吃、小吃零食',
-                desc: '荷兰优质淡奶，奶香浓而不腻',
-                address: '上海市普陀区真北路',
-                shop: '王小虎夫妻店',
-                shopId: '10333'
-            }, {
-                id: '12987125',
-                name: '好滋好味鸡蛋仔',
-                category: '江浙小吃、小吃零食',
-                desc: '荷兰优质淡奶，奶香浓而不腻',
-                address: '上海市普陀区真北路',
-                shop: '王小虎夫妻店',
-                shopId: '10333'
-            }, {
-                id: '12987126',
-                name: '好滋好味鸡蛋仔',
-                category: '江浙小吃、小吃零食',
-                desc: '荷兰优质淡奶，奶香浓而不腻',
-                address: '上海市普陀区真北路',
-                shop: '王小虎夫妻店',
-                shopId: '10333'
-            }]
+            tableData: [],
+            currentPage: 1,
+            pageSize: 10,
+            total: 1,
         }
+    },
+    beforeMount() {
+        this.currentPage = 1;
+        this.$request
+            .get(
+                "orderForm/getOrderFormPageByState?state=0&page=" +
+                this.currentPage +
+                "&rows=" +
+                this.pageSize
+            )
+            .then((res) => {
+                this.total = res.data.total;
+                this.tableData = res.data.orderFormVoList;
+            });
+    },
+    methods: {
+        handleSizeChange(val) {
+            console.log(`每页 ${val} 条`);
+        },
+        handleCurrentChange(val) {
+            console.log(`当前页: ${val}`);
+            this.$request
+                .get(
+                    "goods/getGoodsPageByState?state=1&page=" +
+                    this.currentPage +
+                    "&rows=" +
+                    this.pageSize
+                )
+                .then((res) => {
+                    this.total = res.data.total;
+                    this.goodsVoList = res.data.goodsVoList;
+                });
+        },
     }
 }
 </script>

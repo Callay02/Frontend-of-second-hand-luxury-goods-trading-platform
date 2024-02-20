@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-01-09 21:39:03
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-02-18 23:41:08
+ * @LastEditTime: 2024-02-20 19:42:50
  * @FilePath: \vue\src\router\index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -57,9 +57,11 @@ import AddGoodsView from '../views/admin/goodsManagement/AddGoodsView.vue'
 //更新商品
 import UpdateGoodsView from '../views/admin/goodsManagement/UpdateGoodsView.vue'
 //待发货订单
-import ToBeShippedConsoleView from '../views/admin/orderformManagement/ToBeShippedConsoleView'
+import ToBeShippedManagementView from '../views/admin/orderformManagement/ToBeShippedManagementView'
 //已发货订单
-import ShippedConsoleView from '../views/admin/orderformManagement/ShippedConsoleView'
+import ShippedManagementView from '../views/admin/orderformManagement/ShippedManagementView'
+//已签收订单
+import SignedManagementView from '../views/admin/orderformManagement/SignedManagementView.vue'
 
 
 Vue.use(VueRouter)
@@ -160,12 +162,16 @@ const routes = [
       },
       //订单管理
       {
-        path:'toBeShippedConsole',
-        component:ToBeShippedConsoleView
+        path:'toBeShippedManagement',
+        component:ToBeShippedManagementView
       },
       {
-        path:'shippedConsole',
-        component:ShippedConsoleView
+        path:'shippedManagement',
+        component:ShippedManagementView
+      },
+      {
+        path:'signedManagement',
+        component:SignedManagementView
       }
     ]
   }

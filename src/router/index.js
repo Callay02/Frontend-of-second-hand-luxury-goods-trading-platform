@@ -1,24 +1,8 @@
 /*
  * @Author: Callay 2415993100@qq.com
- * @Date: 2024-01-09 21:39:03
+ * @Date: 2024-02-16 23:57:03
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-02-22 09:57:45
- * @FilePath: \vue\src\router\index.js
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- */
-/*
- * @Author: Callay 2415993100@qq.com
- * @Date: 2024-01-09 21:39:03
- * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-02-16 13:17:21
- * @FilePath: \vue\src\router\index.js
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- */
-/*
- * @Author: Callay 2415993100@qq.com
- * @Date: 2024-01-09 21:39:03
- * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-02-15 13:39:25
+ * @LastEditTime: 2024-02-22 19:53:30
  * @FilePath: \vue\src\router\index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -27,7 +11,7 @@ import VueRouter from 'vue-router'
 import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
 
-
+//普通用户
 import IndexView from '../views/regularusers/IndexView.vue'
 import HomeView from '../views/regularusers/HomeView.vue'
 import GoodsTypeView from '../views/regularusers/GoodsTypeView.vue'
@@ -41,6 +25,8 @@ import ToBeShippedView from '../views/regularusers/orderform/ToBeShippedView.vue
 import ShippedView from '../views/regularusers/orderform/ShippedView.vue'
 //已签收
 import SignedView from '../views/regularusers/orderform/SignedView.vue'
+//出售
+import SellView from '../views/regularusers/sell/SellView.vue'
 
 //管理员
 import AdminView from '../views/admin/AdminView.vue'
@@ -130,6 +116,10 @@ const routes = [
             component:SignedView
           }
         ]
+      },
+      {
+        path:'sell',
+        component:SellView
       }
     ],
   },

@@ -5,7 +5,7 @@
         </div>
         <div>
             <el-button type="primary" style="" icon="el-icon-plus" @click="dialogFormVisible = true">添加</el-button>
-            <el-dialog title="添加类型" :visible.sync="dialogFormVisible">
+            <el-dialog title="添加类型" :visible.sync="dialogFormVisible" append-to-body>
                 <div style="display: flex;justify-content: center;">
                     <el-input v-model="newTypeId" placeholder="请输入id" style="width: 40%;margin-right: 10px;"></el-input>
                     <el-input v-model="newTypeName" placeholder="请输入类型名" style="width: 40%;margin-left: 10px;"></el-input>
@@ -35,7 +35,7 @@
                         <template slot-scope="scope">
                             <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
                                 style="margin-right: 5px;">编辑</el-button>
-                            <el-dialog title="修改" :visible.sync="dialogEditFormVisible">
+                            <el-dialog title="修改" :visible.sync="dialogEditFormVisible" append-to-body>
                                 <el-input v-model="typeName" placeholder="请输入类型名"></el-input>
                                 <div slot="footer" class="dialog-footer">
                                     <el-button @click="dialogEditFormVisible = false">取 消</el-button>

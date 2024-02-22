@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-10 13:17:32
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-02-15 13:36:01
+ * @LastEditTime: 2024-02-22 19:48:11
  * @FilePath: \vue\src\views\regularusers\orderform\ShippedView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -50,7 +50,7 @@
             <el-table-column label="操作">
                 <template slot-scope="scope">
                     <el-button size="mini" @click="toGoodsDetail(scope.row.gid)" style="margin-right: 5px;">查看</el-button>
-                    <el-button size="mini" style="margin-right: 5px;">售后</el-button>
+                    <el-button size="mini" style="margin-right: 5px;" disabled>售后</el-button>
                 </template>
             </el-table-column>
         </el-table>

@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-18 23:35:39
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-02-20 20:01:17
+ * @LastEditTime: 2024-02-22 15:50:01
  * @FilePath: \vue\src\views\admin\orderformManagement\ToBeShippedConsoleView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -46,11 +46,11 @@
                     </el-table-column>
                     <el-table-column label="发货时间" prop="deliveryTime">
                     </el-table-column>
-                    <el-table-column label="操作">
+                    <el-table-column label="操作" fixed="right">
                         <template slot-scope="scope">
                             <el-button size="mini" @click="delivery(scope.$index, scope.row)"
                                 style="margin-right: 5px">编辑</el-button>
-                            <el-dialog title="修改" :visible.sync="dialogFormVisible">
+                            <el-dialog title="修改" :visible.sync="dialogFormVisible" append-to-body>
                                 <el-input v-model="formData.logisticsNumber" placeholder="请输入物流号"></el-input>
                                 <div slot="footer" class="dialog-footer">
                                     <el-button @click="dialogFormVisible = false">取 消</el-button>

@@ -60,7 +60,8 @@
 
           <el-table-column label="操作" fixed="right">
             <template slot-scope="scope">
-              <el-button size="mini" @click="handleRecharge(scope.$index, scope.row)" style="margin-right: 5px">充值</el-button>
+              <el-button size="mini" @click="handleRecharge(scope.$index, scope.row)"
+                style="margin-right: 5px">充值</el-button>
               <el-dialog title="充值" :visible.sync="dialogRechargeFormVisible" append-to-body>
                 <div>
                   <p style="display: inline-block;">充值金额 </p>
@@ -72,7 +73,8 @@
                 </div>
               </el-dialog>
 
-              <el-button size="mini" @click="handleEdit(scope.$index, scope.row)" style="margin-right: 5px" disabled>编辑</el-button>
+              <el-button size="mini" @click="handleEdit(scope.$index, scope.row)" style="margin-right: 5px"
+                disabled>编辑</el-button>
 
               <el-button size="mini" @click="handleDelete(scope.$index, scope.row)" style="margin-right: 5px"
                 type="danger">删除</el-button>
@@ -109,10 +111,10 @@ export default {
       pageSize: 10,
       total: 1,
       dialogDeleteFormVisible: false,
-      dialogRechargeFormVisible:false,
+      dialogRechargeFormVisible: false,
       selectUser: "",
       checkUid: "",
-      money:0
+      money: ""
     };
   },
   methods: {
@@ -127,9 +129,9 @@ export default {
       this.dialogDeleteFormVisible = true
 
     },
-    handleRecharge(index, row){
+    handleRecharge(index, row) {
       this.selectUser = row
-      this.dialogRechargeFormVisible=true
+      this.dialogRechargeFormVisible = true
     },
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`);
@@ -160,7 +162,7 @@ export default {
     },
     deleteUser() {
       if (this.checkUid == this.selectUser.id) {
-        this.selectUser.type=0
+        this.selectUser.type = 0
         this.$request.post('user/deleteUserById', this.selectUser).then(res => {
           if (res.code == 200) {
             this.$message({
@@ -169,10 +171,10 @@ export default {
             })
             this.$router.go(0)
           }
-          else{
+          else {
             this.$message({
-              type:"warning",
-              message:res.msg
+              type: "warning",
+              message: res.msg
             })
           }
         })
@@ -187,24 +189,33 @@ export default {
       this.checkUid = ""
       this.dialogDeleteFormVisible = false
     },
-    recharge(){
-      this.selectUser.money=this.money
-      this.$request.post('regularUser/recharge',this.selectUser).then(res=>{
-        if(res.code==200){
-          this.$message({
-            type:"success",
-            message:res.msg
-          })
-          this.money=0
-          this.$router.go(0)
-        }
-        else{
-          this.$message({
-            type:"warning",
-            message:res.msg
-          })
-        }
-      })
+    recharge() {
+      if (this.money != "") {
+        this.selectUser.money = this.money
+        this.$request.post('regularUser/recharge', this.selectUser).then(res => {
+          if (res.code == 200) {
+            this.$message({
+              type: "success",
+              message: res.msg
+            })
+            this.$router.go(0)
+            this.money = ""
+          }
+          else {
+            this.$message({
+              type: "warning",
+              message: res.msg
+            })
+          }
+        })
+      }
+      else{
+        this.$message({
+          type:"warning",
+          message:"充值金额不能为空"
+        })
+      }
+
     }
   },
   beforeMount() {

@@ -1,22 +1,15 @@
-<!--
- * @Author: Callay 2415993100@qq.com
- * @Date: 2024-01-13 17:28:16
- * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-02-22 10:31:09
- * @FilePath: \vue\src\views\RegisterView.vue
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
--->
 <template>
     <div>
-        <div class="background">
-            <div style="width: 70vw;">
+        <div>
+            <el-page-header @back="goBack" content="添加用户">
+            </el-page-header>
+        </div>
 
-            </div>
-            <div class="registerer">
-                <div style="margin-top: 4vh;width: 25vw;">
-                    <el-page-header @back="goBack" content="欢迎注册"></el-page-header>
-                    <el-form :model="user" style="margin-top: 5vh;width: 100%" :rules="rules" ref="registerRef">
-                        <!--<div style="font-size: 30px; font-weight: bold; text-align: center; margin-bottom: 20px">欢迎注册</div>-->
+
+        <div style="display: flex;flex-direction: column;align-items: center;margin-top: 100px;margin-bottom: 20px;">
+            <div>
+                <div style="width: 20vw;">
+                    <el-form :model="user" style="width: 100%" :rules="rules" ref="registerRef">
                         <el-form-item prop="name" label="用户名：">
                             <el-input prefix-icon="el-icon-user" size="medium" placeholder="请输入用户名"
                                 v-model="user.name"></el-input>
@@ -38,12 +31,6 @@
 
                         </el-form-item>
 
-                        <el-form-item style="text-align: right;">
-                            <el-input style="width: 18%;margin-left: 1%;" size="medium" placeholder="验证码"
-                                v-model="verificationCode"></el-input>
-                            <el-button size="medium" style="width: 15%;margin-left: 1%;" @click="getCode">获取</el-button>
-                        </el-form-item>
-
                         <el-form-item prop="idCard" label="居民身份证：">
                             <el-input prefix-icon="el-icon-postcard" size="medium" placeholder="请输入身份证号"
                                 v-model="user.idCard"></el-input>
@@ -53,19 +40,14 @@
                             <el-input prefix-icon="el-icon-postcard" size="medium" placeholder="请输入真实姓名"
                                 v-model="user.realName"></el-input>
                         </el-form-item>
-                        <!--用户类型-->
-                        <el-form-item prop="type" style="text-align: right;">
-                            <el-select v-model="user.type" placeholder="请选择账户类型" size="mini" style="width: 130px;">
-                                <el-option label="普通用户" value=0></el-option>
-                                <el-option label="销售员" value=1></el-option>
-                            </el-select>
-                        </el-form-item>
+
                         <el-form-item style="text-align: center;">
-                            <el-button style="width: 40%" @click="register">注 册</el-button>
+                            <el-button type="primary" style="width: 40%" @click="register">注 册</el-button>
                             <el-button style="width: 40%" @click="reset">重 置</el-button>
                         </el-form-item>
                     </el-form>
                 </div>
+
             </div>
         </div>
     </div>
@@ -95,7 +77,6 @@ export default {
             }
         };
         return {
-            verificationCode: '',
             user: {
                 type: '',
                 name: '',
@@ -134,50 +115,20 @@ export default {
         register() {
             this.$refs['registerRef'].validate((valid) => {
                 if (valid) {
-                    if (sessionStorage.getItem("verification-code") == this.verificationCode) {
-                        // 验证通过
                         this.$request.post('user/register', this.user).then(res => {
                             console.log(res)
                             if (res.code === 200) {
-                                this.$notify({
-                                    title: '注册成功',
-                                    message: '用户' + res.data.name ,
-                                    type: 'success',
-                                    position: 'top-left'
-                                });
-                                this.$router.push('/')
+                                this.$message({
+                                    type:"success",
+                                    message:"添加成功"
+                                })
+                                this.reset()
                             } else {
                                 this.$message.error(res.msg)
                             }
                         })
-                    }
-
                 }
             })
-        },
-        //获取验证码
-        getCode() {
-            if (this.user.email) {
-                this.$request.get('user/getcode?email=' + this.user.email).then(res => {
-                    if (res.code === 200) {
-                        this.$message({
-                            message: '验证码已发送',
-                            type: 'success'
-                        });
-                        sessionStorage.setItem("verification-code", res.data)
-                    } else {
-                        this.$message.error(res.msg)
-                    }
-
-                })
-            } else {
-                this.$notify({
-                    title: '警告',
-                    message: '邮箱不能为空',
-                    type: 'warning',
-                    position: 'top-left'
-                });
-            }
         },
         reset() {
             this.user.checkPass = ''
@@ -189,30 +140,13 @@ export default {
             this.user.type = ''
         },
         goBack() {
-            this.$router.push('/login')
+            this.$router.back()
         }
+    },
+    beforeMount(){
+        this.user.type=this.$route.query.type
     }
 }
 </script>
 
-<style lang="css" scoped>
-.background {
-    display: flex;
-    width: 100vw;
-    height: 100vh;
-    background-image: url('../assets/loginView.jpg');
-    background-size: cover;
-    display: flex;
-    ;
-    width: 100vw;
-    height: 100vh;
-}
-
-.registerer {
-    display: flex;
-    width: 30vw;
-    justify-content: center;
-    backdrop-filter: blur(20px);
-    background-color: rgba(255, 255, 255, 0.5);
-}
-</style>
+<style scoped></style>

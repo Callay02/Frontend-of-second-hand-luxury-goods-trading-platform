@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-16 23:57:03
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-02-20 20:10:25
+ * @LastEditTime: 2024-02-21 10:18:42
  * @FilePath: \vue\src\views\admin\AdminView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -100,7 +100,7 @@ export default {
             }
             else if(keyPath[0]==3){
                 if(keyPath[1]=='3-0')
-                    this.$router.push('/admin/toBeShippedManagement')
+                    this.$router.push('/admin/regularUserManagement')
                 else if(keyPath[1]=='3-1')
                     this.$router.push('/admin/shippedManagement')
                 else if(keyPath[1]=='3-2')

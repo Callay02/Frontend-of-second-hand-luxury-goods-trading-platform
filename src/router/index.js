@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-01-09 21:39:03
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-02-20 19:42:50
+ * @LastEditTime: 2024-02-22 09:57:45
  * @FilePath: \vue\src\router\index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -62,6 +62,10 @@ import ToBeShippedManagementView from '../views/admin/orderformManagement/ToBeSh
 import ShippedManagementView from '../views/admin/orderformManagement/ShippedManagementView'
 //已签收订单
 import SignedManagementView from '../views/admin/orderformManagement/SignedManagementView.vue'
+//普通用户管理
+import RegularUserManagementView from '../views/admin/userManagement/RegularUserManagementView.vue'
+//添加用户
+import AddUserView from '../views/admin/userManagement/AddUserView.vue'
 
 
 Vue.use(VueRouter)
@@ -162,6 +166,10 @@ const routes = [
       },
       //订单管理
       {
+        path:'addUser',
+        component:AddUserView
+      },
+      {
         path:'toBeShippedManagement',
         component:ToBeShippedManagementView
       },
@@ -172,6 +180,10 @@ const routes = [
       {
         path:'signedManagement',
         component:SignedManagementView
+      },
+      {
+        path:'regularUserManagement',
+        component:RegularUserManagementView
       }
     ]
   }

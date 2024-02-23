@@ -77,7 +77,7 @@ export default {
                 this.$router.push('/index/orderForm/toBeShipped')
             }
             else if(keyPath[0]=='sell'){
-                this.$router.push('/index/sell/createSellOrder')
+                this.$router.push('/index/sell/sellOrderTracking')
             }
 
         },

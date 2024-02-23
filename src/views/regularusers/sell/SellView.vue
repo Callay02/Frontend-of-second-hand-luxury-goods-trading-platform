@@ -9,10 +9,11 @@
 <template>
     <el-container>
         <el-header><el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-                <el-menu-item index="0">创建订单</el-menu-item>
-                <el-menu-item index="1">订单跟踪</el-menu-item>
-                <el-menu-item index="2">已审核</el-menu-item>
-                <el-menu-item index="3">交易成功</el-menu-item>
+                
+                <el-menu-item index="0">订单跟踪</el-menu-item>
+                <el-menu-item index="1">已审核</el-menu-item>
+                <el-menu-item index="2">交易成功</el-menu-item>
+                <el-menu-item index="3" style="float: right;">创建订单</el-menu-item>
             </el-menu></el-header>
         <el-main><router-view /></el-main>
     </el-container>
@@ -28,16 +29,16 @@ export default {
     methods: {
         handleSelect(key, keyPath) {
             console.log(key, keyPath)
-            if (keyPath[0] == 0) {
+            if (keyPath[0] == 3) {
                 this.$router.push('/index/sell/CreateSellOrder')
             }
-            else if (keyPath[0] == 1) {
+            else if (keyPath[0] == 0) {
                 this.$router.push('/index/sell/sellOrderTracking')
             }
-            else if (keyPath[0] == 2) {
+            else if (keyPath[0] == 1) {
                 this.$router.push('/index/orderForm/Signed')
             }
-            else if (keyPath[0] == 3) {
+            else if (keyPath[0] == 2) {
                 if(keyPath[1]=='3-0'){
                     console.log("审核中")
                 }

@@ -1,49 +1,59 @@
+<!--
+ * @Author: Callay 2415993100@qq.com
+ * @Date: 2024-02-09 00:34:30
+ * @LastEditors: Callay 2415993100@qq.com
+ * @LastEditTime: 2024-02-23 11:24:44
+ * @FilePath: \vue\src\views\regularusers\OrderFormView.vue
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
 <template>
-    <div>
-        <div>
-            <el-button type="primary" @click="dialogFormVisible = true">我要出售</el-button>
-
-            <el-dialog title="出售商品信息" :visible.sync="dialogFormVisible">
-                <el-form :model="sellForm">
-                    <el-form-item label="活动名称" :label-width="formLabelWidth">
-                        <el-input v-model="form.name" autocomplete="off"></el-input>
-                    </el-form-item>
-                    <el-form-item label="活动区域" :label-width="formLabelWidth">
-                        <el-select v-model="form.region" placeholder="请选择活动区域">
-                            <el-option label="区域一" value="shanghai"></el-option>
-                            <el-option label="区域二" value="beijing"></el-option>
-                        </el-select>
-                    </el-form-item>
-                </el-form>
-                <div slot="footer" class="dialog-footer">
-                    <el-button @click="dialogFormVisible = false">取 消</el-button>
-                    <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
-                </div>
-            </el-dialog>
-        </div>
-    </div>
+    <el-container>
+        <el-header><el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+                <el-menu-item index="0">创建订单</el-menu-item>
+                <el-menu-item index="1">订单跟踪</el-menu-item>
+                <el-menu-item index="2">已审核</el-menu-item>
+                <el-menu-item index="3">交易成功</el-menu-item>
+            </el-menu></el-header>
+        <el-main><router-view /></el-main>
+    </el-container>
 </template>
 
 <script>
 export default {
     data() {
         return {
-            dialogFormVisible: false,
-            sellForm: {
-                id:'',
-                uid:'',
-                logistics_number:'',
-                info:'',
-                type:'',
-                brand:'',
-                price:'',
-                state:'',
-                createTime:'',
-                updateTime:'',
-            },
-            formLabelWidth: '120px'
+            activeIndex: "0"
+        }
+    },
+    methods: {
+        handleSelect(key, keyPath) {
+            console.log(key, keyPath)
+            if (keyPath[0] == 0) {
+                this.$router.push('/index/sell/CreateSellOrder')
+            }
+            else if (keyPath[0] == 1) {
+                this.$router.push('/index/sell/sellOrderTracking')
+            }
+            else if (keyPath[0] == 2) {
+                this.$router.push('/index/orderForm/Signed')
+            }
+            else if (keyPath[0] == 3) {
+                if(keyPath[1]=='3-0'){
+                    console.log("审核中")
+                }
+                else if(keyPath[1]=='3-1'){
+                    console.log("待寄出")
+                }
+                else if(keyPath[1]=='3-2'){
+                    console.log("已寄出")
+                }
+                else if(keyPath[1]=='3-3'){
+                    console.log("已退款")
+                }
+            }
         }
     }
+
 }
 </script>
 

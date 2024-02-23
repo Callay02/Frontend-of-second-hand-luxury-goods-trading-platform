@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-16 23:57:03
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-02-22 19:53:30
+ * @LastEditTime: 2024-02-23 11:24:15
  * @FilePath: \vue\src\router\index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -27,6 +27,10 @@ import ShippedView from '../views/regularusers/orderform/ShippedView.vue'
 import SignedView from '../views/regularusers/orderform/SignedView.vue'
 //出售
 import SellView from '../views/regularusers/sell/SellView.vue'
+//创建出售订单
+import CreateSellOrderView from '../views/regularusers/sell/CreateSellOrderView.vue'
+//出售订单跟踪
+import SellOrderTrackingView from '../views/regularusers/sell/SellOrderTrackingView.vue'
 
 //管理员
 import AdminView from '../views/admin/AdminView.vue'
@@ -119,7 +123,17 @@ const routes = [
       },
       {
         path:'sell',
-        component:SellView
+        component:SellView,
+        children:[
+          {
+            path:'createSellOrder',
+            component:CreateSellOrderView
+          },
+          {
+            path:'sellOrderTracking',
+            component:SellOrderTrackingView
+          }
+        ]
       }
     ],
   },

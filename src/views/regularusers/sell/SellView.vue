@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-09 00:34:30
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-02-23 11:24:44
+ * @LastEditTime: 2024-02-25 19:21:56
  * @FilePath: \vue\src\views\regularusers\OrderFormView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -11,7 +11,7 @@
         <el-header><el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
                 
                 <el-menu-item index="0">订单跟踪</el-menu-item>
-                <el-menu-item index="1">已审核</el-menu-item>
+                <el-menu-item index="1">审核成功</el-menu-item>
                 <el-menu-item index="2">交易成功</el-menu-item>
                 <el-menu-item index="3" style="float: right;">创建订单</el-menu-item>
             </el-menu></el-header>

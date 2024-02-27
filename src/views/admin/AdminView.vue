@@ -34,9 +34,9 @@
 
                 <el-submenu index="3">
                     <template slot="title"><i class="el-icon-tickets"></i>出售订单管理</template>
-                        <el-menu-item index="2-0">待发货订单</el-menu-item>
-                        <el-menu-item index="2-1">已发货订单</el-menu-item>
-                        <el-menu-item index="2-2">已签收订单</el-menu-item>
+                        <el-menu-item index="3-0">待签收订单</el-menu-item>
+                        <el-menu-item index="3-1">已发货订单</el-menu-item>
+                        <el-menu-item index="3-2">已签收订单</el-menu-item>
                 </el-submenu>
 
                 <el-submenu index="4">
@@ -105,13 +105,21 @@ export default {
                 else if(keyPath[1]=='2-2')
                     this.$router.push('/admin/signedManagement')
             }
+            else if(keyPath[0]==3){
+                if(keyPath[1]=='3-0')
+                    this.$router.push('/admin/purchaseToBeSignedManagement')
+                else if(keyPath[1]=='3-1')
+                    this.$router.push('/admin/shippedManagement')
+                else if(keyPath[1]=='3-2')
+                    this.$router.push('/admin/signedManagement')
+            }
             else if(keyPath[0]==4){
                 if(keyPath[1]=='4-0')
                     this.$router.push('/admin/regularUserManagement')
                 else if(keyPath[1]=='4-1')
                     this.$router.push('/admin/shippedManagement')
                 else if(keyPath[1]=='4-2')
-                    this.$router.push('/admin/signedManagement')
+                    this.$router.push('/admin/appraiserManagement')
             }
         },
         handleCommand(command) {

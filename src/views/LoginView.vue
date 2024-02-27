@@ -113,6 +113,8 @@ export default {
                                         message: '鉴定师' + this.user.name + '欢迎回来',
                                         type: 'success',
                                     });
+                                    this.$router.push('/appraiser')
+                                    sessionStorage.setItem("apid", res.data.loginId)
                                 }
                                 else if (this.user.type == 3) {
                                     this.$notify({

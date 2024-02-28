@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-16 23:57:03
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-02-23 11:24:15
+ * @LastEditTime: 2024-02-28 17:30:49
  * @FilePath: \vue\src\router\index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -31,6 +31,8 @@ import SellView from '../views/regularusers/sell/SellView.vue'
 import CreateSellOrderView from '../views/regularusers/sell/CreateSellOrderView.vue'
 //出售订单跟踪
 import SellOrderTrackingView from '../views/regularusers/sell/SellOrderTrackingView.vue'
+//出售订单审核成功
+import AppraisalPassView from '../views/regularusers/sell/AppraisalPassView.vue'
 
 //管理员
 import AdminView from '../views/admin/AdminView.vue'
@@ -64,6 +66,14 @@ import PurchaseToBeSignedManagementView from '../views/admin/purchaseOrderFormMa
 
 //鉴定师
 import AppraiserView from '../views/appraiser/AppraiserView.vue'
+//概况
+import ApGeneralSituationView from '../views/appraiser/GeneralSituationView.vue'
+//待鉴定
+import ToBeAppraisedView from '../views/appraiser/ToBeAppraisedView.vue'
+//已鉴定
+import AppraisedView from '../views/appraiser/AppraisedView.vue'
+//商品鉴定
+import GoodsAppraisalView from '../views/appraiser/GoodsAppraisalView.vue'
 
 
 Vue.use(VueRouter)
@@ -140,6 +150,10 @@ const routes = [
           {
             path:'sellOrderTracking',
             component:SellOrderTrackingView
+          },
+          {
+            path:'appraisalPass',
+            component:AppraisalPassView
           }
         ]
       }
@@ -213,7 +227,25 @@ const routes = [
   {
     name:'appraiser',
     path:'/appraiser',
-    component:AppraiserView
+    component:AppraiserView,
+    children:[
+      {
+        path:'generalSituation',
+        component:ApGeneralSituationView
+      },
+      {
+        path:'toBeAppraised',
+        component:ToBeAppraisedView
+      },
+      {
+        path:'goodsAppraisal',
+        component:GoodsAppraisalView
+      },
+      {
+        path:'appraised',
+        component:AppraisedView
+      }
+    ]
   }
 ]
 

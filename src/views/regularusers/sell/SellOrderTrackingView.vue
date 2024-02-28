@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-23 11:19:42
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-02-25 20:52:04
+ * @LastEditTime: 2024-02-28 17:34:46
  * @FilePath: \vue\src\views\regularusers\sell\LogisticsTrackingView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -70,7 +70,7 @@
                 <p style="font-size: x-large;font-weight: bolder;">退回中</p>
             </div>
             <div>
-                <el-table :data="underReviewTable" border style="width: 100%">
+                <el-table :data="returningTable" border style="width: 100%">
                     <el-table-column prop="id" label="id" width="180">
                     </el-table-column>
                     <el-table-column prop="logisticsNumber" label="物流号" width="180">
@@ -103,17 +103,17 @@ export default {
             inTransitTable: [],
             inTransitTableCurrentPage: 1,
             inTransitTablePageSize: 5,
-            inTransitTableTotal: 1,
+            inTransitTableTotal: 0,
             //审核中
             underReviewTable: [],
             underReviewTableCurrentPage: 1,
             underReviewTablePageSize: 5,
-            underReviewTableTotal: 1,
+            underReviewTableTotal: 0,
             //退回中
             returningTable: [],
             returningTableCurrentPage: 1,
             returningTablePageSize: 5,
-            returningTableTotal: 1,
+            returningTableTotal: 0,
         }
     },
     methods: {

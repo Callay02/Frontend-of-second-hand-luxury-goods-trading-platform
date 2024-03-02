@@ -2,54 +2,33 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-18 23:35:39
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-02-22 15:50:07
+ * @LastEditTime: 2024-03-02 13:22:22
  * @FilePath: \vue\src\views\admin\orderformManagement\ToBeShippedConsoleView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <template>
     <div>
         <div>
-            <p style="font-size: x-large;font-weight: bolder;">已发货订单</p>
+            <p style="font-size: x-large;font-weight: bolder;">待退货订单</p>
         </div>
         <div>
             <div>
-                <el-table :data="tableData" style="width: 100%">
-                    <el-table-column type="expand">
-                        <template slot-scope="props">
-                            <el-form label-position="left" inline class="demo-table-expand">
-                                <el-form-item label="商品名称:">
-                                    <span>{{ props.row.info }}</span>
-                                </el-form-item>
-                                <el-form-item label="品牌:">
-                                    <span>{{ props.row.typeName }}</span>
-                                </el-form-item>
-                                <el-form-item label="类型:">
-                                    <span>{{ props.row.brandName }}</span>
-                                </el-form-item>
-                                <el-form-item label="用户名称:">
-                                    <span>{{ props.row.name }}</span>
-                                </el-form-item>
-                            </el-form>
-                        </template>
+                <el-table :data="tableData" style="width: 100%" border>
+                    <el-table-column prop="id" label="id" width="200"> </el-table-column>
+                    <el-table-column prop="info" label="商品详情" width="200">
                     </el-table-column>
-                    <el-table-column label="订单号" prop="id">
+                    <el-table-column prop="brandName" label="品牌" width="200">
                     </el-table-column>
-                    <el-table-column label="物流号" prop="logisticsNumber">
+                    <el-table-column prop="typeName" label="类型" width="200">
                     </el-table-column>
-                    <el-table-column label="商品id" prop="gid">
+                    <el-table-column prop="address" label="地址" width="300">
                     </el-table-column>
-                    <el-table-column label="用户id" prop="uid">
-                    </el-table-column>
-                    <el-table-column label="联系电话" prop="phone">
-                    </el-table-column>
-                    <el-table-column label="地址" prop="address">
-                    </el-table-column>
-                    <el-table-column label="发货时间" prop="deliveryTime">
+                    <el-table-column prop="updateTime" label="审核时间" width="200">
                     </el-table-column>
                     <el-table-column label="操作" fixed="right">
                         <template slot-scope="scope">
                             <el-button size="mini" @click="delivery(scope.$index, scope.row)"
-                                style="margin-right: 5px">编辑</el-button>
+                                style="margin-right: 5px">退货</el-button>
                             <el-dialog title="修改" :visible.sync="dialogFormVisible" append-to-body>
                                 <el-input v-model="formData.logisticsNumber" placeholder="请输入物流号"></el-input>
                                 <div slot="footer" class="dialog-footer">
@@ -92,34 +71,32 @@ export default {
         this.currentPage = 1;
         this.$request
             .get(
-                "orderForm/getOrderFormPageByState?state=1&page=" +
+                "purchaseOrderForm/getPurchaseOrderFormPageByState?state=4&page=" +
                 this.currentPage +
                 "&rows=" +
                 this.pageSize
             )
             .then((res) => {
-                console.log(res)
                 this.total = res.data.total;
-                this.tableData = res.data.orderFormVoList;
+                this.tableData = res.data.purchaseOrderFormVoList;
             });
     },
     methods: {
         handleSizeChange(val) {
-            console.log(`每页 ${val} 条`);
+            //console.log(`每页 ${val} 条`);
         },
         handleCurrentChange(val) {
-            console.log(`当前页: ${val}`);
             this.$request
-            .get(
-                "orderForm/getOrderFormPageByState?state=1&page=" +
-                this.currentPage +
-                "&rows=" +
-                this.pageSize
-            )
-            .then((res) => {
-                this.total = res.data.total;
-                this.tableData = res.data.orderFormVoList;
-            });
+                .get(
+                    "purchaseOrderForm/getPurchaseOrderFormPageByState?state=4&page=" +
+                    this.currentPage +
+                    "&rows=" +
+                    this.pageSize
+                )
+                .then((res) => {
+                    this.total = res.data.total;
+                    this.tableData = res.data.purchaseOrderFormVoList;
+                });
         },
         delivery(index, row) {
             this.dialogFormVisible = true
@@ -127,31 +104,33 @@ export default {
             //console.log(this.formData)
         },
         submitForm() {
-            if(this.formData.logisticsNumber==null)
+            if (this.formData.logisticsNumber == null)
                 this.$message({
-                    type:'warning',
-                    message:"请输入物流号"
-            })
-            else{
-                console.log(this.formData)
-                this.$request.post('orderForm/updateShippedOrderFormById',this.formData).then(res=>{
-                    if(res.code==200){
+                    type: 'warning',
+                    message: "请输入物流号"
+                })
+            else {
+                //console.log(this.formData.logisticsNumber)
+                this.$request.post('purchaseOrderForm/updateStateSet5ById', this.formData).then(res => {
+                    if (res.code == 200) {
                         this.$message({
-                            type:"success",
-                            message:res.msg
+                            type: "success",
+                            message: res.msg
                         })
-                        this.dialogFormVisible=false
-                    }else{
+                        this.dialogFormVisible = false
+                        this.$router.go(0)
+                    } else {
                         this.$message({
-                            type:"warning",
-                            message:res.msg
+                            type: "warning",
+                            message: res.msg
                         })
                     }
                 })
-                
+
             }
-                
+
         },
+
     }
 }
 </script>

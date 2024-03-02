@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-01-09 21:43:38
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-02-28 14:18:17
+ * @LastEditTime: 2024-03-01 12:50:35
  * @FilePath: \vue\src\views\LoginView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -126,6 +126,13 @@ export default {
                                     sessionStorage.setItem("aid", res.data.loginId)
                                 }
 
+                            }
+                            else{
+                                this.$notify({
+                                        title: '登录失败',
+                                        message: '账号或密码错误',
+                                        type: 'warning',
+                                    });
                             }
                         })
                     }

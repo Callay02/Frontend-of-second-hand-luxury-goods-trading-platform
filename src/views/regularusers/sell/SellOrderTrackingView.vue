@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-23 11:19:42
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-02-28 17:34:46
+ * @LastEditTime: 2024-03-02 17:34:06
  * @FilePath: \vue\src\views\regularusers\sell\LogisticsTrackingView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -30,9 +30,9 @@
                 </el-table>
             </div>
             <div class="block">
-                <el-pagination @size-change="inTransitTableHandleSizeChange"
-                    @current-change="inTransitTableHandleCurrentChange" :current-page.sync="inTransitTableCurrentPage"
-                    :page-size="inTransitTablePageSize" layout="total, prev, pager, next" :total="inTransitTableTotal">
+                <el-pagination @current-change="inTransitTableHandleCurrentChange"
+                    :current-page.sync="inTransitTableCurrentPage" :page-size="inTransitTablePageSize"
+                    layout="total, prev, pager, next" :total="inTransitTableTotal">
                 </el-pagination>
             </div>
         </div>
@@ -58,9 +58,37 @@
                 </el-table>
             </div>
             <div class="block">
-                <el-pagination @size-change="underReviewTableHandleSizeChange"
-                    @current-change="underReviewTableHandleCurrentChange" :current-page.sync="underReviewTableCurrentPage"
-                    :page-size="underReviewTablePageSize" layout="total, prev, pager, next" :total="underReviewTableTotal">
+                <el-pagination @current-change="underReviewTableHandleCurrentChange"
+                    :current-page.sync="underReviewTableCurrentPage" :page-size="underReviewTablePageSize"
+                    layout="total, prev, pager, next" :total="underReviewTableTotal">
+                </el-pagination>
+            </div>
+        </div>
+        <!--待退回-->
+        <div>
+            <div>
+                <p style="font-size: x-large;font-weight: bolder;">待退回</p>
+            </div>
+            <div>
+                <el-table :data="toBeReturningTable" border style="width: 100%">
+                    <el-table-column prop="id" label="id" width="180">
+                    </el-table-column>
+                    <el-table-column prop="logisticsNumber" label="物流号" width="180">
+                    </el-table-column>
+                    <el-table-column prop="info" label="商品详情" width="180">
+                    </el-table-column>
+                    <el-table-column prop="brandName" label="品牌" width="180">
+                    </el-table-column>
+                    <el-table-column prop="typeName" label="类型" width="180">
+                    </el-table-column>
+                    <el-table-column prop="updateTime" label="发出时间" width="180">
+                    </el-table-column>
+                </el-table>
+            </div>
+            <div class="block">
+                <el-pagination @current-change="toBeReturningTableHandleCurrentChange"
+                    :current-page.sync="toBeReturningTableCurrentPage" :page-size="toBeReturningTablePageSize"
+                    layout="total, prev, pager, next" :total="toBeReturningTableTotal">
                 </el-pagination>
             </div>
         </div>
@@ -83,12 +111,18 @@
                     </el-table-column>
                     <el-table-column prop="updateTime" label="发出时间" width="180">
                     </el-table-column>
+                    <el-table-column label="操作" fixed="right">
+                        <template slot-scope="scope">
+                            <el-button size="mini" @click="sign(scope.$index, scope.row)"
+                                style="margin-right: 5px">签收</el-button>
+                        </template>
+                    </el-table-column>
                 </el-table>
             </div>
             <div class="block">
-                <el-pagination @size-change="returningTableHandleSizeChange"
-                    @current-change="returningTableHandleCurrentChange" :current-page.sync="returningTableCurrentPage"
-                    :page-size="returningTablePageSize" layout="total, prev, pager, next" :total="returningTableTotal">
+                <el-pagination @current-change="returningTableHandleCurrentChange"
+                    :current-page.sync="returningTableCurrentPage" :page-size="returningTablePageSize"
+                    layout="total, prev, pager, next" :total="returningTableTotal">
                 </el-pagination>
             </div>
         </div>
@@ -109,6 +143,11 @@ export default {
             underReviewTableCurrentPage: 1,
             underReviewTablePageSize: 5,
             underReviewTableTotal: 0,
+            //待退回中
+            toBeReturningTable: [],
+            toBeReturningTableCurrentPage: 1,
+            toBeReturningTablePageSize: 5,
+            toBeReturningTableTotal: 0,
             //退回中
             returningTable: [],
             returningTableCurrentPage: 1,
@@ -118,9 +157,6 @@ export default {
     },
     methods: {
         //运输中
-        inTransitTableHandleSizeChange(val) {
-            //console.log(`每页 ${val} 条`);
-        },
         inTransitTableHandleCurrentChange(val) {
             //console.log(`当前页: ${val}`);
             this.$request.get('purchaseOrderForm/getPurchaseOrderFormPageByStateAndUid?state=0' + '&page=' + this.inTransitTableCurrentPage + '&rows=' + this.inTransitTablePageSize).then(res => {
@@ -129,9 +165,6 @@ export default {
             })
         },
         //审核中
-        underReviewTableHandleSizeChange(val) {
-            //console.log(`每页 ${val} 条`);
-        },
         underReviewTableHandleCurrentChange(val) {
             //console.log(`当前页: ${val}`);
             this.$request.get('purchaseOrderForm/getPurchaseOrderFormPageByStateAndUid?state=1' + '&page=' + this.inTransitTableCurrentPage + '&rows=' + this.inTransitTablePageSize).then(res => {
@@ -139,17 +172,40 @@ export default {
                 this.underReviewTableTotal = res.data.total
             })
         },
-        //退回中
-        returningTableHandleSizeChange(val) {
-            //console.log(`每页 ${val} 条`);
+        //待退回
+        toBeReturningTableHandleCurrentChange(val) {
+            //console.log(`当前页: ${val}`);
+            this.$request.get('purchaseOrderForm/getPurchaseOrderFormPageByStateAndUid?state=4' + '&page=' + this.inTransitTableCurrentPage + '&rows=' + this.inTransitTablePageSize).then(res => {
+                this.toBeReturningTable = res.data.purchaseOrderFormVoList
+                this.toBeReturningTableTotal = res.data.total
+            })
         },
+        //退回中
         returningTableHandleCurrentChange(val) {
             //console.log(`当前页: ${val}`);
             this.$request.get('purchaseOrderForm/getPurchaseOrderFormPageByStateAndUid?state=5' + '&page=' + this.inTransitTableCurrentPage + '&rows=' + this.inTransitTablePageSize).then(res => {
-                this.underReviewTable = res.data.purchaseOrderFormVoList
-                this.underReviewTableTotal = res.data.total
+                this.returningTable = res.data.purchaseOrderFormVoList
+                this.returningTableTotal = res.data.total
             })
         },
+        //签收
+        sign(index, row) {
+            this.$request.get('purchaseOrderForm/updateStateSet6ById?id=' + row.id).then(res => {
+                if (res.code == 200) {
+                    this.$message({
+                        type: "success",
+                        message: res.msg
+                    })
+                    this.$router.go(0)
+                }else{
+                    this.$message({
+                        type:"warning",
+                        message:res.msg
+                    })
+                }
+            })
+
+        }
     },
     beforeMount() {
         //运输中
@@ -162,10 +218,15 @@ export default {
             this.underReviewTable = res.data.purchaseOrderFormVoList
             this.underReviewTableTotal = res.data.total
         })
+        //待回中
+        this.$request.get('purchaseOrderForm/getPurchaseOrderFormPageByStateAndUid?state=4' + '&page=' + this.inTransitTableCurrentPage + '&rows=' + this.inTransitTablePageSize).then(res => {
+            this.toBeReturningTable = res.data.purchaseOrderFormVoList
+            this.toBeReturningTableTotal = res.data.total
+        })
         //退回中
         this.$request.get('purchaseOrderForm/getPurchaseOrderFormPageByStateAndUid?state=5' + '&page=' + this.inTransitTableCurrentPage + '&rows=' + this.inTransitTablePageSize).then(res => {
-                this.underReviewTable = res.data.purchaseOrderFormVoList
-                this.underReviewTableTotal = res.data.total
+            this.returningTable = res.data.purchaseOrderFormVoList
+            this.returningTableTotal = res.data.total
         })
     }
 }

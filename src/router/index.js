@@ -2,7 +2,15 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-16 23:57:03
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-02-28 17:30:49
+ * @LastEditTime: 2024-03-02 16:14:44
+ * @FilePath: \vue\src\router\index.js
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
+/*
+ * @Author: Callay 2415993100@qq.com
+ * @Date: 2024-02-16 23:57:03
+ * @LastEditors: Callay 2415993100@qq.com
+ * @LastEditTime: 2024-03-02 10:55:59
  * @FilePath: \vue\src\router\index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -31,8 +39,8 @@ import SellView from '../views/regularusers/sell/SellView.vue'
 import CreateSellOrderView from '../views/regularusers/sell/CreateSellOrderView.vue'
 //出售订单跟踪
 import SellOrderTrackingView from '../views/regularusers/sell/SellOrderTrackingView.vue'
-//出售订单审核成功
-import AppraisalPassView from '../views/regularusers/sell/AppraisalPassView.vue'
+//出售订单已审核
+import ReAppraisedView from '../views/regularusers/sell/AppraisedView.vue'
 
 //管理员
 import AdminView from '../views/admin/AdminView.vue'
@@ -63,6 +71,10 @@ import AddUserView from '../views/admin/userManagement/AddUserView.vue'
 //收购订单管理
 //待签收
 import PurchaseToBeSignedManagementView from '../views/admin/purchaseOrderFormManagement/PurchaseToBeSignedManagementView.vue'
+//待退货
+import PurchaseToBeReturnedManagementView from '../views/admin/purchaseOrderFormManagement/PurchaseToBeReturnedManagementView.vue'
+//待上架
+import PendingOrderFormManagementView from '../views/admin/purchaseOrderFormManagement/PendingOrderFormManagementView.vue'
 
 //鉴定师
 import AppraiserView from '../views/appraiser/AppraiserView.vue'
@@ -152,8 +164,8 @@ const routes = [
             component:SellOrderTrackingView
           },
           {
-            path:'appraisalPass',
-            component:AppraisalPassView
+            path:'appraised',
+            component:ReAppraisedView
           }
         ]
       }
@@ -220,6 +232,14 @@ const routes = [
       {
         path:'purchaseToBeSignedManagement',
         component:PurchaseToBeSignedManagementView
+      },
+      {
+        path:'purchaseToBeReturnedManagement',
+        component:PurchaseToBeReturnedManagementView
+      },
+      {
+        path:'PendingOrderFormManagement',
+        component:PendingOrderFormManagementView
       }
     ]
   },

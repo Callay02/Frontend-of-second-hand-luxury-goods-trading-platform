@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-16 23:57:03
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-03-02 16:14:44
+ * @LastEditTime: 2024-03-08 09:55:10
  * @FilePath: \vue\src\router\index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -41,6 +41,7 @@ import CreateSellOrderView from '../views/regularusers/sell/CreateSellOrderView.
 import SellOrderTrackingView from '../views/regularusers/sell/SellOrderTrackingView.vue'
 //出售订单已审核
 import ReAppraisedView from '../views/regularusers/sell/AppraisedView.vue'
+import ReSuccessView from '../views/regularusers/sell/SuccessView.vue'
 
 //管理员
 import AdminView from '../views/admin/AdminView.vue'
@@ -166,6 +167,10 @@ const routes = [
           {
             path:'appraised',
             component:ReAppraisedView
+          },
+          {
+            path:'reSuccess',
+            component:ReSuccessView
           }
         ]
       }

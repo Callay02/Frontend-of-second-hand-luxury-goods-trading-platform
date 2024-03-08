@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-09 00:34:30
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-03-02 10:56:26
+ * @LastEditTime: 2024-03-08 09:56:22
  * @FilePath: \vue\src\views\regularusers\OrderFormView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -39,18 +39,7 @@ export default {
                 this.$router.push('/index/sell/appraised')
             }
             else if (keyPath[0] == 2) {
-                if(keyPath[1]=='3-0'){
-                    console.log("审核中")
-                }
-                else if(keyPath[1]=='3-1'){
-                    console.log("待寄出")
-                }
-                else if(keyPath[1]=='3-2'){
-                    console.log("已寄出")
-                }
-                else if(keyPath[1]=='3-3'){
-                    console.log("已退款")
-                }
+                this.$router.push('/index/sell/reSuccess')
             }
         }
     }

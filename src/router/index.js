@@ -92,6 +92,8 @@ import GoodsAppraisalView from '../views/appraiser/GoodsAppraisalView.vue'
 
 //销售员
 import SalespersonView from '../views/salesperson/SalespersonView.vue'
+//商品搜索
+import SearchGoodsView from '../views/salesperson/SearchGoodsView.vue'
 Vue.use(VueRouter)
 
 
@@ -284,7 +286,13 @@ const routes = [
   {
     name:'Salesperson',
     path:'/salesperson',
-    component:SalespersonView
+    component:SalespersonView,
+    children:[
+      {
+        path:'searchGoods',
+        component:SearchGoodsView
+      }
+    ]
   }
 ]
 

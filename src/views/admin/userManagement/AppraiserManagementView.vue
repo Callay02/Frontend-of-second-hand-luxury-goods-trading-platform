@@ -169,7 +169,7 @@ export default {
       this.currentPage = 1;
       this.$request
         .get(
-          "user/getUserPageByType?type=0&page=" +
+          "user/getUserPageByType?type=2&page=" +
             this.currentPage +
             "&rows=" +
             this.pageSize

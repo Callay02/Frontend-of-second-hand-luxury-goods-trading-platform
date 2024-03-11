@@ -32,7 +32,7 @@
             <el-footer>
                 <hr>
                 <div style="display: flex;flex-direction: column;align-items: center;">
-                    <p>Power by Callay</p>
+                    <p>Powered by Callay</p>
                     <p style="margin-top: 0px;">©2023 - 2024 </p>
                 </div>
             </el-footer>

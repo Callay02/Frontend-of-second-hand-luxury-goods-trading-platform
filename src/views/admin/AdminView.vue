@@ -29,7 +29,7 @@
                     <template slot="title"><i class="el-icon-tickets"></i>出售订单管理</template>
                         <el-menu-item index="2-0">待发货订单</el-menu-item>
                         <el-menu-item index="2-1">已发货订单</el-menu-item>
-                        <el-menu-item index="2-2">已签收订单</el-menu-item>
+                        <el-menu-item index="2-2">用户已签收订单</el-menu-item>
                 </el-submenu>
 
                 <el-submenu index="3">
@@ -120,6 +120,8 @@ export default {
                     this.$router.push('/admin/shippedManagement')
                 else if(keyPath[1]=='4-2')
                     this.$router.push('/admin/appraiserManagement')
+                    else if(keyPath[1]=='4-3')
+                    this.$router.push('/admin/adminManagement')
             }
         },
         handleCommand(command) {

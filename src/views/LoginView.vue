@@ -106,6 +106,8 @@ export default {
                                         message: '销售员' + this.user.name + '欢迎回来',
                                         type: 'success',
                                     });
+                                    this.$router.push('/salesperson')
+                                    sessionStorage.setItem("sid", res.data.loginId)
                                 }
                                 else if (this.user.type == 2) {
                                     this.$notify({

@@ -21,7 +21,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column label="余额" width="200">
+          <el-table-column label="余额" width="150">
             <template slot-scope="scope">
               <span style="margin-left: 10px">{{ scope.row.money }}</span>
             </template>
@@ -33,13 +33,13 @@
             </template>
           </el-table-column>
 
-          <el-table-column label="手机号" width="150">
+          <el-table-column label="手机号" width="120">
             <template slot-scope="scope">
               <span style="margin-left: 10px">{{ scope.row.phone }}</span>
             </template>
           </el-table-column>
 
-          <el-table-column label="身份证" width="250">
+          <el-table-column label="身份证" width="160">
             <template slot-scope="scope">
               <span style="margin-left: 10px">{{ scope.row.idCard }}</span>
             </template>

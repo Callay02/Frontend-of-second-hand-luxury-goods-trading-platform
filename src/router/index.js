@@ -67,6 +67,8 @@ import SignedManagementView from '../views/admin/orderformManagement/SignedManag
 import RegularUserManagementView from '../views/admin/userManagement/RegularUserManagementView.vue'
 //鉴定师管理
 import AppraiserManagementView from '../views/admin/userManagement/AppraiserManagementView.vue'
+//管理员管理
+import AdminManagementView from '../views/admin/userManagement/AdminManagementView.vue'
 //添加用户
 import AddUserView from '../views/admin/userManagement/AddUserView.vue'
 //收购订单管理
@@ -88,7 +90,8 @@ import AppraisedView from '../views/appraiser/AppraisedView.vue'
 //商品鉴定
 import GoodsAppraisalView from '../views/appraiser/GoodsAppraisalView.vue'
 
-
+//销售员
+import SalespersonView from '../views/salesperson/SalespersonView.vue'
 Vue.use(VueRouter)
 
 
@@ -233,6 +236,11 @@ const routes = [
         path:'appraiserManagement',
         component:AppraiserManagementView
       },
+      {
+        path:'adminManagement',
+        component:AdminManagementView
+        
+      },
       //收购订单管理
       {
         path:'purchaseToBeSignedManagement',
@@ -271,6 +279,12 @@ const routes = [
         component:AppraisedView
       }
     ]
+  },
+  //销售员
+  {
+    name:'Salesperson',
+    path:'/salesperson',
+    component:SalespersonView
   }
 ]
 

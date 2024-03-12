@@ -1,17 +1,160 @@
 <template>
   <div>
-    商品搜索
     <div>
-      <div>
-        品牌:<el-select v-model="value" placeholder="请选择">
+      <p style="font-size: x-large; font-weight: bolder">商品搜索</p>
+    </div>
+    <div style="display: flex">
+      <div style="display: flex; justify-content: center; align-items: center">
+        <p style="width: 65px">品牌：</p>
+        <el-select v-model="selectBrand" placeholder="请选择">
           <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
+            v-for="item in brand"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id"
           >
           </el-option>
         </el-select>
+      </div>
+
+      <div
+        style="
+          display: flex;
+          margin-left: 15px;
+          justify-content: center;
+          align-items: center;
+        "
+      >
+        <p style="width: 65px">类型：</p>
+        <el-select v-model="selectType" placeholder="请选择">
+          <el-option
+            v-for="item in type"
+            :key="item.type"
+            :label="item.name"
+            :value="item.type"
+          >
+          </el-option>
+        </el-select>
+      </div>
+      <div
+        style="
+          display: flex;
+          margin-left: 15px;
+          justify-content: center;
+          align-items: center;
+        "
+      >
+        <p style="width: 65px">详情：</p>
+        <el-input v-model="inputInfo" placeholder="请输入内容"></el-input>
+      </div>
+      <div
+        style="
+          display: flex;
+          margin-left: 15px;
+          justify-content: center;
+          align-items: center;
+        "
+      >
+        <el-button type="primary" @click="search">搜索</el-button>
+        <el-button @click="clear">重置</el-button>
+      </div>
+    </div>
+    <div style="margin-top: 15px">
+      <div style="width: 100%">
+        <el-table :data="goodsVoList" style="width: 100%" border>
+          <el-table-column label="id" width="100">
+            <template slot-scope="scope">
+              <span style="margin-left: 10px">{{ scope.row.id }}</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column label="商品" width="125">
+            <template slot-scope="scope"
+              ><el-image
+                style="width: 100px; height: 100px"
+                :src="scope.row.img"
+                fit="cover"
+              >
+                <div slot="placeholder" class="image-slot">
+                  加载中<span class="dot">...</span>
+                </div>
+              </el-image></template
+            >
+          </el-table-column>
+
+          <el-table-column label="详情" width="400">
+            <template slot-scope="scope">
+              <span style="margin-left: 10px">{{ scope.row.info }}</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column label="成色" width="60">
+            <template slot-scope="scope">
+              <span style="margin-left: 10px">{{ scope.row.fineness }}</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column label="品牌" width="200">
+            <template slot-scope="scope">
+              <span style="margin-left: 10px">{{ scope.row.brandName }}</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column label="类型" width="100">
+            <template slot-scope="scope">
+              <span style="margin-left: 10px">{{ scope.row.typeName }}</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column label="价格" width="130">
+            <template slot-scope="scope">
+              <span style="margin-left: 10px">{{ scope.row.price }}</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column label="上架时间" width="250">
+            <template slot-scope="scope">
+              <span style="margin-left: 10px">{{ scope.row.addTime }}</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column label="状态" width="120">
+            <template slot-scope="scope">
+              <span
+                style="margin-left: 10px; color: blue"
+                v-if="scope.row.state == 1"
+                >在售</span
+              >
+              <span
+                style="margin-left: 10px; color: red"
+                v-else-if="scope.row.state == 0"
+                >已售</span
+              >
+            </template>
+          </el-table-column>
+
+          <el-table-column label="操作" fixed="right">
+            <template slot-scope="scope">
+              <el-button
+                size="mini"
+                @click="handleEdit(scope.$index, scope.row)"
+                style="margin-right: 5px"
+                type="primary"
+                >购买</el-button
+              >
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
+      <div class="block">
+        <el-pagination
+          @current-change="handleCurrentChange"
+          :current-page.sync="currentPage"
+          :page-size="pageSize"
+          layout="total, prev, pager, next"
+          :total="total"
+        >
+        </el-pagination>
       </div>
     </div>
   </div>
@@ -21,30 +164,123 @@
 export default {
   data() {
     return {
-      options: [
-        {
-          value: "选项1",
-          label: "黄金糕",
-        },
-        {
-          value: "选项2",
-          label: "双皮奶",
-        },
-        {
-          value: "选项3",
-          label: "蚵仔煎",
-        },
-        {
-          value: "选项4",
-          label: "龙须面",
-        },
-        {
-          value: "选项5",
-          label: "北京烤鸭",
-        },
-      ],
-      value: "",
+      brand: [],
+      selectBrand: "未选择",
+      type: [],
+      selectType: "未选择",
+      inputInfo: "",
+      goodsVoList: [],
+      currentPage: 1,
+      pageSize: 5,
+      total: 1,
+      isSearch: 0,
     };
+  },
+  methods: {
+    handleCurrentChange(val) {
+      //console.log(`当前页: ${val}`);
+      if (this.isSearch == 0) {
+        this.$request
+          .get(
+            "goods/getGoodsPageByState?state=1&page=" +
+              this.currentPage +
+              "&rows=" +
+              this.pageSize
+          )
+          .then((res) => {
+            this.total = res.data.total;
+            this.goodsVoList = res.data.goodsVoList;
+          });
+      }else if(this.isSearch==1){
+        this.$request
+        .post("goods/getGoodsPageByBrandAndTypeAndInfo", {
+          brand: this.selectBrand,
+          type: this.selectType,
+          info: this.inputInfo,
+          page: this.currentPage,
+          rows: this.pageSize,
+        })
+        .then((res) => {
+          if (res.code == 200) {
+            this.total = res.data.total;
+            this.goodsVoList = res.data.goodsVoList;
+          } else {
+            this.$message({
+              type: "warning",
+              message: res.msg,
+            });
+          }
+        });
+      }
+    },
+    clear() {
+      this.selectBrand = "";
+      this.selectType = "";
+      this.inputInfo = "";
+      this.isSearch = 0;
+      this.$router.go(0);
+    },
+    search() {
+      this.$request
+        .post("goods/getGoodsPageByBrandAndTypeAndInfo", {
+          brand: this.selectBrand,
+          type: this.selectType,
+          info: this.inputInfo,
+          page: this.currentPage,
+          rows: this.pageSize,
+        })
+        .then((res) => {
+          if (res.code == 200) {
+            this.total = res.data.total;
+            this.goodsVoList = res.data.goodsVoList;
+          } else {
+            this.$message({
+              type: "warning",
+              message: res.msg,
+            });
+          }
+        });
+      this.isSearch = 1;
+    },
+  },
+  beforeMount() {
+    //获取商品品牌信息
+    this.$request.get("goodsBrand/getGoodsBrand").then((res) => {
+      if (res.code == 200) {
+        this.brand = res.data;
+      } else {
+        this.$message({
+          type: "warning",
+          message: res.msg,
+        });
+      }
+    });
+    //获取商品类型信息
+    this.$request.get("/goodsType/getGoodsType").then((res) => {
+      if (res.code == 200) {
+        this.type = res.data;
+      } else {
+        this.$message({
+          type: "warning",
+          message: res.msg,
+        });
+      }
+    });
+    if (this.isSearch == 0) {
+      //获取商品信息
+      this.currentPage = 1;
+      this.$request
+        .get(
+          "goods/getGoodsPageByState?state=1&page=" +
+            this.currentPage +
+            "&rows=" +
+            this.pageSize
+        )
+        .then((res) => {
+          this.total = res.data.total;
+          this.goodsVoList = res.data.goodsVoList;
+        });
+    }
   },
 };
 </script>

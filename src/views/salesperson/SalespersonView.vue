@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-16 23:57:03
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-02-28 17:00:54
+ * @LastEditTime: 2024-03-13 16:12:41
  * @FilePath: \vue\src\views\admin\AdminView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -26,6 +26,11 @@
                 <el-menu-item index="2">
                     <i class="el-icon-tickets"></i>
                     <span slot="title">订单管理</span>
+                </el-menu-item>
+
+                <el-menu-item index="3">
+                    <i class="el-icon-tickets"></i>
+                    <span slot="title">个人信息管理</span>
                 </el-menu-item>
             </el-menu>
         </el-aside>
@@ -69,13 +74,17 @@ export default {
             //概况
             if(keyPath[0]==0)
                 this.$router.push('/salesperson/searchGoods')
-            //待鉴定
+            //商品搜索
             else if(keyPath[0]==1){
                 this.$router.push('/salesperson/searchGoods')
             }
-            //已鉴定
+            //订单管理
             else if(keyPath[0]==2){
-                this.$router.push('/appraiser/appraised')
+                //this.$router.push('/appraiser/appraised')
+            }
+            //个人信息管理
+            else if(keyPath[0]==3){
+                this.$router.push('/salesperson/mySalespersonInfo')
             }
         },
         handleCommand(command) {

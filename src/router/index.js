@@ -96,6 +96,8 @@ import SalespersonView from '../views/salesperson/SalespersonView.vue'
 import SearchGoodsView from '../views/salesperson/SearchGoodsView.vue'
 //个人信息管理
 import MySalespersonInfoView from '../views/salesperson/MySalespersonInfoView.vue'
+//待发货
+import SalespersonToBeShippedView from '../views/salesperson/orderForm/ToBeShippedView.vue'
 Vue.use(VueRouter)
 
 
@@ -297,6 +299,10 @@ const routes = [
       {
         path:'mySalespersonInfo',
         component:MySalespersonInfoView
+      },
+      {
+        path:'salespersonToBeShipped',
+        component:SalespersonToBeShippedView
       }
     ]
   }

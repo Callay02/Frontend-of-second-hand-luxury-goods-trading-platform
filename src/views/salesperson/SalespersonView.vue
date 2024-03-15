@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-16 23:57:03
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-03-13 16:12:41
+ * @LastEditTime: 2024-03-15 18:10:25
  * @FilePath: \vue\src\views\admin\AdminView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -12,7 +12,7 @@
       <div style="display: flex; justify-content: center">
         <p style="font-size: xx-large; font-weight: bolder">销售员后台</p>
       </div>
-      <el-menu @select="handleSelect" default-active="0">
+      <el-menu @select="handleSelect" :default-active="defaultIndex">
         <el-menu-item index="0">
           <i class="el-icon-pie-chart"></i>
           <span slot="title">概况</span>
@@ -26,9 +26,8 @@
         <el-submenu index="2">
                     <template slot="title"><i class="el-icon-user"></i>订单管理</template>
                         <el-menu-item index="2-0">待发货</el-menu-item>
-                        <el-menu-item index="2-1">销售员</el-menu-item>
+                        <el-menu-item index="2-1">已发货</el-menu-item>
                         <el-menu-item index="2-2">鉴定师</el-menu-item>
-                        <el-menu-item index="2-3">管理员</el-menu-item>
                 </el-submenu>
 
         <el-menu-item index="3">
@@ -63,10 +62,12 @@ export default {
   data() {
     return {
       user: {},
+      defaultIndex:0
     };
   },
   beforeMount() {
     this.sid = sessionStorage.getItem("sid");
+    this.defaultIndex=sessionStorage.getItem('default-index')
     this.$request
       .get(
         "user/getUserInfo?id=" +
@@ -84,20 +85,31 @@ export default {
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
       //概况
-      if (keyPath[0] == 0) this.$router.push("/salesperson/searchGoods");
+      if (keyPath[0] == 0){
+        this.$router.push("/salesperson/searchGoods");
+        sessionStorage.setItem('default-index',0)
+      } 
       //商品搜索
       else if (keyPath[0] == 1) {
         this.$router.push("/salesperson/searchGoods");
+        sessionStorage.setItem('default-index',1)
       }
       //订单管理
       else if (keyPath[0] == 2) {
         //this.$router.push('/appraiser/appraised')
-        if(keyPath[1] == '2-0')
+        if(keyPath[1] == '2-0'){
           this.$router.push("/salesperson/salespersonToBeShipped");
+          sessionStorage.setItem('default-index','2-0')
+        }
+        else if(keyPath[1] == '2-1'){
+          this.$router.push("/salesperson/salespersonShipped");
+          sessionStorage.setItem('default-index','2-1')
+        }
       }
       //个人信息管理
       else if (keyPath[0] == 3) {
         this.$router.push("/salesperson/mySalespersonInfo");
+        sessionStorage.setItem('default-index',3)
       }
     },
     handleCommand(command) {

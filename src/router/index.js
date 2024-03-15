@@ -98,6 +98,8 @@ import SearchGoodsView from '../views/salesperson/SearchGoodsView.vue'
 import MySalespersonInfoView from '../views/salesperson/MySalespersonInfoView.vue'
 //待发货
 import SalespersonToBeShippedView from '../views/salesperson/orderForm/ToBeShippedView.vue'
+//已发货
+import SalespersonShippedView from '../views/salesperson/orderForm/ShippedView.vue'
 Vue.use(VueRouter)
 
 
@@ -303,6 +305,10 @@ const routes = [
       {
         path:'salespersonToBeShipped',
         component:SalespersonToBeShippedView
+      },
+      {
+        path:'salespersonShipped',
+        component:SalespersonShippedView
       }
     ]
   }

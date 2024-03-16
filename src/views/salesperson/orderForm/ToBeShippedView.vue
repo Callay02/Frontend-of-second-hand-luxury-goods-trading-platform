@@ -55,7 +55,7 @@
                 <el-table-column prop="createTime" label="创建时间" width="200" sortable>
                 </el-table-column>
 
-                <el-table-column label="操作" width="169">
+                <el-table-column label="操作" width="169" fixed="right">
                     <template slot-scope="scope">
                         <el-popconfirm title="确定取消订单吗？消费金额会退回到您的余额" @confirm="handleDelete(scope.$index, scope.row)">
                             <el-button size="mini" type="danger" slot="reference">取消订单</el-button>

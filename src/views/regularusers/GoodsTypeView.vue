@@ -9,10 +9,6 @@
 <template>
     <div>
         <div>
-            <span style="margin-right: 5px;">品牌:</span>
-            <el-tag v-for="item in brands" :key="item.id" style="margin-right: 5px;">{{ item.name }}</el-tag>
-        </div>
-        <div>
             <el-row>
                 <el-col :span="3" v-for="item in goodsList" :key="item.id" :offset=1>
                     <el-card :body-style="{ padding: '0px' }" shadow="hover" @click.native="toGoodsDetail(item.id)">

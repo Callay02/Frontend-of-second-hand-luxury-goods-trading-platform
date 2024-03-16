@@ -27,7 +27,7 @@
                     <template slot="title"><i class="el-icon-user"></i>订单管理</template>
                         <el-menu-item index="2-0">待发货</el-menu-item>
                         <el-menu-item index="2-1">已发货</el-menu-item>
-                        <el-menu-item index="2-2">鉴定师</el-menu-item>
+                        <el-menu-item index="2-2">已签收</el-menu-item>
                 </el-submenu>
 
         <el-menu-item index="3">
@@ -86,7 +86,7 @@ export default {
       console.log(key, keyPath);
       //概况
       if (keyPath[0] == 0){
-        this.$router.push("/salesperson/searchGoods");
+        this.$router.push("/salesperson/salespersonGeneralSituation");
         sessionStorage.setItem('default-index',0)
       } 
       //商品搜索
@@ -104,6 +104,10 @@ export default {
         else if(keyPath[1] == '2-1'){
           this.$router.push("/salesperson/salespersonShipped");
           sessionStorage.setItem('default-index','2-1')
+        }
+        else if(keyPath[1] == '2-2'){
+          this.$router.push("/salesperson/salespersonSigned");
+          sessionStorage.setItem('default-index','2-2')
         }
       }
       //个人信息管理

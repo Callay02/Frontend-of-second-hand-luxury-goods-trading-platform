@@ -16,6 +16,8 @@
                         <el-menu-item v-for="item in goodsType" :index="item.type + ''" :key="item.type">{{ item.name
                         }}</el-menu-item>
                     </el-submenu>
+                    <el-menu-item  index="search">搜索商品</el-menu-item>
+                    <el-menu-item  index="rental">租赁专区</el-menu-item>
                     <el-submenu index="my" style="float: right;">
                         <template slot="title"><el-avatar size="small" src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"></el-avatar></template>
                         <el-menu-item index="myInfo" >账号详情</el-menu-item>
@@ -53,6 +55,7 @@ export default {
         handleSelect(key, keyPath) {
             if (keyPath[0] == 'home') {
                 this.$router.push('/index/home')
+                sessionStorage.setItem('activeIndex', 'home')
             }
             else if (keyPath[0] == 'goodsType') {
                 this.$router.push({
@@ -61,28 +64,43 @@ export default {
                         type: key
                     }
                 })
+                this.activeIndex=sessionStorage.setItem('activeIndex', 'goodsType')
+            }
+            else if(keyPath[0]=='rental'){
+                this.$router.push('/index/rental')
+                sessionStorage.setItem('activeIndex','rental')
+            }
+            else if(keyPath[0]=='search'){
+                this.$router.push('/index/searchGoods')
+                sessionStorage.setItem('activeIndex','search')
             }
             else if(keyPath[0]=='shoppingCart'){
                 this.$router.push('/index/shoppingCart')
+                sessionStorage.setItem('activeIndex','shoppingCart')
             }
             else if (keyPath[0] == 'my') {
                 if(keyPath[1]=='myInfo'){
                     this.$router.push('/index/myInfo')
+                    sessionStorage.setItem('activeIndex','myInfo')
                 }
                 else{
                     this.$router.push('/logout')
+                    sessionStorage.clear()
                 }
             }
             else if (keyPath[0] == 'orderForm') {
                 this.$router.push('/index/orderForm/toBeShipped')
+                sessionStorage.setItem('activeIndex', 'orderForm')
             }
             else if(keyPath[0]=='sell'){
                 this.$router.push('/index/sell/sellOrderTracking')
+                sessionStorage.setItem('activeIndex','sell')
             }
 
         },
     },
     beforeMount() {
+        this.activeIndex = sessionStorage.getItem('activeIndex')
         //获取商品类型信息
         this.$request.get('/goodsType/getGoodsType').then(res => {
             //console.log(res)

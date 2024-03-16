@@ -55,7 +55,7 @@
                 <el-table-column prop="createTime" label="创建时间" width="200" sortable>
                 </el-table-column>
 
-                <el-table-column label="操作">
+                <el-table-column label="操作" fixed="right">
                     <template slot-scope="scope">
                         <el-button size="mini" @click="SignById(scope.row.id)" style="margin-right: 5px;">签收</el-button>
                     </template>

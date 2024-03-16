@@ -24,7 +24,7 @@ service.interceptors.request.use(
     },
     error=>{
         console.error('request error:'+error)
-        return Promise.reject(error)
+        return error
     }
 );
 
@@ -40,7 +40,7 @@ service.interceptors.response.use(
     },
     error=>{
         console.error('respone error:'+error)
-        return Promise.reject(error)
+        return error
     }
 )
 

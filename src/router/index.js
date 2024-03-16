@@ -27,6 +27,8 @@ import GoodsDetailView from '../views/regularusers/GoodsDetailView.vue'
 import ShoppingCartView from '../views/regularusers/ShoppingCartView.vue'
 import MyInfoView from '../views/regularusers/MyInfoView.vue'
 import OrderFormView from '../views/regularusers/orderform/OrderFormView.vue'
+//查找商品
+import RegularuserSearchGoodsView from '../views/regularusers/SearchGoodsView.vue'
 //待发货
 import ToBeShippedView from '../views/regularusers/orderform/ToBeShippedView.vue'
 //已发货
@@ -92,6 +94,8 @@ import GoodsAppraisalView from '../views/appraiser/GoodsAppraisalView.vue'
 
 //销售员
 import SalespersonView from '../views/salesperson/SalespersonView.vue'
+//概况
+import SalespersonGeneralSituationView from '../views/salesperson/GeneralSituationView.vue'
 //商品搜索
 import SearchGoodsView from '../views/salesperson/SearchGoodsView.vue'
 //个人信息管理
@@ -100,6 +104,8 @@ import MySalespersonInfoView from '../views/salesperson/MySalespersonInfoView.vu
 import SalespersonToBeShippedView from '../views/salesperson/orderForm/ToBeShippedView.vue'
 //已发货
 import SalespersonShippedView from '../views/salesperson/orderForm/ShippedView.vue'
+//已签收订单
+import SalespersonSignedView from '../views/salesperson/orderForm/SignedView.vue'
 Vue.use(VueRouter)
 
 
@@ -108,6 +114,19 @@ const routes = [
   {
     path:'/',
     redirect:'/login'
+  },
+  {
+    path: '/404',
+    name: 'NotFound',
+    meta: {
+      title: 'Page not found',
+      isLogin: false
+    },
+    component: () => import('@/views/NotFoundView.vue')
+  },
+  {
+    path: '*',
+    redirect: '/404'
   },
   {
     name:'login',
@@ -128,6 +147,10 @@ const routes = [
       {
         path: 'home',
         component: HomeView,
+      },
+      {
+        path:'searchGoods',
+        component:RegularuserSearchGoodsView
       },
       {
         path: 'goodsType',
@@ -295,6 +318,10 @@ const routes = [
     component:SalespersonView,
     children:[
       {
+        path:'salespersonGeneralSituation',
+        component:SalespersonGeneralSituationView
+      },
+      {
         path:'searchGoods',
         component:SearchGoodsView
       },
@@ -309,6 +336,10 @@ const routes = [
       {
         path:'salespersonShipped',
         component:SalespersonShippedView
+      },
+      {
+        path:'salespersonSigned',
+        component:SalespersonSignedView
       }
     ]
   }
@@ -328,10 +359,6 @@ VueRouter.prototype.push = function push(location) {
 //登录跳转
 router.beforeEach((to,from,next)=>{
   let isLogin = sessionStorage.getItem("satoken");
-  
-  //if(isLogin==null){
-   // next({path:'/login'});
-  //}
   
   //登出
   if(to.path=='/logout'){

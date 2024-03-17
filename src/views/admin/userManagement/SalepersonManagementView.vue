@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <p style="font-size: x-large; font-weight: bolder">普通用户</p>
+      <p style="font-size: x-large; font-weight: bolder">销售员</p>
     </div>
     <div>
       <el-button type="primary" style="" icon="el-icon-plus" @click="goToAddUser">添加</el-button>
@@ -21,7 +21,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column label="余额" width="150">
+          <el-table-column label="钱包" width="150">
             <template slot-scope="scope">
               <span style="margin-left: 10px">{{ scope.row.money }}</span>
             </template>
@@ -141,7 +141,7 @@ export default {
       this.currentPage = 1;
       this.$request
         .get(
-          "user/getUserPageByType?type=0&page=" +
+          "user/getUserPageByType?type=1&page=" +
           this.currentPage +
           "&rows=" +
           this.pageSize
@@ -156,13 +156,15 @@ export default {
       this.$router.push({
         path: 'addUser',
         query: {
-          type: 0
+          type: 1
         }
       });
     },
     deleteUser() {
       if (this.checkUid == this.selectUser.id) {
-        this.selectUser.type = 0
+        console.log(this.selectUser)
+        this.selectUser.updateTime="";
+        this.selectUser.type = 1
         this.$request.post('user/deleteUserById', this.selectUser).then(res => {
           if (res.code == 200) {
             this.$message({
@@ -222,7 +224,7 @@ export default {
     this.currentPage = 1;
     this.$request
       .get(
-        "user/getUserPageByType?type=0&page=" +
+        "user/getUserPageByType?type=1&page=" +
         this.currentPage +
         "&rows=" +
         this.pageSize

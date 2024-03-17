@@ -45,7 +45,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column label="创建时间" width="150">
+          <el-table-column label="创建时间" width="200">
             <template slot-scope="scope">
               <span style="margin-left: 10px">{{ scope.row.createTime }}</span>
             </template>
@@ -190,7 +190,7 @@ export default {
     },
     deleteUser() {
       if (this.checkUid == this.selectUser.id) {
-        this.selectUser.type = 0;
+        this.selectUser.type = 2;
         this.$request
           .post("user/deleteUserById", this.selectUser)
           .then((res) => {

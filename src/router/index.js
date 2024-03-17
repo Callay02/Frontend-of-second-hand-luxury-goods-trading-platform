@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-16 23:57:03
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-03-13 14:33:08
+ * @LastEditTime: 2024-03-17 18:09:42
  * @FilePath: \vue\src\router\index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -67,6 +67,8 @@ import ShippedManagementView from '../views/admin/orderformManagement/ShippedMan
 import SignedManagementView from '../views/admin/orderformManagement/SignedManagementView.vue'
 //普通用户管理
 import RegularUserManagementView from '../views/admin/userManagement/RegularUserManagementView.vue'
+//销售员管理
+import SalepersonManagementView from '@/views/admin/userManagement/SalepersonManagementView.vue'
 //鉴定师管理
 import AppraiserManagementView from '../views/admin/userManagement/AppraiserManagementView.vue'
 //管理员管理
@@ -132,6 +134,10 @@ const routes = [
     name:'login',
     path:'/login',
     component:LoginView
+  },
+  {
+    name:'logout',
+    path:'/logout'
   },
   {
     name:'register',
@@ -262,6 +268,10 @@ const routes = [
       {
         path:'regularUserManagement',
         component:RegularUserManagementView
+      },
+      {
+        path:'salepersonManagement',
+        component:SalepersonManagementView
       },
       {
         path:'appraiserManagement',

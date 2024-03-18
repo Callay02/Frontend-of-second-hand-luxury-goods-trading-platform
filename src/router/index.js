@@ -19,6 +19,7 @@ import VueRouter from 'vue-router'
 import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
 
+//----------------------------------------------------------------------------------------//
 //普通用户
 import IndexView from '../views/regularusers/IndexView.vue'
 import HomeView from '../views/regularusers/HomeView.vue'
@@ -44,7 +45,10 @@ import SellOrderTrackingView from '../views/regularusers/sell/SellOrderTrackingV
 //出售订单已审核
 import ReAppraisedView from '../views/regularusers/sell/AppraisedView.vue'
 import ReSuccessView from '../views/regularusers/sell/SuccessView.vue'
+//租赁页面
+import RentalView from '../views/regularusers/RentalView.vue'
 
+//----------------------------------------------------------------------------------------//
 //管理员
 import AdminView from '../views/admin/AdminView.vue'
 //概况
@@ -83,6 +87,7 @@ import PurchaseToBeReturnedManagementView from '../views/admin/purchaseOrderForm
 //待上架
 import PendingOrderFormManagementView from '../views/admin/purchaseOrderFormManagement/PendingOrderFormManagementView.vue'
 
+//----------------------------------------------------------------------------------------//
 //鉴定师
 import AppraiserView from '../views/appraiser/AppraiserView.vue'
 //概况
@@ -94,6 +99,7 @@ import AppraisedView from '../views/appraiser/AppraisedView.vue'
 //商品鉴定
 import GoodsAppraisalView from '../views/appraiser/GoodsAppraisalView.vue'
 
+//----------------------------------------------------------------------------------------//
 //销售员
 import SalespersonView from '../views/salesperson/SalespersonView.vue'
 //概况
@@ -213,6 +219,10 @@ const routes = [
             component:ReSuccessView
           }
         ]
+      },
+      {
+        path:'rental',
+        component:RentalView
       }
     ],
   },

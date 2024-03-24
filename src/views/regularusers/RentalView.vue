@@ -2,7 +2,7 @@
     <div>
       <div style="display: flex">
         <div style="display: flex; justify-content: center; align-items: center">
-          <p style="width: 65px">品牌：</p>
+          <p style="width: 65px">品牌1：</p>
           <el-select v-model="selectBrand" placeholder="请选择">
             <el-option
               v-for="item in brand"

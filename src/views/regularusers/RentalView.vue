@@ -2,7 +2,7 @@
     <div>
       <div style="display: flex">
         <div style="display: flex; justify-content: center; align-items: center">
-          <p style="width: 65px">品牌1：</p>
+          <p style="width: 65px">品牌：</p>
           <el-select v-model="selectBrand" placeholder="请选择">
             <el-option
               v-for="item in brand"
@@ -136,22 +136,21 @@
                   })
       },
       handleCurrentChange(val) {
-        //console.log(`当前页: ${val}`);
         if (this.isSearch == 0) {
           this.$request
             .get(
-              "goods/getGoodsPageByState?state=1&page=" +
+              "rentalGoods/getGoodsPageByState?state=1&page=" +
                 this.currentPage +
                 "&rows=" +
                 this.pageSize
             )
             .then((res) => {
               this.total = res.data.total;
-              this.goodsVoList = res.data.goodsVoList;
+              this.goodsVoList = res.data.data;
             });
         } else if (this.isSearch == 1) {
           this.$request
-            .post("goods/getGoodsPageByBrandAndTypeAndInfo", {
+            .post("rentalGoods/getGoodsPageByBrandAndTypeAndInfo", {
               brand: this.selectBrand,
               type: this.selectType,
               info: this.inputInfo,
@@ -161,7 +160,7 @@
             .then((res) => {
               if (res.code == 200) {
                 this.total = res.data.total;
-                this.goodsVoList = res.data.goodsVoList;
+                this.goodsVoList = res.data.data;
               } else {
                 this.$message({
                   type: "warning",
@@ -180,7 +179,7 @@
       },
       search() {
         this.$request
-          .post("goods/getGoodsPageByBrandAndTypeAndInfo", {
+          .post("rentalGoods/getGoodsPageByBrandAndTypeAndInfo", {
             brand: this.selectBrand,
             type: this.selectType,
             info: this.inputInfo,
@@ -190,7 +189,7 @@
           .then((res) => {
             if (res.code == 200) {
               this.total = res.data.total;
-              this.goodsVoList = res.data.goodsVoList;
+              this.goodsVoList = res.data.data;
             } else {
               this.$message({
                 type: "warning",
@@ -204,31 +203,6 @@
         this.address = "";
         this.wantBuyGid = row.id;
         this.dialogFormVisible = true;
-      },
-      pay() {
-        //console.log(this.address)
-        //console.log(this.wantBuyGid)
-        this.$request
-          .post("orderForm/createOrderFormBySid", {
-            gid: this.wantBuyGid,
-            address: this.address,
-            uid: sessionStorage.getItem("sid"),
-          })
-          .then((res) => {
-            if (res.code == 200) {
-              this.$message({
-                type: "success",
-                message: res.msg,
-              });
-              this.dialogFormVisible = false;
-              this.$router.go(0);
-            } else {
-              this.$message({
-                type: "warning",
-                message: res.msg,
-              });
-            }
-          });
       },
     },
     beforeMount() {
@@ -259,14 +233,14 @@
         this.currentPage = 1;
         this.$request
           .get(
-            "goods/getGoodsPageByState?state=1&page=" +
+            "rentalGoods/getGoodsPageByState?state=1&page=" +
               this.currentPage +
               "&rows=" +
               this.pageSize
           )
           .then((res) => {
             this.total = res.data.total;
-            this.goodsVoList = res.data.goodsVoList;
+            this.goodsVoList = res.data.data;
           });
       }
     },

@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-16 23:57:03
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-03-17 18:09:42
+ * @LastEditTime: 2024-03-25 19:29:38
  * @FilePath: \vue\src\router\index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -63,6 +63,8 @@ import GoodsManagementView from '../views/admin/goodsManagement/GoodsManagementV
 import AddGoodsView from '../views/admin/goodsManagement/AddGoodsView.vue'
 //更新商品
 import UpdateGoodsView from '../views/admin/goodsManagement/UpdateGoodsView.vue'
+//租赁商品管理
+import RentalGoodsManagementView from '@/views/admin/goodsManagement/RentalGoodsManagementView.vue'
 //待发货订单
 import ToBeShippedManagementView from '../views/admin/orderformManagement/ToBeShippedManagementView'
 //已发货订单
@@ -256,6 +258,10 @@ const routes = [
       {
         path:'updateGoods',
         component:UpdateGoodsView
+      },
+      {
+        path:'rentalGoodsManagement',
+        component:RentalGoodsManagementView
       },
       //订单管理
       {

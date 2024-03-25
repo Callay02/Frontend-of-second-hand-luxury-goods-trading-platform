@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <p style="font-size: x-large; font-weight: bolder">商品详情管理</p>
+      <p style="font-size: x-large; font-weight: bolder">收购商品详情管理</p>
     </div>
     <div>
       <el-button
@@ -73,7 +73,7 @@
 
           <el-table-column label="状态" width="120">
             <template slot-scope="scope">
-              <span style="margin-left: 10px">{{ scope.row.state }}</span>
+              <span v-if="scope.row.state==1" style="margin-left: 10px;color: blue;">在售</span>
             </template>
           </el-table-column>
 
@@ -142,9 +142,13 @@ export default {
   },
   methods: {
     handleEdit(index, row) {
-      //console.log(index, row);
       sessionStorage.setItem('gid',row.id)
-      this.$router.push('updateGoods')
+      this.$router.push({
+          path: "updateGoods",
+          query: {
+            type: "出售",
+          },
+        });
     },
     handleDelete(index, row) {
       console.log(index, row);
@@ -186,7 +190,7 @@ export default {
     },
     addBrand() {
       this.dialogFormVisible = false;
-      console.log(this.newBrandName);
+      //console.log(this.newBrandName);
       this.$request
         .post("goodsBrand/addBrand", {
           id: this.newBrandId,
@@ -230,7 +234,12 @@ export default {
         });
     },
     goToAddGoods() {
-      this.$router.push("addGoods");
+      this.$router.push({
+          path: "addGoods",
+          query: {
+            type: "出售",
+          },
+        });
     },
   },
   beforeMount() {

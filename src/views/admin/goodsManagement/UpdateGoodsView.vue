@@ -49,12 +49,19 @@
                         <el-form-item label="成色" prop="fineness">
                             <el-input v-model="goodsForm.fineness"></el-input>
                         </el-form-item>
-                        <el-form-item label="价格" prop="price">
+                        <el-form-item v-if="goodType=='出售'" label="价格" prop="price">
                             <el-input v-model="goodsForm.price"></el-input>
                         </el-form-item>
 
+                        <el-form-item v-if="goodType=='租赁'" label="定金" prop="deposit">
+                            <el-input v-model="goodsForm.deposit"></el-input>
+                        </el-form-item>
+                        <el-form-item v-if="goodType=='租赁'" label="租金" prop="rent">
+                            <el-input v-model="goodsForm.rent"></el-input>
+                        </el-form-item>
+
                         <el-form-item>
-                            <el-button type="primary" @click="submitForm('ruleForm')">添加</el-button>
+                            <el-button type="primary" @click="submitForm('ruleForm')">修改</el-button>
                         </el-form-item>
                     </el-form>
                 </div>
@@ -77,6 +84,7 @@ export default {
         }
       };
         return {
+            goodType:"",
             dialogFormVisible: false,
             upLoadCount: 0,
             dir:"",
@@ -98,7 +106,9 @@ export default {
                 fineness: "",
                 price: "",
                 img: "",
-                userId:""
+                userId:"",
+                deposit:"",
+                rent:""
             },
             rules: {
                 info: [
@@ -115,7 +125,13 @@ export default {
                 ],
                 price: [
                     { required: true, message: '请输入价格', trigger: 'blur' }
-                ]
+                ],
+                deposit: [
+                    { required: true, message: '请输入定金', trigger: 'blur' }
+                ],
+                rent: [
+                    { required: true, message: '请输入租金', trigger: 'blur' }
+                ],
 
             }
         };
@@ -174,8 +190,9 @@ export default {
         updateGoods(){
             
             this.goodsForm.userId=sessionStorage.getItem('aid')
-            console.log(this.goodsForm)
-            this.$request.post('goods/updateGoodsById',this.goodsForm).then(res=>{
+            //console.log(this.goodsForm)
+            if(this.goodType=='出售')
+                this.$request.post('goods/updateGoodsById',this.goodsForm).then(res=>{
                 if(res.code==200){
                     this.$message({
                         type:"success",
@@ -188,7 +205,22 @@ export default {
                         message:res.msg
                     })
                 }
-            })
+                })
+            else if(this.goodType=='租赁')
+                this.$request.post('rentalGoods/updateGoodsById',this.goodsForm).then(res=>{
+                if(res.code==200){
+                    this.$message({
+                        type:"success",
+                        message:res.msg
+                    })
+                    this.$router.back()
+                }else{
+                    this.$message({
+                        type:"warning",
+                        message:res.msg
+                    })
+                }
+                })
             this.dialogFormVisible=false   
         },
         upLoadSuccess(response, file, fileList){
@@ -200,6 +232,7 @@ export default {
         }
     },
     beforeMount() {
+        this.goodType=this.$route.query.type
         if(sessionStorage.getItem('gid')==null)
             this.$router.push('goodsManagement')
         else{
@@ -209,10 +242,14 @@ export default {
             this.$request.get('goodsType/getGoodsType').then(res => {
                 this.typeList = res.data
             })
-            //console.log(sessionStorage.getItem('gid'))
-            this.$request.get('goods/getGoodsByIdNoVo?id='+sessionStorage.getItem('gid')).then(res=>{         
-                this.goodsForm=res.data
-            })
+            if(this.goodType=='出售')
+                this.$request.get('goods/getGoodsByIdNoVo?id='+sessionStorage.getItem('gid')).then(res=>{         
+                    this.goodsForm=res.data
+                })
+            else if(this.goodType=='租赁')
+                this.$request.get('rentalGoods/getGoodsByIdNoVo?id='+sessionStorage.getItem('gid')).then(res=>{         
+                    this.goodsForm=res.data
+                })
             sessionStorage.removeItem('gid')
         } 
     }

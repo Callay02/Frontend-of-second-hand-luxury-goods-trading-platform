@@ -205,31 +205,6 @@ export default {
       this.wantBuyGid = row.id;
       this.dialogFormVisible = true;
     },
-    pay() {
-      //console.log(this.address)
-      //console.log(this.wantBuyGid)
-      this.$request
-        .post("orderForm/createOrderFormBySid", {
-          gid: this.wantBuyGid,
-          address: this.address,
-          uid: sessionStorage.getItem("sid"),
-        })
-        .then((res) => {
-          if (res.code == 200) {
-            this.$message({
-              type: "success",
-              message: res.msg,
-            });
-            this.dialogFormVisible = false;
-            this.$router.go(0);
-          } else {
-            this.$message({
-              type: "warning",
-              message: res.msg,
-            });
-          }
-        });
-    },
   },
   beforeMount() {
     //获取商品品牌信息

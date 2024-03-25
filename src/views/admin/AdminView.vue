@@ -22,7 +22,8 @@
                     <template slot="title"><i class="el-icon-goods"></i>商品管理</template>
                     <el-menu-item index="1-0">品牌管理</el-menu-item>
                     <el-menu-item index="1-1">类型管理</el-menu-item>
-                    <el-menu-item index="1-2">商品详情管理</el-menu-item>
+                    <el-menu-item index="1-2">出售商品详情管理</el-menu-item>
+                    <el-menu-item index="1-3">租赁商品详情管理</el-menu-item>
                 </el-submenu>
 
                 <el-submenu index="2">
@@ -105,6 +106,10 @@ export default {
                 else if (keyPath[1] == '1-2') {
                     this.$router.push('/admin/goodsManagement')
                     sessionStorage.setItem('defaultActive', '1-2')
+                }
+                else if (keyPath[1] == '1-3') {
+                    this.$router.push('/admin/rentalGoodsManagement')
+                    sessionStorage.setItem('defaultActive', '1-3')
                 }
             }
             else if (keyPath[0] == 2) {

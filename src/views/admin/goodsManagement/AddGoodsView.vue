@@ -43,8 +43,16 @@
                         <el-form-item label="成色" prop="fineness">
                             <el-input v-model="goodsForm.fineness"></el-input>
                         </el-form-item>
-                        <el-form-item label="价格" prop="price">
+
+                        <el-form-item v-if="goodType=='出售'" label="价格" prop="price">
                             <el-input v-model="goodsForm.price"></el-input>
+                        </el-form-item>
+
+                        <el-form-item v-if="goodType=='租赁'" label="定金" prop="deposit">
+                            <el-input v-model="goodsForm.deposit"></el-input>
+                        </el-form-item>
+                        <el-form-item v-if="goodType=='租赁'" label="租金" prop="rent">
+                            <el-input v-model="goodsForm.rent"></el-input>
                         </el-form-item>
 
                         <el-form-item>
@@ -71,6 +79,7 @@ export default {
         }
       };
         return {
+            goodType:"",
             dialogFormVisible: false,
             upLoadCount: 0,
             dir:"",
@@ -92,7 +101,9 @@ export default {
                 fineness: "",
                 price: "",
                 img: "",
-                userId:""
+                userId:"",
+                deposit:"",
+                rent:""
             },
             rules: {
                 info: [
@@ -109,7 +120,13 @@ export default {
                 ],
                 price: [
                     { required: true, message: '请输入价格', trigger: 'blur' }
-                ]
+                ],
+                deposit: [
+                    { required: true, message: '请输入定金', trigger: 'blur' }
+                ],
+                rent: [
+                    { required: true, message: '请输入租金', trigger: 'blur' }
+                ],
 
             }
         };
@@ -118,7 +135,6 @@ export default {
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    //console.log(this.goodsForm)
                     this.dialogFormVisible=true
                 } else {
                     console.log('error submit!!');
@@ -136,16 +152,13 @@ export default {
             let _self = this;
             return new Promise((resolve, reject) => {
                 this.$request.get("oss/policy").then(res => {
-                    //console.log(res);
                     _self.objData.OSSAccessKeyId = res.data.accessid;
                     _self.objData.policy = res.data.policy;
                     _self.objData.signature = res.data.signature;
                     _self.objData.dir = res.data.dir;
                     _self.objData.host = res.data.host;
                     
-                    //console.log(_self.objData)
                     if (this.upLoadCount == 0) {
-                        //console.log(this.goodsForm.brand + this.goodsForm.type)
                         _self.objData.key = res.data.dir + this.goodsForm.brand+"-"+this.goodsForm.type+"-"+this.goodsForm.info+"-"+sessionStorage.getItem('aid')+"${filename}";
                         this.dir=res.data.dir
                         resolve(true);//继续图片
@@ -166,33 +179,45 @@ export default {
 
         },
         addGoods(){
-            console.log(this.goodsForm)
             this.goodsForm.userId=sessionStorage.getItem('aid')
-            this.$request.post('goods/addGoods',this.goodsForm).then(res=>{
+            if(this.goodType=='出售')
+                this.$request.post('goods/addGoods',this.goodsForm).then(res=>{
                 if(res.code==200){
                     this.$message({
                         type:"success",
                         message:res.msg
                     })
-                    //this.goodsForm={}
                 }else{
                     this.$message({
                         type:"warning",
                         message:res.msg
                     })
                 }
-            })
+                })
+            else if(this.goodType=='租赁')
+            this.$request.post('rentalGoods/addGoods',this.goodsForm).then(res=>{
+                if(res.code==200){
+                    this.$message({
+                        type:"success",
+                        message:res.msg
+                    })
+                }else{
+                    this.$message({
+                        type:"warning",
+                        message:res.msg
+                    })
+                }
+                })
             this.dialogFormVisible=false
         },
         upLoadSuccess(response, file, fileList){
-            //console.log(fileList)
-            //console.log(file)
             this.goodsForm.img="https://callay-spdb.oss-cn-hangzhou.aliyuncs.com/"+this.dir + this.goodsForm.brand+"-"+this.goodsForm.type+"-"+this.goodsForm.info+"-"+sessionStorage.getItem('aid')+file.name
-            //console.log(this.goodsForm.img)
+
 
         }
     },
     beforeMount() {
+        this.goodType=this.$route.query.type
         this.$request.get('goodsBrand/getGoodsBrand').then(res => {
             this.brandList = res.data
         })

@@ -131,7 +131,7 @@ export default {
         this.$router.push({
                     path: "/index/goodsdetail",
                     query: {
-                        goodsId: goodsId
+                        gid: goodsId
                     }
                 })
     },

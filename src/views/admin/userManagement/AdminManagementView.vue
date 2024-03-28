@@ -62,7 +62,7 @@
                   >编辑</el-button
                 >
   
-                <el-button
+                <el-button v-if="scope.row.id != 1"
                   size="mini"
                   @click="handleDelete(scope.$index, scope.row)"
                   style="margin-right: 5px"

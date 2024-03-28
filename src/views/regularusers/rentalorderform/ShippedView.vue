@@ -1,23 +1,18 @@
 <!--
  * @Author: Callay 2415993100@qq.com
- * @Date: 2024-02-10 13:06:50
+ * @Date: 2024-02-10 13:17:32
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-03-28 11:37:18
- * @FilePath: \vue\src\views\regularusers\orderform\ToBeShippedView.vue
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
--->
-<!--
- * @Author: Callay 2415993100@qq.com
- * @Date: 2024-02-10 13:06:50
- * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-02-10 17:14:45
- * @FilePath: \vue\src\views\regularusers\orderform\ToBeShippedView.vue
+ * @LastEditTime: 2024-03-28 11:43:20
+ * @FilePath: \vue\src\views\regularusers\orderform\ShippedView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <template>
     <div style="margin-top: 15px;">
-        <el-table :data="tableData" tooltip-effect="dark" style="width: 100%;" :stripe=true :border=true>
+        <el-table :data="tableData" tooltip-effect="dark" style="width: 80%;" :stripe=true :border=true>
             <el-table-column prop="id" label="订单号" width="200">
+            </el-table-column>
+
+            <el-table-column prop="logisticsNumber" label="物流号" width="200">
             </el-table-column>
 
             <el-table-column label="商品" width="125">
@@ -55,10 +50,7 @@
             <el-table-column label="操作">
                 <template slot-scope="scope">
                     <el-button size="mini" @click="toGoodsDetail(scope.row.gid)" style="margin-right: 5px;">查看</el-button>
-
-                    <el-popconfirm title="确定取消订单吗？消费金额会退回到您的余额" @confirm="handleDelete(scope.$index, scope.row)">
-                        <el-button size="mini" type="danger" slot="reference">取消订单</el-button>
-                    </el-popconfirm>
+                    <el-button size="mini" @click="SignById(scope.row.id)" style="margin-right: 5px;">签收</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -74,8 +66,7 @@ export default {
         }
     },
     beforeMount() {
-        this.$request.get('orderForm/getToBeShippedById?id=' + sessionStorage.getItem('uid')).then(res => {
-            console.log(res.data)
+        this.$request.get('orderForm/getShippedById?id=' + sessionStorage.getItem('uid')).then(res => {
             this.tableData = res.data
         })
     },
@@ -88,23 +79,29 @@ export default {
                 }
             })
         },
-        handleDelete(index, row) {
-            console.log(index, row);
-            this.$request.get('orderForm/cancelOrderById?id='+row.id+"&uid="+sessionStorage.getItem('uid')).then(res => {
-                if (res.code == 200) {
+        SignById(id) {
+            this.$request.post('orderForm/Sign', {
+                "id": id,
+                "uid": sessionStorage.getItem('uid'),
+                "gid": "",
+                "logisticsNumber": "",
+                "state": "",
+                "createTime": ""
+            }).then(res=>{
+                if(res.code==200){
                     this.$message({
-                        message: res.msg,
+                        message: '签收成功',
                         type: 'success'
-                    });
+                    })
                     this.$router.go(0)
-                } else {
+                }else{
                     this.$message({
-                        message: res.msg,
-                        type: 'warning'
-                    });
+                        message:res.msg,
+                        type:'warning'
+                    })
                 }
             })
-        },
+        }
     }
 }
 </script>

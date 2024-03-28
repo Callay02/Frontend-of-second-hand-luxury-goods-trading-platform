@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-01-30 16:32:01
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-02-07 15:16:50
+ * @LastEditTime: 2024-03-27 15:24:06
  * @FilePath: \vue\src\views\regularusers\HomeView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -20,19 +20,9 @@
       <el-row>
         <el-col :span="3" v-for="item in goodsList" :key="item.id" :offset="1">
           <!--商品展示卡片-->
-          <el-card
-            :body-style="{ padding: '0px' }"
-            shadow="hover"
-            @click.native="toGoodsDetail(item.id)"
-          >
-            <div
-              style="display: flex; justify-content: center; margin-top: 10px"
-            >
-              <el-image
-                style="width: auto; height: 100px"
-                :src="item.img"
-                fit="cover"
-              >
+          <el-card :body-style="{ padding: '0px' }" shadow="hover" @click.native="toGoodsDetail(item.id)">
+            <div style="display: flex; justify-content: center; margin-top: 10px">
+              <el-image style="width: auto; height: 100px" :src="item.img" fit="cover">
                 <div slot="placeholder" class="image-slot">
                   加载中<span class="dot">...</span>
                 </div>
@@ -70,7 +60,7 @@ export default {
       this.$router.push({
         path: "/index/goodsdetail",
         query: {
-          goodsId: goodsId,
+          gid: goodsId,
         },
       });
     },
@@ -78,7 +68,6 @@ export default {
   beforeMount() {
     this.$request.get("goods/getRandomGoodsInfo").then((res) => {
       this.goodsList = res.data;
-      //console.log(res)
     });
   },
 };
@@ -96,5 +85,4 @@ export default {
   width: 200px;
   margin-top: 50px;
 }
-
 </style>

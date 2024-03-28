@@ -8,7 +8,7 @@
 -->
 <template>
     <div style="margin-top: 15px;">
-        <el-table :data="tableData" tooltip-effect="dark" style="width: 80%;" :stripe=true :border=true>
+        <el-table :data="tableData" tooltip-effect="dark" style="width: 100%;" :stripe=true :border=true>
             <el-table-column prop="id" label="订单号" width="200">
             </el-table-column>
 

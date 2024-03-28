@@ -131,7 +131,7 @@
           this.$router.push({
                       path: "/index/goodsdetail",
                       query: {
-                          goodsId: goodsId
+                          rgid: goodsId
                       }
                   })
       },

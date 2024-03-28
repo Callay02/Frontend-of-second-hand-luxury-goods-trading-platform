@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-16 23:57:03
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-03-25 19:29:38
+ * @LastEditTime: 2024-03-28 11:38:21
  * @FilePath: \vue\src\router\index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -47,6 +47,14 @@ import ReAppraisedView from '../views/regularusers/sell/AppraisedView.vue'
 import ReSuccessView from '../views/regularusers/sell/SuccessView.vue'
 //租赁页面
 import RentalView from '../views/regularusers/RentalView.vue'
+//租赁订单
+import RentalOrderView from '../views/regularusers/rentalorderform/RentalOrderFormView.vue'
+//租赁待发货订单
+import RentalOrderFormToBeShippedView from '../views/regularusers/rentalorderform/ToBeShippedView.vue'
+//租赁已发货订单
+import RentalOrderFormShippedView from '../views/regularusers/rentalorderform/ShippedView.vue'
+//租赁已签收订单
+import RentalOrderFormSignedView from '../views/regularusers/rentalorderform/SignedView.vue'
 
 //----------------------------------------------------------------------------------------//
 //管理员
@@ -225,6 +233,23 @@ const routes = [
       {
         path:'rental',
         component:RentalView
+      },
+      {
+        path:'rentalOrderForm',
+        component:RentalOrderView,
+        children:[
+          {
+            path:'toBeShipped',
+            component:RentalOrderFormToBeShippedView
+          },
+          {
+            path:'shipped',
+            component:RentalOrderFormShippedView
+          },{
+            path:'signed',
+            component:RentalOrderFormSignedView
+          }
+        ]
       }
     ],
   },

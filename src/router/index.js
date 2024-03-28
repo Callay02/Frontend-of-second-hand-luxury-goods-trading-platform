@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-16 23:57:03
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-03-28 11:38:21
+ * @LastEditTime: 2024-03-28 19:48:36
  * @FilePath: \vue\src\router\index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -96,6 +96,13 @@ import PurchaseToBeSignedManagementView from '../views/admin/purchaseOrderFormMa
 import PurchaseToBeReturnedManagementView from '../views/admin/purchaseOrderFormManagement/PurchaseToBeReturnedManagementView.vue'
 //待上架
 import PendingOrderFormManagementView from '../views/admin/purchaseOrderFormManagement/PendingOrderFormManagementView.vue'
+//租赁订单管理
+//待发货
+import RentalOrderToBeShippedManagementView from '../views/admin/rentalOrderFormManagement/ToBeShippedManagementView.vue'
+//已发货
+import RentalOrderFormShippedManagementView from '../views/admin/rentalOrderFormManagement/ShippedManagementView.vue'
+//已签收
+import RentalOrderFormSignedManagementView from '../views/admin/rentalOrderFormManagement/SignedManagementView.vue'
 
 //----------------------------------------------------------------------------------------//
 //鉴定师
@@ -335,6 +342,19 @@ const routes = [
       {
         path:'PendingOrderFormManagement',
         component:PendingOrderFormManagementView
+      },
+      //租赁订单管理
+      {
+        path:'rentalOrderFormToBeShippedManagement',
+        component:RentalOrderToBeShippedManagementView
+      },
+      {
+        path:'rentalOrderFormSignedManagement',
+        component:RentalOrderFormShippedManagementView
+      },
+      {
+        path:'rentalOrderFormShippedManagement',
+        component:RentalOrderFormSignedManagementView
       }
     ]
   },

@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-16 23:57:03
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-03-17 19:44:23
+ * @LastEditTime: 2024-03-28 19:51:18
  * @FilePath: \vue\src\views\admin\AdminView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -31,6 +31,13 @@
                     <el-menu-item index="2-0">待发货订单</el-menu-item>
                     <el-menu-item index="2-1">已发货订单</el-menu-item>
                     <el-menu-item index="2-2">用户已签收订单</el-menu-item>
+                </el-submenu>
+
+                <el-submenu index="5">
+                    <template slot="title"><i class="el-icon-tickets"></i>租赁订单管理</template>
+                    <el-menu-item index="5-0">待发货订单</el-menu-item>
+                    <el-menu-item index="5-1">已发货订单</el-menu-item>
+                    <el-menu-item index="5-2">用户已签收订单</el-menu-item>
                 </el-submenu>
 
                 <el-submenu index="3">
@@ -166,6 +173,22 @@ export default {
                     sessionStorage.setItem('defaultActive', '4-3')
                 }
 
+            }
+            else if (keyPath[0] == 5) {
+                if (keyPath[1] == '5-0') {
+                    this.$router.push('/admin/rentalOrderFormToBeShippedManagement')
+                    sessionStorage.setItem('defaultActive', '4-0')
+                }
+
+                else if (keyPath[1] == '5-1') {
+                    this.$router.push('/admin/rentalOrderFormSignedManagement')
+                    sessionStorage.setItem('defaultActive', '4-1')
+                }
+
+                else if (keyPath[1] == '5-2') {
+                    this.$router.push('/admin/rentalOrderFormShippedManagement')
+                    sessionStorage.setItem('defaultActive', '4-2')
+                }
             }
         },
         handleCommand(command) {

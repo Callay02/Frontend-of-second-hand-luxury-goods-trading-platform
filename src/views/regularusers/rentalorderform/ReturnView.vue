@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-10 13:17:32
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-03-29 23:36:41
+ * @LastEditTime: 2024-03-29 23:47:55
  * @FilePath: \vue\src\views\regularusers\orderform\ShippedView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -50,13 +50,30 @@
                 </template>
             </el-table-column>
 
-            <el-table-column prop="deliveryTime" label="发货时间">
+            <el-table-column prop="beginTime" label="签收时间">
             </el-table-column>
 
-            <el-table-column label="操作" width="200">
+            <el-table-column prop="day" label="天数">
+            </el-table-column>
+
+            <el-table-column prop="rentTotal" label="总租金">
+                <template slot-scope="scope">
+                    <p>¥ {{ scope.row.rentTotal }}</p>
+                </template>
+            </el-table-column>
+
+            <el-table-column label="状态">
+                <template slot-scope="scope">
+                    <p v-if="scope.row.rentTotal < scope.row.deposit" style="color: blue;">租赁中</p>
+                    <p v-if="scope.row.rentTotal >= scope.row.deposit" style="color: red;">已超时</p>
+                </template>
+            </el-table-column>
+
+            <el-table-column label="操作" width="170px">
                 <template slot-scope="scope">
                     <el-button size="mini" @click="toGoodsDetail(scope.row.gid)" style="margin-right: 5px;">查看</el-button>
-                    <el-button size="mini" type="primary" @click="SignById(scope.row.id)" style="margin-right: 5px;">签收</el-button>
+                    <el-button v-if="scope.row.rentTotal < scope.row.deposit" type="primary" size="mini" style="margin-right: 5px;">退回</el-button>
+                    <el-button v-if="scope.row.rentTotal >= scope.row.deposit" type="danger" size="mini" style="margin-right: 5px;">结算</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -72,7 +89,7 @@ export default {
         }
     },
     beforeMount() {
-        this.$request.get('rentalOrderForm/userGetOrderFormByState?state=1' ).then(res => {
+        this.$request.get('rentalOrderForm/userGetOrderFormByState?state=2').then(res => {
             this.tableData = res.data
         })
     },
@@ -85,22 +102,6 @@ export default {
                 }
             })
         },
-        SignById(id) {
-            this.$request.get('rentalOrderForm/signById?id='+id).then(res=>{
-                if(res.code==200){
-                    this.$message({
-                        message: res.msg,
-                        type: 'success'
-                    })
-                    this.$router.go(0)
-                }else{
-                    this.$message({
-                        message:res.msg,
-                        type:'warning'
-                    })
-                }
-            })
-        }
     }
 }
 </script>

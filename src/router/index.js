@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-16 23:57:03
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-03-28 19:48:36
+ * @LastEditTime: 2024-03-30 00:00:08
  * @FilePath: \vue\src\router\index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -55,6 +55,8 @@ import RentalOrderFormToBeShippedView from '../views/regularusers/rentalorderfor
 import RentalOrderFormShippedView from '../views/regularusers/rentalorderform/ShippedView.vue'
 //租赁已签收订单
 import RentalOrderFormSignedView from '../views/regularusers/rentalorderform/SignedView.vue'
+//租赁退回订单
+import RentalOrderFormReturnView from '../views/regularusers/rentalorderform/ReturnView.vue'
 
 //----------------------------------------------------------------------------------------//
 //管理员
@@ -252,9 +254,14 @@ const routes = [
           {
             path:'shipped',
             component:RentalOrderFormShippedView
-          },{
+          },
+          {
             path:'signed',
             component:RentalOrderFormSignedView
+          },
+          {
+            path:'return',
+            component:RentalOrderFormReturnView
           }
         ]
       }

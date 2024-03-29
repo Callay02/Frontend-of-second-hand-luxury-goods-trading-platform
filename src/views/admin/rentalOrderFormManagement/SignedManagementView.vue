@@ -2,14 +2,14 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-18 23:35:39
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-02-22 15:50:01
+ * @LastEditTime: 2024-03-29 23:25:21
  * @FilePath: \vue\src\views\admin\orderformManagement\ToBeShippedConsoleView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <template>
     <div>
         <div>
-            <p style="font-size: x-large;font-weight: bolder;">已签收订单</p>
+            <p style="font-size: x-large;font-weight: bolder;">用户已签收订单</p>
         </div>
         <div>
             <div>
@@ -26,7 +26,35 @@
                     </el-table-column>
                     <el-table-column label="地址" prop="address">
                     </el-table-column>
-                    <el-table-column label="发货时间" prop="deliveryTime">
+                    <el-table-column prop="rent" label="租金/天" sortable>
+                        <template slot-scope="scope">
+                            <p>¥ {{ scope.row.rent }}</p>
+                        </template>
+                    </el-table-column>
+
+                    <el-table-column prop="deposit" label="押金" sortable>
+                        <template slot-scope="scope">
+                            <p>¥ {{ scope.row.deposit }}</p>
+                        </template>
+                    </el-table-column>
+
+                    <el-table-column prop="beginTime" label="签收时间">
+                    </el-table-column>
+
+                    <el-table-column prop="day" label="天数">
+                    </el-table-column>
+
+                    <el-table-column prop="rentTotal" label="总租金">
+                        <template slot-scope="scope">
+                            <p>¥ {{ scope.row.rentTotal }}</p>
+                        </template>
+                    </el-table-column>
+
+                    <el-table-column label="状态">
+                        <template slot-scope="scope">
+                            <p v-if="scope.row.rentTotal < scope.row.deposit" style="color: blue;">租赁中</p>
+                            <p v-if="scope.row.rentTotal >= scope.row.deposit" style="color: red;">已超时</p>
+                        </template>
                     </el-table-column>
                     <el-table-column label="操作" fixed="right">
                         <template slot-scope="scope">
@@ -45,7 +73,8 @@
             </div>
             <div class="block">
                 <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
-                    :current-page.sync="currentPage" :page-size="pageSize" layout="total, prev, pager, next" :total="total">
+                    :current-page.sync="currentPage" :page-size="pageSize" layout="total, prev, pager, next"
+                    :total="total">
                 </el-pagination>
             </div>
         </div>
@@ -82,7 +111,7 @@ export default {
             .then((res) => {
                 console.log(res)
                 this.total = res.data.total;
-                this.tableData = res.data.orderFormVoList;
+                this.tableData = res.data.data;
             });
     },
     methods: {
@@ -100,7 +129,7 @@ export default {
                 )
                 .then((res) => {
                     this.total = res.data.total;
-                    this.tableData = res.data.orderFormVoList;
+                    this.tableData = res.data.data;
                 });
         },
         delivery(index, row) {
@@ -134,7 +163,7 @@ export default {
             }
 
         },
-        
+
     }
 }
 </script>

@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-10 13:17:32
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-03-29 23:54:14
+ * @LastEditTime: 2024-03-30 00:17:51
  * @FilePath: \vue\src\views\regularusers\orderform\ShippedView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -78,18 +78,10 @@
                         style="margin-right: 5px;" @click="dialogFormVisible = true">退回</el-button>
                     <el-button v-if="scope.row.rentTotal >= scope.row.deposit" type="danger" size="mini"
                         style="margin-right: 5px;">结算</el-button>
+                    
                 </template>
             </el-table-column>
         </el-table>
-        <div>
-            <el-dialog title="修改" :visible.sync="dialogFormVisible" append-to-body>
-                <el-input v-model="formData.logisticsNumber" placeholder="请输入物流号"></el-input>
-                <div slot="footer" class="dialog-footer">
-                    <el-button @click="dialogFormVisible = false">取 消</el-button>
-                    <el-button type="primary" @click="submitForm">确 定</el-button>
-                </div>
-            </el-dialog>
-        </div>
     </div>
 </template>
 

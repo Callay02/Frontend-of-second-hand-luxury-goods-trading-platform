@@ -8,7 +8,7 @@
 -->
 <template>
     <div style="margin-top: 15px;">
-        <el-table :data="tableData" tooltip-effect="dark" style="width: 80%;" :stripe=true :border=true>
+        <el-table :data="tableData" tooltip-effect="dark" style="width: 100%;" :stripe=true :border=true>
             <el-table-column prop="id" label="订单号" width="200">
             </el-table-column>
 
@@ -38,13 +38,19 @@
             <el-table-column prop="typeName" label="类型" width="100">
             </el-table-column>
 
-            <el-table-column prop="price" label="价格" width="150" sortable>
+            <el-table-column prop="rent" label="租金/天" width="150" sortable>
                 <template slot-scope="scope">
-                    <p>¥ {{ scope.row.price }}</p>
+                    <p>¥ {{ scope.row.rent }}</p>
                 </template>
             </el-table-column>
 
-            <el-table-column prop="createTime" label="创建时间" width="100">
+            <el-table-column prop="deposit" label="押金" width="150" sortable>
+                <template slot-scope="scope">
+                    <p>¥ {{ scope.row.deposit }}</p>
+                </template>
+            </el-table-column>
+
+            <el-table-column prop="deliveryTime" label="发货时间" width="150">
             </el-table-column>
 
             <el-table-column label="操作">
@@ -66,7 +72,7 @@ export default {
         }
     },
     beforeMount() {
-        this.$request.get('orderForm/getShippedById?id=' + sessionStorage.getItem('uid')).then(res => {
+        this.$request.get('rentalOrderForm/userGetOrderFormByState?state=1' ).then(res => {
             this.tableData = res.data
         })
     },

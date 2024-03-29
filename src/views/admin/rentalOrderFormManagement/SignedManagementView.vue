@@ -13,25 +13,7 @@
         </div>
         <div>
             <div>
-                <el-table :data="tableData" style="width: 100%">
-                    <el-table-column type="expand">
-                        <template slot-scope="props">
-                            <el-form label-position="left" inline class="demo-table-expand">
-                                <el-form-item label="商品名称:">
-                                    <span>{{ props.row.info }}</span>
-                                </el-form-item>
-                                <el-form-item label="品牌:">
-                                    <span>{{ props.row.typeName }}</span>
-                                </el-form-item>
-                                <el-form-item label="类型:">
-                                    <span>{{ props.row.brandName }}</span>
-                                </el-form-item>
-                                <el-form-item label="用户名称:">
-                                    <span>{{ props.row.name }}</span>
-                                </el-form-item>
-                            </el-form>
-                        </template>
-                    </el-table-column>
+                <el-table :data="tableData" style="width: 100%" border>
                     <el-table-column label="订单号" prop="id">
                     </el-table-column>
                     <el-table-column label="物流号" prop="logisticsNumber">
@@ -92,7 +74,7 @@ export default {
         this.currentPage = 1;
         this.$request
             .get(
-                "orderForm/getOrderFormPageByState?state=2&page=" +
+                "rentalOrderForm/getOrderFormPageByState?state=2&page=" +
                 this.currentPage +
                 "&rows=" +
                 this.pageSize
@@ -111,7 +93,7 @@ export default {
             console.log(`当前页: ${val}`);
             this.$request
                 .get(
-                    "orderForm/getOrderFormPageByState?state=2&page=" +
+                    "rentalOrderForm/getOrderFormPageByState?state=2&page=" +
                     this.currentPage +
                     "&rows=" +
                     this.pageSize

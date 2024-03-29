@@ -74,6 +74,7 @@
           <el-table-column label="状态" width="120">
             <template slot-scope="scope">
               <span v-if="scope.row.state==1" style="margin-left: 10px;color: blue;">在售</span>
+              <span v-if="scope.row.state==0" style="margin-left: 10px;color: red;">已售</span>
             </template>
           </el-table-column>
 
@@ -178,7 +179,7 @@ export default {
       //console.log(`当前页: ${val}`);
       this.$request
         .get(
-          "goods/getGoodsPageByState?state=1&page=" +
+          "goods/getGoodsPageByState?state=&page=" +
             this.currentPage +
             "&rows=" +
             this.pageSize
@@ -246,7 +247,7 @@ export default {
     this.currentPage = 1;
     this.$request
       .get(
-        "goods/getGoodsPageByState?state=1&page=" +
+        "goods/getGoodsPageByState?state=&page=" +
           this.currentPage +
           "&rows=" +
           this.pageSize

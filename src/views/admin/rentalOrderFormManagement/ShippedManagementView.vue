@@ -28,7 +28,7 @@
                     </el-table-column>
                     <el-table-column label="地址" prop="address">
                     </el-table-column>
-                    <el-table-column label="发货时间" prop="updateTime">
+                    <el-table-column label="发货时间" prop="deliveryTime">
                     </el-table-column>
                     <el-table-column label="操作" fixed="right">
                         <template slot-scope="scope">
@@ -108,7 +108,6 @@ export default {
         delivery(index, row) {
             this.dialogFormVisible = true
             this.formData = row
-            //console.log(this.formData)
         },
         submitForm() {
             if(this.formData.logisticsNumber==null)
@@ -117,8 +116,8 @@ export default {
                     message:"请输入物流号"
             })
             else{
-                console.log(this.formData)
-                this.$request.post('orderForm/updateShippedOrderFormById',this.formData).then(res=>{
+                //console.log(this.formData)
+                this.$request.post('rentalOrderForm/updateShippedOrderFormById',this.formData).then(res=>{
                     if(res.code==200){
                         this.$message({
                             type:"success",

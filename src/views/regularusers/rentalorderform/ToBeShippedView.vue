@@ -35,15 +35,15 @@
             <el-table-column prop="typeName" label="类型" width="100">
             </el-table-column>
 
-            <el-table-column prop="deposit" label="押金" width="150" sortable>
-                <template slot-scope="scope">
-                    <p>¥ {{ scope.row.deposit }}</p>
-                </template>
-            </el-table-column>
-
             <el-table-column prop="rent" label="租金/天" width="150" sortable>
                 <template slot-scope="scope">
                     <p>¥ {{ scope.row.rent }}</p>
+                </template>
+            </el-table-column>
+
+            <el-table-column prop="deposit" label="押金" width="150" sortable>
+                <template slot-scope="scope">
+                    <p>¥ {{ scope.row.deposit }}</p>
                 </template>
             </el-table-column>
 

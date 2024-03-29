@@ -106,7 +106,7 @@ export default {
         delivery(index, row) {
             this.dialogFormVisible = true
             this.formData = row
-            //console.log(this.formData)
+
         },
         submitForm() {
             if(this.formData.logisticsNumber==null)

@@ -38,6 +38,7 @@
                     <el-menu-item index="5-0">待发货订单</el-menu-item>
                     <el-menu-item index="5-1">已发货订单</el-menu-item>
                     <el-menu-item index="5-2">用户已签收订单</el-menu-item>
+                    <el-menu-item index="5-3">用户退回订单</el-menu-item>
                 </el-submenu>
 
                 <el-submenu index="3">
@@ -177,17 +178,21 @@ export default {
             else if (keyPath[0] == 5) {
                 if (keyPath[1] == '5-0') {
                     this.$router.push('/admin/rentalOrderFormToBeShippedManagement')
-                    sessionStorage.setItem('defaultActive', '4-0')
+                    sessionStorage.setItem('defaultActive', '5-0')
                 }
 
                 else if (keyPath[1] == '5-1') {
                     this.$router.push('/admin/rentalOrderFormSignedManagement')
-                    sessionStorage.setItem('defaultActive', '4-1')
+                    sessionStorage.setItem('defaultActive', '5-1')
                 }
 
                 else if (keyPath[1] == '5-2') {
                     this.$router.push('/admin/rentalOrderFormShippedManagement')
-                    sessionStorage.setItem('defaultActive', '4-2')
+                    sessionStorage.setItem('defaultActive', '5-2')
+                }
+                else if (keyPath[1] == '5-3') {
+                    this.$router.push('/admin/rentalOrderFormReturnManagement')
+                    sessionStorage.setItem('defaultActive', '5-3')
                 }
             }
         },

@@ -47,6 +47,10 @@ export default {
                 this.$router.push('/index/rentalOrderForm/return');
                 sessionStorage.setItem('activeName-rentalOrderForm', 'return');
             }
+            else if (tab.name === 'settled') {
+                this.$router.push('/index/rentalOrderForm/settled');
+                sessionStorage.setItem('activeName-rentalOrderForm', 'settled');
+            }
         }
     },
     beforeMount() {

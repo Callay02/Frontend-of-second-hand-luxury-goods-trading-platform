@@ -50,7 +50,7 @@
                 </template>
             </el-table-column>
 
-            <el-table-column prop="beginTime" label="签收时间">
+            <el-table-column prop="endTime" label="发出时间">
             </el-table-column>
 
             <el-table-column prop="day" label="天数">
@@ -59,21 +59,6 @@
             <el-table-column prop="rentTotal" label="总租金">
                 <template slot-scope="scope">
                     <p>¥ {{ scope.row.rentTotal }}</p>
-                </template>
-            </el-table-column>
-
-            <el-table-column label="状态">
-                <template slot-scope="scope">
-                    <p v-if="scope.row.rentTotal < scope.row.deposit" style="color: blue;">租赁中</p>
-                    <p v-if="scope.row.rentTotal >= scope.row.deposit" style="color: red;">已超时</p>
-                </template>
-            </el-table-column>
-
-            <el-table-column label="操作" width="170px">
-                <template slot-scope="scope">
-                    <el-button size="mini" @click="toGoodsDetail(scope.row.gid)" style="margin-right: 5px;">查看</el-button>
-                    <el-button v-if="scope.row.rentTotal < scope.row.deposit" type="primary" size="mini" style="margin-right: 5px;">退回</el-button>
-                    <el-button v-if="scope.row.rentTotal >= scope.row.deposit" type="danger" size="mini" style="margin-right: 5px;">结算</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -89,7 +74,7 @@ export default {
         }
     },
     beforeMount() {
-        this.$request.get('rentalOrderForm/userGetOrderFormByState?state=2').then(res => {
+        this.$request.get('rentalOrderForm/userGetOrderFormByState?state=3').then(res => {
             this.tableData = res.data
         })
     },

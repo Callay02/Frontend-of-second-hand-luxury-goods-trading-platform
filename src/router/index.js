@@ -57,6 +57,8 @@ import RentalOrderFormShippedView from '../views/regularusers/rentalorderform/Sh
 import RentalOrderFormSignedView from '../views/regularusers/rentalorderform/SignedView.vue'
 //租赁退回订单
 import RentalOrderFormReturnView from '../views/regularusers/rentalorderform/ReturnView.vue'
+//租赁结算订单
+import RentalOrderFormSettledView from '../views/regularusers/rentalorderform/SettledView.vue'
 
 //----------------------------------------------------------------------------------------//
 //管理员
@@ -105,6 +107,8 @@ import RentalOrderToBeShippedManagementView from '../views/admin/rentalOrderForm
 import RentalOrderFormShippedManagementView from '../views/admin/rentalOrderFormManagement/ShippedManagementView.vue'
 //已签收
 import RentalOrderFormSignedManagementView from '../views/admin/rentalOrderFormManagement/SignedManagementView.vue'
+//退回中
+import RentalOrderFormReturnManagementView from '../views/admin/rentalOrderFormManagement/ReturnManagementView.vue'
 
 //----------------------------------------------------------------------------------------//
 //鉴定师
@@ -262,6 +266,11 @@ const routes = [
           {
             path:'return',
             component:RentalOrderFormReturnView
+          },
+          {
+            path:'settled',
+
+            component:RentalOrderFormSettledView
           }
         ]
       }
@@ -362,6 +371,10 @@ const routes = [
       {
         path:'rentalOrderFormShippedManagement',
         component:RentalOrderFormSignedManagementView
+      },
+      {
+        path:'rentalOrderFormReturnManagement',
+        component:RentalOrderFormReturnManagementView
       }
     ]
   },

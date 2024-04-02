@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-10 13:17:32
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-03-29 23:36:41
+ * @LastEditTime: 2024-04-02 15:24:58
  * @FilePath: \vue\src\views\regularusers\orderform\ShippedView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -62,12 +62,24 @@
             <el-table-column prop="updateTime" label="结算时间">
             </el-table-column>
 
+            <el-table-column  prop="remark" label="备注">
+                <template slot-scope="scope">
+                    <p v-if="scope.row.remark== null" style="color:blue;">已退回</p>
+                    <p v-if="scope.row.remark!= null" style="color: red;">{{ scope.row.remark }}</p>
+                </template>
+            </el-table-column>
+
             <el-table-column label="操作" width="90">
                 <template slot-scope="scope">
                     <el-button size="mini" @click="toGoodsDetail(scope.row.gid)" style="margin-right: 5px;">查看</el-button>
                 </template>
             </el-table-column>
         </el-table>
+        <div class="block">
+                <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
+                    :current-page.sync="currentPage" :page-size="pageSize" layout="total, prev, pager, next" :total="total">
+                </el-pagination>
+            </div>
 
     </div>
 </template>
@@ -76,12 +88,16 @@
 export default {
     data() {
         return {
-            tableData: []
+            tableData: [],
+            currentPage: 1,
+            pageSize: 10,
+            total: 1,
         }
     },
     beforeMount() {
-        this.$request.get('rentalOrderForm/userGetOrderFormByState?state=4' ).then(res => {
-            this.tableData = res.data
+        this.$request.get('rentalOrderForm/userGetOrderFormByState?state=4&page='+this.currentPage+'&rows='+this.pageSize ).then(res => {
+            this.tableData = res.data.data;
+            this.total = res.data.total;
         })
     },
     methods: {
@@ -92,6 +108,20 @@ export default {
                     rgid: gid
                 }
             })
+        },
+        handleSizeChange(val) {
+            //console.log(`每页 ${val} 条`);
+        },
+        handleCurrentChange(val) {
+            //console.log(`当前页: ${val}`);
+            this.$request
+            .get(
+                'rentalOrderForm/userGetOrderFormByState?state=4&page='+this.currentPage+'&rows='+this.pageSiz
+            )
+            .then((res) => {
+                this.total = res.data.total;
+                this.tableData = res.data.data;
+            });
         },
     }
 }

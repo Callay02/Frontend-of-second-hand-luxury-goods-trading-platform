@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-16 23:57:03
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-03-28 19:51:18
+ * @LastEditTime: 2024-04-02 15:29:27
  * @FilePath: \vue\src\views\admin\AdminView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -39,6 +39,7 @@
                     <el-menu-item index="5-1">已发货订单</el-menu-item>
                     <el-menu-item index="5-2">用户已签收订单</el-menu-item>
                     <el-menu-item index="5-3">用户退回订单</el-menu-item>
+                    <el-menu-item index="5-4">已结算订单</el-menu-item>
                 </el-submenu>
 
                 <el-submenu index="3">
@@ -193,6 +194,10 @@ export default {
                 else if (keyPath[1] == '5-3') {
                     this.$router.push('/admin/rentalOrderFormReturnManagement')
                     sessionStorage.setItem('defaultActive', '5-3')
+                }
+                else if (keyPath[1] == '5-4') {
+                    this.$router.push('/admin/rentalOrderFormSettledManagement')
+                    sessionStorage.setItem('defaultActive', '5-4')
                 }
             }
         },

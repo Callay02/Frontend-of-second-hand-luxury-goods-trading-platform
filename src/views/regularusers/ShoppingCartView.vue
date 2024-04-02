@@ -108,7 +108,7 @@ export default {
             this.getTotalPrice()
         },
         handleDelete(index, row) {
-            console.log(index, row);
+            //console.log(index, row);
             this.$request.get('shoppingCart/deleteShoppingCartById?uid=' + sessionStorage.getItem('uid') + '&gid=' + row.id).then(res => {
                 if (res.code == 200) {
                     this.$message({

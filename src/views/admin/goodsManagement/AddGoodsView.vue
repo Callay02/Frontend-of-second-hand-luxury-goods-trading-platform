@@ -122,7 +122,7 @@ export default {
                     { required: true, message: '请输入价格', trigger: 'blur' }
                 ],
                 deposit: [
-                    { required: true, message: '请输入定金', trigger: 'blur' }
+                    { required: true, message: '请输入押金', trigger: 'blur' }
                 ],
                 rent: [
                     { required: true, message: '请输入租金', trigger: 'blur' }

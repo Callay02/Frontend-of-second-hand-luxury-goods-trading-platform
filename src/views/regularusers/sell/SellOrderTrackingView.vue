@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-23 11:19:42
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-03-02 17:34:06
+ * @LastEditTime: 2024-04-02 11:33:49
  * @FilePath: \vue\src\views\regularusers\sell\LogisticsTrackingView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -15,17 +15,17 @@
             </div>
             <div>
                 <el-table :data="inTransitTable" border style="width: 100%">
-                    <el-table-column prop="id" label="id" width="180">
+                    <el-table-column prop="id" label="id">
                     </el-table-column>
-                    <el-table-column prop="logisticsNumber" label="物流号" width="180">
+                    <el-table-column prop="logisticsNumber" label="物流号">
                     </el-table-column>
-                    <el-table-column prop="info" label="商品详情" width="180">
+                    <el-table-column prop="info" label="商品详情">
                     </el-table-column>
-                    <el-table-column prop="brandName" label="品牌" width="180">
+                    <el-table-column prop="brandName" label="品牌">
                     </el-table-column>
-                    <el-table-column prop="typeName" label="类型" width="180">
+                    <el-table-column prop="typeName" label="类型">
                     </el-table-column>
-                    <el-table-column prop="updateTime" label="发出时间" width="180">
+                    <el-table-column prop="updateTime" label="发出时间">
                     </el-table-column>
                 </el-table>
             </div>
@@ -43,17 +43,17 @@
             </div>
             <div>
                 <el-table :data="underReviewTable" border style="width: 100%">
-                    <el-table-column prop="id" label="id" width="180">
+                    <el-table-column prop="id" label="id">
                     </el-table-column>
-                    <el-table-column prop="logisticsNumber" label="物流号" width="180">
+                    <el-table-column prop="logisticsNumber" label="物流号">
                     </el-table-column>
-                    <el-table-column prop="info" label="商品详情" width="180">
+                    <el-table-column prop="info" label="商品详情">
                     </el-table-column>
-                    <el-table-column prop="brandName" label="品牌" width="180">
+                    <el-table-column prop="brandName" label="品牌">
                     </el-table-column>
-                    <el-table-column prop="typeName" label="类型" width="180">
+                    <el-table-column prop="typeName" label="类型">
                     </el-table-column>
-                    <el-table-column prop="updateTime" label="开始时间" width="180">
+                    <el-table-column prop="updateTime" label="开始时间">
                     </el-table-column>
                 </el-table>
             </div>
@@ -71,17 +71,17 @@
             </div>
             <div>
                 <el-table :data="toBeReturningTable" border style="width: 100%">
-                    <el-table-column prop="id" label="id" width="180">
+                    <el-table-column prop="id" label="id">
                     </el-table-column>
-                    <el-table-column prop="logisticsNumber" label="物流号" width="180">
+                    <el-table-column prop="logisticsNumber" label="物流号">
                     </el-table-column>
-                    <el-table-column prop="info" label="商品详情" width="180">
+                    <el-table-column prop="info" label="商品详情">
                     </el-table-column>
-                    <el-table-column prop="brandName" label="品牌" width="180">
+                    <el-table-column prop="brandName" label="品牌">
                     </el-table-column>
-                    <el-table-column prop="typeName" label="类型" width="180">
+                    <el-table-column prop="typeName" label="类型">
                     </el-table-column>
-                    <el-table-column prop="updateTime" label="发出时间" width="180">
+                    <el-table-column prop="updateTime" label="发出时间">
                     </el-table-column>
                 </el-table>
             </div>
@@ -99,17 +99,17 @@
             </div>
             <div>
                 <el-table :data="returningTable" border style="width: 100%">
-                    <el-table-column prop="id" label="id" width="180">
+                    <el-table-column prop="id" label="id">
                     </el-table-column>
-                    <el-table-column prop="logisticsNumber" label="物流号" width="180">
+                    <el-table-column prop="logisticsNumber" label="物流号">
                     </el-table-column>
-                    <el-table-column prop="info" label="商品详情" width="180">
+                    <el-table-column prop="info" label="商品详情">
                     </el-table-column>
-                    <el-table-column prop="brandName" label="品牌" width="180">
+                    <el-table-column prop="brandName" label="品牌">
                     </el-table-column>
-                    <el-table-column prop="typeName" label="类型" width="180">
+                    <el-table-column prop="typeName" label="类型">
                     </el-table-column>
-                    <el-table-column prop="updateTime" label="发出时间" width="180">
+                    <el-table-column prop="updateTime" label="发出时间">
                     </el-table-column>
                     <el-table-column label="操作" fixed="right">
                         <template slot-scope="scope">

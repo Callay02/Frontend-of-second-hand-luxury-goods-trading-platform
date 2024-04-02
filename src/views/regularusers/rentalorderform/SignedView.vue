@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-10 13:17:32
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-03-30 00:17:51
+ * @LastEditTime: 2024-04-02 15:13:58
  * @FilePath: \vue\src\views\regularusers\orderform\ShippedView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -73,8 +73,11 @@
                         style="margin-right: 5px;">查看</el-button>
                     <el-button v-if="scope.row.rentTotal < scope.row.deposit" type="primary" size="mini"
                         style="margin-right: 5px;" @click="returning(scope.row)">退回</el-button>
-                    <el-button v-if="scope.row.rentTotal >= scope.row.deposit" type="danger" size="mini"
-                        style="margin-right: 5px;">结算</el-button>
+
+                    <el-popconfirm title="超时商品无法退回" @confirm="overdueSettlement(scope.row)">
+                        <el-button v-if="scope.row.rentTotal >= scope.row.deposit" type="danger" size="mini"
+                            style="margin-right: 5px;" slot="reference">结算</el-button>
+                    </el-popconfirm>
 
                 </template>
             </el-table-column>
@@ -99,7 +102,7 @@ export default {
         }
     },
     beforeMount() {
-        this.$request.get('rentalOrderForm/userGetOrderFormByState?state=2').then(res => {
+        this.$request.get('rentalOrderForm/userGetOrderFormByState?state=2&page=0&rows=0').then(res => {
             this.tableData = res.data
         })
     },
@@ -118,22 +121,34 @@ export default {
             this.selectOrderForm = orderForm
         },
         submitForm() {
-            if(this.selectOrderForm.logisticsNumber == ""){
+            if (this.selectOrderForm.logisticsNumber == "") {
                 this.$message.error("请填写物流号")
-            }else{
-                this.$request.post("rentalOrderForm/userReturn",this.selectOrderForm).then(res => {
-                    if(res.code==200){
+            } else {
+                this.$request.post("rentalOrderForm/userReturn", this.selectOrderForm).then(res => {
+                    if (res.code == 200) {
                         this.$message.success(res.msg)
                         this.$router.go(0)
                     }
-                    else{
+                    else {
                         this.$message.error(res.msg)
                     }
                 })
             }
-        }
+        },
+        overdueSettlement(orderForm) {
+            this.$request.get("rentalOrderForm/userOverdueSettlementById?id=" + orderForm.id).then(res => {
+                if (res.code == 200) {
+                    this.$message.success(res.msg)
+                    //this.$router.go(0)
+                }
+                else {
+                    this.$message.error(res.msg)
+                }
+            })
+        },
     }
 }
+
 </script>
 
 <style scoped></style>

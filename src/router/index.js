@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-16 23:57:03
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-04-02 15:28:51
+ * @LastEditTime: 2024-04-05 17:01:24
  * @FilePath: \vue\src\router\index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -18,6 +18,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
+import ForgotPasswordView from '@/views/ForgotPasswordView.vue'
 
 //----------------------------------------------------------------------------------------//
 //普通用户
@@ -174,6 +175,11 @@ const routes = [
     name:'register',
     path:'/register',
     component:RegisterView
+  },
+  {
+    name:'forgotPassword',
+    path:'/forgotPassword',
+    component:ForgotPasswordView
   },
   //普通用户
   {
@@ -471,7 +477,12 @@ router.beforeEach((to,from,next)=>{
     if(isLogin!=null){
       next({path:'/'})
     }
-  }else if(isLogin == null){
+  }else if(to.path=='/forgotPassword'){
+    if(isLogin!=null){
+      next({path:'/'})
+    }
+  }
+  else if(isLogin == null){
     next({path:'/login'});
   }
   

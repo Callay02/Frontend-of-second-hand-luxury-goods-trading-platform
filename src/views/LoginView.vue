@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-01-09 21:43:38
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-03-17 19:32:15
+ * @LastEditTime: 2024-04-05 17:08:49
  * @FilePath: \vue\src\views\LoginView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -10,7 +10,6 @@
     <div>
         <div class="background">
             <div style="width: 70vw;">
-
             </div>
             <div class="login">
                 <div style="margin-top: 20vh;width: 25vw;">
@@ -43,7 +42,7 @@
                                 <span style="color: whitesmoke; cursor: pointer" @click="to_register()">注册</span>
                             </div>
                             <div style="flex: 1; text-align: right">
-                                <span style="color: whitesmoke; cursor: pointer">忘记密码</span>
+                                <span style="color: whitesmoke; cursor: pointer" @click="to_forget_password()">忘记密码</span>
                             </div>
                         </div>
                     </el-form>
@@ -82,15 +81,9 @@ export default {
                     // 验证通过
                     try {
                         this.$request.post('user/login', this.user).then(res => {
-                            //console.log(res)
                             if (res.code === 200) {
                                 sessionStorage.setItem("satoken", res.data.tokenValue)  // 存储token
                                 sessionStorage.setItem('pwd', this.user.password)
-                                //this.$request.get("user/getUserInfo?id="+res.data.loginId).then(res=>{
-                                //    sessionStorage.setItem("user",res.data)
-                                //    this.user=res.data
-                                //console.log(res)
-                                //})
                                 if (this.user.type == 0) {
                                     this.$notify({
                                         title: '登录成功',
@@ -147,6 +140,9 @@ export default {
         },
         to_register() {
             this.$router.push('/register')
+        },
+        to_forget_password() {
+            this.$router.push('/forgotPassword')
         }
     },
     beforeMount() {

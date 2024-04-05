@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-01-13 17:28:16
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-04-05 13:51:35
+ * @LastEditTime: 2024-04-05 17:23:23
  * @FilePath: \vue\src\views\RegisterView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -150,7 +150,7 @@ export default {
         //获取验证码
         getCode() {
             if (this.user.email) {
-                this.$request.get('user/getcode?email=' + this.user.email).then(res => {
+                this.$request.get('user/getcode?email=' + this.user.email+'&type=register').then(res => {
                     if (res.code === 200) {
                         this.$message.success(res.msg)
                     } else {

@@ -4,7 +4,7 @@
             <p style="font-size: x-large;font-weight: bolder;">类型管理</p>
         </div>
         <div>
-            <el-button type="primary" style="" icon="el-icon-plus" @click="dialogFormVisible = true">添加</el-button>
+            <el-button size="medium" type="primary" style="" icon="el-icon-plus" @click="dialogFormVisible = true">添加</el-button>
             <el-dialog title="添加类型" :visible.sync="dialogFormVisible" append-to-body>
                 <div style="display: flex;justify-content: center;">
                     <el-input v-model="newTypeId" placeholder="请输入id" style="width: 40%;margin-right: 10px;"></el-input>
@@ -20,18 +20,18 @@
         <div style="display: flex;margin-top: 15px;justify-content: center;">
             <div style="width: 100%;">
                 <el-table :data="goodsTypeList" style="width: 100%" border>
-                    <el-table-column label="id" width="180">
+                    <el-table-column label="id">
                         <template slot-scope="scope">
                             <span style="margin-left: 10px">{{ scope.row.type }}</span>
                         </template>
                     </el-table-column>
 
-                    <el-table-column label="类型名" width="900">
+                    <el-table-column label="类型名">
                         <template slot-scope="scope">
                             <span style="margin-left: 10px">{{ scope.row.name }}</span>
                         </template>
                     </el-table-column>
-                    <el-table-column label="操作" fixed="right">
+                    <el-table-column label="操作" fixed="right" width="150px">
                         <template slot-scope="scope">
                             <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
                                 style="margin-right: 5px;">编辑</el-button>

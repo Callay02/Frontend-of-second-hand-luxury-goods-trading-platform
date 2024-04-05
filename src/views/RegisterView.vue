@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-01-13 17:28:16
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-02-22 10:31:09
+ * @LastEditTime: 2024-04-05 13:51:35
  * @FilePath: \vue\src\views\RegisterView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -134,24 +134,16 @@ export default {
         register() {
             this.$refs['registerRef'].validate((valid) => {
                 if (valid) {
-                    if (sessionStorage.getItem("verification-code") == this.verificationCode) {
-                        // 验证通过
-                        this.$request.post('user/register', this.user).then(res => {
-                            console.log(res)
-                            if (res.code === 200) {
-                                this.$notify({
-                                    title: '注册成功',
-                                    message: '用户' + res.data.name ,
-                                    type: 'success',
-                                    position: 'top-left'
-                                });
-                                this.$router.push('/')
-                            } else {
-                                this.$message.error(res.msg)
-                            }
-                        })
-                    }
-
+                    this.user.verificationCode = this.verificationCode;
+                    this.$request.post('user/register', this.user).then(res => {
+                        if(res.code === 200){
+                            this.$message.success(res.msg)
+                            this.$router.push('/')
+                        }
+                        else{
+                            this.$message.error(res.msg)
+                        }
+                    })
                 }
             })
         },
@@ -160,11 +152,7 @@ export default {
             if (this.user.email) {
                 this.$request.get('user/getcode?email=' + this.user.email).then(res => {
                     if (res.code === 200) {
-                        this.$message({
-                            message: '验证码已发送',
-                            type: 'success'
-                        });
-                        sessionStorage.setItem("verification-code", res.data)
+                        this.$message.success(res.msg)
                     } else {
                         this.$message.error(res.msg)
                     }

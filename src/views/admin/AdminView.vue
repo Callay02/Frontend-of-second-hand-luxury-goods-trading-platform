@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-16 23:57:03
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-04-02 15:29:27
+ * @LastEditTime: 2024-04-06 16:24:02
  * @FilePath: \vue\src\views\admin\AdminView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -45,8 +45,10 @@
                 <el-submenu index="3">
                     <template slot="title"><i class="el-icon-tickets"></i>收购订单管理</template>
                     <el-menu-item index="3-0">待签收订单</el-menu-item>
+                    <el-menu-item index="3-3">待审核订单</el-menu-item>
                     <el-menu-item index="3-1">待退货订单</el-menu-item>
                     <el-menu-item index="3-2">待上架订单</el-menu-item>
+                    <el-menu-item index="3-4">已上架订单</el-menu-item>
                 </el-submenu>
 
                 <el-submenu index="4">
@@ -151,6 +153,14 @@ export default {
                 else if (keyPath[1] == '3-2') {
                     this.$router.push('/admin/pendingOrderFormManagement')
                     sessionStorage.setItem('defaultActive', '3-2')
+                }
+                else if (keyPath[1] == '3-3') {
+                    this.$router.push('/admin/purchaseToBeAuditedManagement')
+                    sessionStorage.setItem('defaultActive', '3-3')
+                }
+                else if (keyPath[1] == '3-4') {
+                    this.$router.push('/admin/OnShelfOrderFormManagement')
+                    sessionStorage.setItem('defaultActive', '3-4')
                 }
 
             }

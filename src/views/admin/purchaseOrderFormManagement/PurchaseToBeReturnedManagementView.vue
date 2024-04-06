@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-18 23:35:39
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-03-02 13:22:22
+ * @LastEditTime: 2024-04-06 16:21:59
  * @FilePath: \vue\src\views\admin\orderformManagement\ToBeShippedConsoleView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -14,16 +14,18 @@
         <div>
             <div>
                 <el-table :data="tableData" style="width: 100%" border>
-                    <el-table-column prop="id" label="id" width="200"> </el-table-column>
-                    <el-table-column prop="info" label="商品详情" width="200">
+                    <el-table-column prop="id" label="id"> </el-table-column>
+                    <el-table-column prop="uid" label="用户id">
                     </el-table-column>
-                    <el-table-column prop="brandName" label="品牌" width="200">
+                    <el-table-column prop="info" label="商品详情">
                     </el-table-column>
-                    <el-table-column prop="typeName" label="类型" width="200">
+                    <el-table-column prop="brandName" label="品牌">
                     </el-table-column>
-                    <el-table-column prop="address" label="地址" width="300">
+                    <el-table-column prop="typeName" label="类型">
                     </el-table-column>
-                    <el-table-column prop="updateTime" label="审核时间" width="200">
+                    <el-table-column prop="address" label="地址">
+                    </el-table-column>
+                    <el-table-column prop="updateTime" label="审核时间">
                     </el-table-column>
                     <el-table-column label="操作" fixed="right">
                         <template slot-scope="scope">

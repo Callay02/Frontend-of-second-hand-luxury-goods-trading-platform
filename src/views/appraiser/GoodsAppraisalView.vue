@@ -11,8 +11,9 @@
                 <div>
                     <el-dialog title="上传照片" :visible.sync="dialogFormVisible">
                         <div style="display: flex;justify-content: center;align-items: center;">
-                            <el-upload class="upload-demo" :action="objData.host" :before-upload="getPolicy" :data="objData"
-                                :file-list="fileList" list-type="picture-card" :on-success="upLoadSuccess">
+                            <el-upload class="upload-demo" :action="objData.host" :before-upload="getPolicy"
+                                :data="objData" :file-list="fileList" list-type="picture-card"
+                                :on-success="upLoadSuccess">
                                 <el-button size="small" type="primary" v-if="upLoadCount == 0">点击上传</el-button>
                                 <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
                             </el-upload>
@@ -177,23 +178,29 @@ export default {
 
         },
         pass() {
-            console.log(this.goodsForm)
+            //console.log(this.goodsForm)
             this.goodsForm.userId = sessionStorage.getItem('aid')
-            this.$request.post('purchaseOrderForm/updateStateSet3ById', this.goodsForm).then(res => {
-                if (res.code == 200) {
-                    this.$message({
-                        type: "success",
-                        message: res.msg
-                    })
-                    this.$router.back()
-                } else {
-                    this.$message({
-                        type: "warning",
-                        message: res.msg
-                    })
-                }
-            })
-            this.dialogFormVisible = false
+            if (this.goodsForm.img == null) {
+                this.$message.warning("请上传图片")
+            } else {
+                this.$request.post('purchaseOrderForm/updateStateSet3ById', this.goodsForm).then(res => {
+                    if (res.code == 200) {
+                        this.$message({
+                            type: "success",
+                            message: res.msg
+                        })
+                        this.$router.back()
+                    } else {
+                        this.$message({
+                            type: "warning",
+                            message: res.msg
+                        })
+                    }
+                })
+                this.dialogFormVisible = false
+            }
+
+
         },
         upLoadSuccess(response, file, fileList) {
             //console.log(fileList)
@@ -202,18 +209,18 @@ export default {
             //console.log(this.goodsForm.img)
 
         },
-        notPassed(){
-            this.$request.get('purchaseOrderForm/updateStateSet2ById?id='+this.$route.query.id).then(res=>{
-                if(res.code==200){
+        notPassed() {
+            this.$request.get('purchaseOrderForm/updateStateSet2ById?id=' + this.$route.query.id).then(res => {
+                if (res.code == 200) {
                     this.$message({
-                        type:"success"
+                        type: "success"
                     })
                     this.$router.back()
                 }
-                else{
+                else {
                     this.$message({
-                        type:"warning",
-                        message:res.msg
+                        type: "warning",
+                        message: res.msg
                     })
                 }
             })

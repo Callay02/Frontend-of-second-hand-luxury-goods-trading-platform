@@ -4,61 +4,61 @@
       <p style="font-size: x-large; font-weight: bolder">普通用户</p>
     </div>
     <div>
-      <el-button type="primary" style="" icon="el-icon-plus" @click="goToAddUser">添加</el-button>
+      <el-button size="medium" type="primary" style="" icon="el-icon-plus" @click="goToAddUser">添加</el-button>
     </div>
     <div style="display: flex; margin-top: 15px; justify-content: center">
       <div style="width: 100%">
         <el-table :data="userVoList" style="width: 100%" border>
-          <el-table-column label="id" width="200">
+          <el-table-column label="id">
             <template slot-scope="scope">
               <span style="margin-left: 10px">{{ scope.row.id }}</span>
             </template>
           </el-table-column>
 
-          <el-table-column label="名称" width="150">
+          <el-table-column label="名称">
             <template slot-scope="scope">
               <span style="margin-left: 10px">{{ scope.row.name }}</span>
             </template>
           </el-table-column>
 
-          <el-table-column label="余额" width="150">
+          <el-table-column label="余额">
             <template slot-scope="scope">
               <span style="margin-left: 10px">{{ scope.row.money }}</span>
             </template>
           </el-table-column>
 
-          <el-table-column label="邮箱" width="300">
+          <el-table-column label="邮箱">
             <template slot-scope="scope">
               <span style="margin-left: 10px">{{ scope.row.email }}</span>
             </template>
           </el-table-column>
 
-          <el-table-column label="手机号" width="130">
+          <el-table-column label="手机号">
             <template slot-scope="scope">
               <span style="margin-left: 10px">{{ scope.row.phone }}</span>
             </template>
           </el-table-column>
 
-          <el-table-column label="身份证" width="200">
+          <el-table-column label="身份证">
             <template slot-scope="scope">
               <span style="margin-left: 10px">{{ scope.row.idCard }}</span>
             </template>
           </el-table-column>
 
-          <el-table-column label="真实姓名" width="150">
+          <el-table-column label="真实姓名">
             <template slot-scope="scope">
               <span style="margin-left: 10px">{{ scope.row.realName }}</span>
             </template>
           </el-table-column>
 
 
-          <el-table-column label="创建时间" width="200">
+          <el-table-column label="创建时间">
             <template slot-scope="scope">
               <span style="margin-left: 10px">{{ scope.row.createTime }}</span>
             </template>
           </el-table-column>
 
-          <el-table-column label="操作" fixed="right">
+          <el-table-column label="操作" fixed="right" width="250px">
             <template slot-scope="scope">
               <el-button size="mini" @click="handleRecharge(scope.$index, scope.row)"
                 style="margin-right: 5px">充值</el-button>

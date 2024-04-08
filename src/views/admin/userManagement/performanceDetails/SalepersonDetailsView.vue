@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-04-08 13:26:00
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-04-08 15:33:12
+ * @LastEditTime: 2024-04-08 17:56:23
  * @FilePath: \vue\src\views\admin\userManagement\performanceDetails\SalepersonDetailsView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -99,7 +99,8 @@ export default {
     },
     methods: {
         settle() {
-            for(var index in this.multipleSelection){
+            if(this.multipleSelection.length>=5){
+                for(var index in this.multipleSelection){
                 this.$request.get("orderForm/settleSalespersonOrderFormByid?id="+this.multipleSelection[index].id).then(res=>{
                     if(res.code==200){
                         this.$message.success(res.msg);
@@ -109,6 +110,10 @@ export default {
                         this.$message.error(res.msg);
                     }
                 })
+            }
+            }
+            else{
+                this.$message.error("请至少选择5个订单进行结算");
             }
         },
         getTotalPrice() {

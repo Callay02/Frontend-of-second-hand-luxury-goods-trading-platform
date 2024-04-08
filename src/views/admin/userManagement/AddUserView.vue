@@ -115,7 +115,7 @@ export default {
         register() {
             this.$refs['registerRef'].validate((valid) => {
                 if (valid) {
-                        this.$request.post('user/adminRegister', this.user).then(res => {
+                        this.$request.post('user/adminAddUser', this.user).then(res => {
                             console.log(res)
                             if (res.code === 200) {
                                 this.$message({

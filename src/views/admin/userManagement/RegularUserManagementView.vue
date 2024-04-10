@@ -137,8 +137,8 @@ export default {
       console.log(`每页 ${val} 条`);
     },
     handleCurrentChange(val) {
-      //console.log(`当前页: ${val}`);
-      this.currentPage = 1;
+      console.log(`当前页: ${val}`);
+      this.currentPage = val;
       this.$request
         .get(
           "user/getUserPageByType?type=0&page=" +
@@ -147,7 +147,7 @@ export default {
           this.pageSize
         )
         .then((res) => {
-          console.log(res)
+          //console.log(res)
           this.total = res.data.total;
           this.userVoList = res.data.userVoList;
         });
@@ -219,7 +219,7 @@ export default {
     }
   },
   beforeMount() {
-    this.currentPage = 1;
+    //this.currentPage = 1;
     this.$request
       .get(
         "user/getUserPageByType?type=0&page=" +

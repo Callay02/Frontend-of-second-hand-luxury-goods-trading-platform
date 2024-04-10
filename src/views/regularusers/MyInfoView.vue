@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-07 19:02:48
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-04-09 15:05:13
+ * @LastEditTime: 2024-04-10 14:46:01
  * @FilePath: \vue\src\views\regularusers\MyInfoView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -113,6 +113,7 @@ export default {
                 'height=300,width=600,top=300,left=200,toolbar=no,menubar=no, scrollbars=no,resizable=no,location=no, status=no',
                 '_self'
             )
+            //this.$router.go(0)
             this.money = ''
             this.dialogFormVisible = false
         }

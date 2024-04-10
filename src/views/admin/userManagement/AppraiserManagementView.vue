@@ -167,7 +167,7 @@ export default {
     },
     handleCurrentChange(val) {
       //console.log(`当前页: ${val}`);
-      this.currentPage = 1;
+      this.currentPage =val;
       this.$request
         .get(
           "user/getUserPageByType?type=2&page=" +

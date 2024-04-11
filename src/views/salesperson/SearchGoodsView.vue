@@ -219,29 +219,14 @@ export default {
       this.dialogFormVisible = true;
     },
     pay() {
-      //console.log(this.address)
-      //console.log(this.wantBuyGid)
-      this.$request.post('orderForm/createOrderFormBySid',{
-        'gid':this.wantBuyGid,
-        'address':this.address,
-        'uid':sessionStorage.getItem('sid')
-      }).then(res => {
-        if (res.code == 200) {
-          this.$message({
-            type: "success",
-            message: res.msg
-          })
-          this.dialogFormVisible = false
-          this.$router.go(0)
-        }
-        else {
-          this.$message({
-            type: "warning",
-            message: res.msg
-          })
-        }
-      })
-      
+      window.open(
+        'http://localhost:7000/alipay/buy?uid=' + sessionStorage.getItem("sid") + "&gid=" + this.wantBuyGid + "&address=" + this.address,
+        '单独窗口',
+        'height=300,width=600,top=300,left=200,toolbar=no,menubar=no, scrollbars=no,resizable=no,location=no, status=no',
+        '_self'
+      )
+
+      this.dialogFormVisible = false;
     }
   },
   beforeMount() {

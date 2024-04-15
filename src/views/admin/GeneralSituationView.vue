@@ -45,39 +45,18 @@
                                     </el-col>
                                 </el-row>
                             </el-card>
-
                         </div>
                         <div style="margin-top: 15px;">
                             <el-card shadow="hover">
-                                <h3>本月销售额</h3>
-                                <el-row :gutter="20">
-                                    <el-col :span="6">
-                                        <div>
-                                            <el-statistic group-separator="," :value="regularuserNumber" title="普通用户">
-                                            </el-statistic>
-                                        </div>
-                                    </el-col>
-                                    <el-col :span="6">
-                                        <div>
-                                            <el-statistic group-separator="," :value="salesperson" title="销售员">
-                                            </el-statistic>
-                                        </div>
-                                    </el-col>
-                                    <el-col :span="6">
-                                        <div>
-                                            <el-statistic group-separator="," :value="appraiser" title="鉴定师">
-                                            </el-statistic>
-                                        </div>
-                                    </el-col>
-                                    <el-col :span="6">
-                                        <div>
-                                            <el-statistic group-separator="," :value="admin" title="管理员">
-                                            </el-statistic>
-                                        </div>
-                                    </el-col>
-                                </el-row>
+                                <div class="block" style="margin-top: 0px">
+                                    <span>时间范围：</span>
+                                    <el-date-picker v-model="date" type="datetimerange" align="right"
+                                        format="yyyy-MM-dd hh:mm:ss" :start-placeholder="startPlaceholder" :end-placeholder="endPlaceholder"
+                                        :default-time="['00:00:00', '00:00:00']" size="mini">
+                                    </el-date-picker>
+                                </div>
+                                <div id="salesVolume" style="height: 400px;margin-top: 10px;"></div>
                             </el-card>
-
                         </div>
                     </div>
                 </el-col>
@@ -146,7 +125,10 @@ export default {
             pageSize: 10,
             total: 0,
             sourceFilters: [{ text: '支付宝', value: '支付宝' }, { text: '微信', value: '微信' }],
-            subjectFilters: [{ text: '充值', value: '充值' },  { text: '购买商品', value: '购买商品' }]
+            subjectFilters: [{ text: '充值', value: '充值' }, { text: '购买商品', value: '购买商品' }],
+            date: "2024-4-1 12:30:00",
+            startPlaceholder:this.getBeginTime(),
+            endPlaceholder:this.getEndTime()
         };
     },
     methods: {
@@ -178,7 +160,55 @@ export default {
         },
         filterSubject(value, row) {
             return row.subject === value;
+        },
+        drawSalesVolumePie() {
+            let SalesVolumePie = this.$echarts.init(document.getElementById("salesVolume"));
+            let option = {
+                title: {
+                    text: '本月销量',
+                    subtext: 'Sales volume',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'item'
+                },
+                legend: {
+                    orient: 'vertical',
+                    left: 'left'
+                },
+                series: [
+                    {
+                        name: '本月销量',
+                        type: 'pie',
+                        radius: '50%',
+                        data: [
+                            { value: 1048, name: 'Search Engine' },
+                            { value: 735, name: 'Direct' },
+                        ],
+                        emphasis: {
+                            itemStyle: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ]
+            };
+            // 使用刚指定的配置项和数据显示图表。
+            SalesVolumePie.setOption(option);
+        },
+        getBeginTime(){
+            var now = new Date()
+            return now.getFullYear()+"-"+(now.getMonth()+1)+"-1- 00:00:00"
+        },
+        getEndTime(){
+            var now = new Date()
+            return now.getFullYear()+"-"+(now.getMonth()+1)+"-"+now.getDate()+"- "+now.getHours()+":"+now.getMinutes()+":"+now.getSeconds()
         }
+    },
+    mounted() {
+        this.drawSalesVolumePie()
     },
     beforeMount() {
         //获取普通用户新增总人数

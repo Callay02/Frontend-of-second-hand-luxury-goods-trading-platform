@@ -13,7 +13,7 @@ module.exports = defineConfig({
    proxy: {
      // /api 是请求的前缀
      '/api': {
-       target: 'http://192.168.5.214:7000',
+       target: 'http://127.0.0.1:7000',
        //重写路径，把所有路径中包含/api的路径替换为空字符串
        pathRewrite: {'^/api':''}, 
       // 用于支持websocket

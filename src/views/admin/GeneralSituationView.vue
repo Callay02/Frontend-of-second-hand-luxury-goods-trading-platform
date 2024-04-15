@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-16 23:57:03
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-04-11 11:51:51
+ * @LastEditTime: 2024-04-16 00:06:40
  * @FilePath: \vue\src\views\admin\GeneralSituationView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -48,11 +48,11 @@
                         </div>
                         <div style="margin-top: 15px;">
                             <el-card shadow="hover">
-                                <div class="block" style="margin-top: 0px">
-                                    <span>时间范围：</span>
-                                    <el-date-picker v-model="date" type="datetimerange" align="right"
-                                        format="yyyy-MM-dd hh:mm:ss" :start-placeholder="startPlaceholder" :end-placeholder="endPlaceholder"
-                                        :default-time="['00:00:00', '00:00:00']" size="mini">
+                                <div class="block">
+                                    <span class="demonstration">时间范围：</span>
+                                    <el-date-picker v-model="salesVolumeDate" type="daterange" align="right"
+                                        unlink-panels range-separator="至" :start-placeholder="startPlaceholder"
+                                        :end-placeholder="endPlaceholder" :picker-options="pickerOptions" size="mini">
                                     </el-date-picker>
                                 </div>
                                 <div id="salesVolume" style="height: 400px;margin-top: 10px;"></div>
@@ -127,9 +127,46 @@ export default {
             sourceFilters: [{ text: '支付宝', value: '支付宝' }, { text: '微信', value: '微信' }],
             subjectFilters: [{ text: '充值', value: '充值' }, { text: '购买商品', value: '购买商品' }],
             date: "2024-4-1 12:30:00",
-            startPlaceholder:this.getBeginTime(),
-            endPlaceholder:this.getEndTime()
+            startPlaceholder: this.getBeginTime(),
+            endPlaceholder: this.getEndTime(),
+            salesVolumeDate: "",
+            pickerOptions: {
+                shortcuts: [{
+                    text: '最近一周',
+                    onClick(picker) {
+                        const end = new Date();
+                        const start = new Date();
+                        start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+                        picker.$emit('pick', [start, end]);
+                    }
+                }, {
+                    text: '最近一个月',
+                    onClick(picker) {
+                        const end = new Date();
+                        const start = new Date();
+                        start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+                        picker.$emit('pick', [start, end]);
+                    }
+                }, {
+                    text: '最近三个月',
+                    onClick(picker) {
+                        const end = new Date();
+                        const start = new Date();
+                        start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+                        picker.$emit('pick', [start, end]);
+                    }
+                }]
+            },
         };
+    },
+    watch: {
+        salesVolumeDate: function (val) {
+            this.$request.get('orderForm/getSalesVolume?beginTime=' + val[0].getTime() + '&endTime=' + val[1].getTime()).then(res => {
+                if (res.code == 200) {
+                    this.drawSalesVolumePie(res.data)
+                }
+            })
+        }
     },
     methods: {
         handleSizeChange(val) {
@@ -161,7 +198,7 @@ export default {
         filterSubject(value, row) {
             return row.subject === value;
         },
-        drawSalesVolumePie() {
+        drawSalesVolumePie(salesVolumeData) {
             let SalesVolumePie = this.$echarts.init(document.getElementById("salesVolume"));
             let option = {
                 title: {
@@ -181,10 +218,7 @@ export default {
                         name: '本月销量',
                         type: 'pie',
                         radius: '50%',
-                        data: [
-                            { value: 1048, name: 'Search Engine' },
-                            { value: 735, name: 'Direct' },
-                        ],
+                        data: salesVolumeData,
                         emphasis: {
                             itemStyle: {
                                 shadowBlur: 10,
@@ -198,13 +232,13 @@ export default {
             // 使用刚指定的配置项和数据显示图表。
             SalesVolumePie.setOption(option);
         },
-        getBeginTime(){
+        getBeginTime() {
             var now = new Date()
-            return now.getFullYear()+"-"+(now.getMonth()+1)+"-1- 00:00:00"
+            return now.getFullYear() + "-" + (now.getMonth() + 1) + "-1"
         },
-        getEndTime(){
+        getEndTime() {
             var now = new Date()
-            return now.getFullYear()+"-"+(now.getMonth()+1)+"-"+now.getDate()+"- "+now.getHours()+":"+now.getMinutes()+":"+now.getSeconds()
+            return now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate()
         }
     },
     mounted() {
@@ -234,6 +268,15 @@ export default {
             }
             else {
                 this.$message.error(res.msg);
+            }
+        })
+
+        this.salesVolumeDate = [new Date(this.getBeginTime()), new Date(this.getEndTime())]
+        console.log(this.salesVolumeDate)
+        //获取本月销量
+        this.$request.get('orderForm/getSalesVolume?beginTime=' + this.salesVolumeDate[0].getTime() + '&endTime=' + this.salesVolumeDate[1].getTime()).then(res => {
+            if (res.code == 200) {
+                this.drawSalesVolumePie(res.data)
             }
         })
     },

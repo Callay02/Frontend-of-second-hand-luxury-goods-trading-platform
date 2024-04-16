@@ -49,6 +49,9 @@
                         <el-form-item label="成色" prop="fineness">
                             <el-input v-model="goodsForm.fineness"></el-input>
                         </el-form-item>
+                        <el-form-item label="防伪码" prop="antiCounterfeitingCode">
+                            <el-input disabled v-model="goodsForm.antiCounterfeitingCode"></el-input>
+                        </el-form-item>
                         <el-form-item v-if="goodType=='出售'" label="价格" prop="price">
                             <el-input v-model="goodsForm.price"></el-input>
                         </el-form-item>

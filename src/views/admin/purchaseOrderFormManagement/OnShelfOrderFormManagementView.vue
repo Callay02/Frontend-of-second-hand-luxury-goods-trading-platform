@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-18 23:35:39
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-04-06 16:27:48
+ * @LastEditTime: 2024-04-16 17:31:17
  * @FilePath: \vue\src\views\admin\orderformManagement\ToBeShippedConsoleView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -30,6 +30,8 @@
                     <el-table-column prop="typeName" label="类型">
                     </el-table-column>
                     <el-table-column prop="fineness" label="成色">
+                    </el-table-column>
+                    <el-table-column prop="antiCounterfeitingCode" label="防伪码">
                     </el-table-column>
                     <el-table-column prop="acquisitionPrice" label="收购价格">
                     </el-table-column>

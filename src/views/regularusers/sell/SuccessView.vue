@@ -5,7 +5,7 @@
         </div>
         <div style="display: flex; margin-top: 15px; justify-content: center">
             <div style="width: 100%">
-                <el-table :data="dataTable" style="width: 100%" border>
+                <el-table :data="dataTable" style="width: 100%" :border="true">
                     <el-table-column label="id">
                         <template slot-scope="scope">
                             <span style="margin-left: 10px">{{ scope.row.id }}</span>

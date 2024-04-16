@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-18 23:35:39
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-04-06 16:06:54
+ * @LastEditTime: 2024-04-16 17:29:28
  * @FilePath: \vue\src\views\admin\orderformManagement\ToBeShippedConsoleView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -13,7 +13,7 @@
         </div>
         <div>
             <div>
-                <el-table :data="tableData" style="width: 100%" border>
+                <el-table :data="tableData" style="width: 100%" :border="true">
                     <el-table-column prop="id" label="id" width="100"> </el-table-column>
                     <el-table-column label="商品" width="125">
                         <template slot-scope="scope"><el-image style="width: 100px; height: 100px" :src="scope.row.img"
@@ -23,21 +23,23 @@
                                 </div>
                             </el-image></template>
                     </el-table-column>
-                    <el-table-column prop="info" label="详情" width="200">
+                    <el-table-column prop="info" label="详情">
                     </el-table-column>
-                    <el-table-column prop="brandName" label="品牌" width="200">
+                    <el-table-column prop="brandName" label="品牌">
                     </el-table-column>
-                    <el-table-column prop="typeName" label="类型" width="200">
+                    <el-table-column prop="typeName" label="类型">
                     </el-table-column>
-                    <el-table-column prop="fineness" label="成色" width="100">
+                    <el-table-column prop="fineness" label="成色">
                     </el-table-column>
-                    <el-table-column prop="acquisitionPrice" label="收购价格" width="100">
+                    <el-table-column prop="antiCounterfeitingCode" label="防伪码">
                     </el-table-column>
-                    <el-table-column prop="sellingPrice" label="出售价格" width="100">
+                    <el-table-column prop="acquisitionPrice" label="收购价格">
                     </el-table-column>
-                    <el-table-column prop="updateTime" label="审核时间" width="200">
+                    <el-table-column prop="sellingPrice" label="出售价格">
                     </el-table-column>
-                    <el-table-column label="操作" fixed="right">
+                    <el-table-column prop="updateTime" label="审核时间">
+                    </el-table-column>
+                    <el-table-column label="操作" fixed="right" width="200">
                         <template slot-scope="scope">
                             <el-button size="mini" @click="changePrice(scope.$index, scope.row)"
                                 style="margin-right: 5px">修改价格</el-button>
@@ -48,14 +50,16 @@
                                     <el-button type="primary" @click="submitForm">确 定</el-button>
                                 </div>
                             </el-dialog>
-                            <el-button size="mini" @click="productListing(scope.$index, scope.row)" type="primary">上架</el-button>
+                            <el-button size="mini" @click="productListing(scope.$index, scope.row)"
+                                type="primary">上架</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
             </div>
             <div class="block">
                 <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
-                    :current-page.sync="currentPage" :page-size="pageSize" layout="total, prev, pager, next" :total="total">
+                    :current-page.sync="currentPage" :page-size="pageSize" layout="total, prev, pager, next"
+                    :total="total">
                 </el-pagination>
             </div>
         </div>
@@ -123,10 +127,10 @@ export default {
                     type: 'warning',
                     message: "请输入出售价格"
                 })
-            else if(this.formData.sellingPrice<this.formData.acquisitionPrice){
+            else if (this.formData.sellingPrice < this.formData.acquisitionPrice) {
                 this.$message({
-                    type:"warning",
-                    message:"请高于收购价格("+this.formData.acquisitionPrice+"¥)"
+                    type: "warning",
+                    message: "请高于收购价格(" + this.formData.acquisitionPrice + "¥)"
                 })
             }
             else {
@@ -150,18 +154,18 @@ export default {
             }
 
         },
-        productListing(index,row){
-            this.$request.get('purchaseOrderForm/productListingById?id='+row.id).then(res=>{
-                if(res.code==200){
+        productListing(index, row) {
+            this.$request.get('purchaseOrderForm/productListingById?id=' + row.id).then(res => {
+                if (res.code == 200) {
                     this.$message({
-                        type:"success",
-                        message:res.msg
+                        type: "success",
+                        message: res.msg
                     })
                     this.$router.go(0)
-                }else{
+                } else {
                     this.$message({
-                        type:"warning",
-                        message:res.msg
+                        type: "warning",
+                        message: res.msg
                     })
                 }
             })

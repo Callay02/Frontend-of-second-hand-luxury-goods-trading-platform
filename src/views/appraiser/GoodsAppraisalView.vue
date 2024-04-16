@@ -41,6 +41,9 @@
                         <el-form-item label="详情" prop="info">
                             <el-input v-model="goodsForm.info"></el-input>
                         </el-form-item>
+                        <el-form-item label="防伪码" prop="antiCounterfeitingCode">
+                            <el-input v-model="goodsForm.antiCounterfeitingCode"></el-input>
+                        </el-form-item>
                         <el-form-item label="成色" prop="fineness">
                             <el-input v-model="goodsForm.fineness"></el-input>
                         </el-form-item>
@@ -122,6 +125,9 @@ export default {
                 sellingPrice: [
                     { required: true, validator: validsellingPrice, trigger: 'blur' }
                 ],
+                antiCounterfeitingCode:[
+                { required: true, message: '请输入防伪码', trigger: 'blur' }
+                ]
 
             }
         };

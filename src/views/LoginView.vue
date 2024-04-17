@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-01-09 21:43:38
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-04-05 17:08:49
+ * @LastEditTime: 2024-04-17 18:00:49
  * @FilePath: \vue\src\views\LoginView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -10,6 +10,11 @@
     <div>
         <div class="background">
             <div style="width: 70vw;">
+                <div>
+                    <!--
+                    <p style="color: black;font-size: 80px; font-weight: bold; text-align: center; margin-top: 200px;font-family: 'Courier New', Courier, monospace;">二手奢侈品交易平台</p>
+                    -->
+                </div>
             </div>
             <div class="login">
                 <div style="margin-top: 20vh;width: 25vw;">

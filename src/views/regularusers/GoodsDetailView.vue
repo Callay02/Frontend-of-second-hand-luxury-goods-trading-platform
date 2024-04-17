@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-06 17:35:50
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-03-28 11:06:05
+ * @LastEditTime: 2024-04-17 18:45:48
  * @FilePath: \vue\src\views\regularusers\GoodsDetailView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -18,8 +18,13 @@
             <p>成色: {{ goods.fineness }}新</p>
             <p>定价:¥ {{ goods.price }}</p>
             <p>上架时间: {{ goods.addTime }}</p>
-            <el-button icon="el-icon-shopping-cart-2" plain @click="addToShoppingCart"
-                v-if="goods.state == 1">加入购物车</el-button>
+            <div>
+                <el-button plain @click="buy" v-if="goods.state == 1"
+                    type="primary">直接购买</el-button>
+                <el-button icon="el-icon-shopping-cart-2" plain @click="addToShoppingCart"
+                    v-if="goods.state == 1">加入购物车</el-button>
+            </div>
+
         </div>
         <div v-if="goodsType == '租赁'" style="display: flex;flex-direction: column;align-items: center;">
             <el-image style="width: 20%; height: auto" :src="goods.img" fit="cover"></el-image>
@@ -88,15 +93,41 @@ export default {
                     this.$message({
                         showClose: true,
                         message: '租赁成功',
-                        type:'success'
+                        type: 'success'
                     })
                     this.$router.go(0)
-                }else{
+                } else {
                     this.$message({
                         showClose: true,
                         message: res.msg,
                         type: 'warning'
                     })
+                }
+            })
+        },
+        buy(){
+            var list = []
+            list.push({
+                "id": "",
+                    "uid": sessionStorage.getItem('uid'),
+                    "gid": this.$route.query.gid,
+                    "logisticsNumber": "",
+                    "state": "",
+                    "createTime": ""
+            })
+            this.$request.post('orderForm/createOrderForm', list).then(res => {
+                if (res.code == 200) {
+                    this.$message({
+                        message: "购买成功",
+                        type: 'success'
+                    });
+                    this.$router.go(0)
+                }
+                else {
+                    this.$message({
+                        message: res.msg,
+                        type: 'warning'
+                    });
                 }
             })
         }

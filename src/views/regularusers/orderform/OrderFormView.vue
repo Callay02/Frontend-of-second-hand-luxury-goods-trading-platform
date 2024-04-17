@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-09 00:34:30
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-02-22 19:04:53
+ * @LastEditTime: 2024-04-17 19:05:46
  * @FilePath: \vue\src\views\regularusers\OrderFormView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -12,13 +12,6 @@
                 <el-menu-item index="0">待发货</el-menu-item>
                 <el-menu-item index="1">已发货</el-menu-item>
                 <el-menu-item index="2">已签收</el-menu-item>
-                <el-submenu index="3">
-                    <template slot="title">售后</template>
-                    <el-menu-item index="3-0">审核</el-menu-item>
-                    <el-menu-item index="3-1">待寄出</el-menu-item>
-                    <el-menu-item index="3-2">已寄出</el-menu-item>
-                    <el-menu-item index="3-3">已退款</el-menu-item>
-                </el-submenu>
             </el-menu></el-header>
         <el-main><router-view /></el-main>
     </el-container>

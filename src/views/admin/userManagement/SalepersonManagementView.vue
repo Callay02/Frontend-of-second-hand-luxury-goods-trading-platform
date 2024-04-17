@@ -8,7 +8,7 @@
     </div>
     <div style="display: flex; margin-top: 15px; justify-content: center">
       <div style="width: 100%">
-        <el-table :data="userVoList" style="width: 100%" border>
+        <el-table :data="userVoList" style="width: 100%" :border="true">
           <el-table-column label="id">
             <template slot-scope="scope">
               <span style="margin-left: 10px">{{ scope.row.id }}</span>
@@ -58,7 +58,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column label="操作" fixed="right" width="300px">
+          <el-table-column label="操作" fixed="right" width="250px">
             <template slot-scope="scope">
               <el-button size="mini" @click="goToDetail(scope.row)" style="margin-right: 5px">结算</el-button>
               <el-button size="mini" @click="handleRecharge(scope.$index, scope.row)"
@@ -73,9 +73,6 @@
                   <el-button type="primary" @click="recharge">确 定</el-button>
                 </div>
               </el-dialog>
-
-              <el-button size="mini" @click="handleEdit(scope.$index, scope.row)" style="margin-right: 5px"
-                disabled>编辑</el-button>
 
               <el-button size="mini" @click="handleDelete(scope.$index, scope.row)" style="margin-right: 5px"
                 type="danger">删除</el-button>

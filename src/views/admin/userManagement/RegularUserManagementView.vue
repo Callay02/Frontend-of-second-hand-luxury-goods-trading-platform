@@ -58,7 +58,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column label="操作" fixed="right" width="250px">
+          <el-table-column label="操作" fixed="right">
             <template slot-scope="scope">
               <el-button size="mini" @click="handleRecharge(scope.$index, scope.row)"
                 style="margin-right: 5px">充值</el-button>
@@ -72,9 +72,6 @@
                   <el-button type="primary" @click="recharge">确 定</el-button>
                 </div>
               </el-dialog>
-
-              <el-button size="mini" @click="handleEdit(scope.$index, scope.row)" style="margin-right: 5px"
-                disabled>编辑</el-button>
 
               <el-button size="mini" @click="handleDelete(scope.$index, scope.row)" style="margin-right: 5px"
                 type="danger">删除</el-button>
@@ -101,7 +98,7 @@
     </div>
   </div>
 </template>
-    
+
 <script>
 export default {
   data() {
@@ -209,10 +206,10 @@ export default {
           }
         })
       }
-      else{
+      else {
         this.$message({
-          type:"warning",
-          message:"充值金额不能为空"
+          type: "warning",
+          message: "充值金额不能为空"
         })
       }
 
@@ -235,7 +232,7 @@ export default {
   },
 };
 </script>
-  
+
 <style>
 .block {
   margin-top: 15px;

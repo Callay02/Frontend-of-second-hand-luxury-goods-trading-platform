@@ -48,7 +48,7 @@
                             <el-input v-model="goodsForm.price"></el-input>
                         </el-form-item>
 
-                        <el-form-item v-if="goodType=='租赁'" label="定金" prop="deposit">
+                        <el-form-item v-if="goodType=='租赁'" label="押金" prop="deposit">
                             <el-input v-model="goodsForm.deposit"></el-input>
                         </el-form-item>
                         <el-form-item v-if="goodType=='租赁'" label="租金" prop="rent">

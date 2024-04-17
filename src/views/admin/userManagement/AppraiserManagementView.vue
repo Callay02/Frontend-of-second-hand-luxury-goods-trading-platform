@@ -4,14 +4,7 @@
       <p style="font-size: x-large; font-weight: bolder">鉴定师</p>
     </div>
     <div>
-      <el-button
-        size="medium"
-        type="primary"
-        style=""
-        icon="el-icon-plus"
-        @click="goToAddUser"
-        >添加</el-button
-      >
+      <el-button size="medium" type="primary" style="" icon="el-icon-plus" @click="goToAddUser">添加</el-button>
     </div>
     <div style="display: flex; margin-top: 15px; justify-content: center">
       <div style="width: 100%">
@@ -52,51 +45,24 @@
             </template>
           </el-table-column>
 
-          <el-table-column label="操作" fixed="right" width="250px">
+          <el-table-column label="操作" fixed="right">
             <template slot-scope="scope">
-              <el-button
-                size="mini"
-                @click="handleRecharge(scope.$index, scope.row)"
-                style="margin-right: 5px"
-                >充值</el-button
-              >
-              <el-dialog
-                title="充值"
-                :visible.sync="dialogRechargeFormVisible"
-                append-to-body
-              >
+              <el-button size="mini" @click="handleRecharge(scope.$index, scope.row)"
+                style="margin-right: 5px">充值</el-button>
+              <el-dialog title="充值" :visible.sync="dialogRechargeFormVisible" append-to-body>
                 <div>
                   <p style="display: inline-block">充值金额</p>
                 </div>
                 <el-input v-model="money" placeholder="请输入金额"></el-input>
                 <div slot="footer" class="dialog-footer">
-                  <el-button @click="dialogRechargeFormVisible = false"
-                    >取 消</el-button
-                  >
+                  <el-button @click="dialogRechargeFormVisible = false">取 消</el-button>
                   <el-button type="primary" @click="recharge">确 定</el-button>
                 </div>
               </el-dialog>
 
-              <el-button
-                size="mini"
-                @click="handleEdit(scope.$index, scope.row)"
-                style="margin-right: 5px"
-                disabled
-                >编辑</el-button
-              >
-
-              <el-button
-                size="mini"
-                @click="handleDelete(scope.$index, scope.row)"
-                style="margin-right: 5px"
-                type="danger"
-                >删除</el-button
-              >
-              <el-dialog
-                title="确认删除"
-                :visible.sync="dialogDeleteFormVisible"
-                append-to-body
-              >
+              <el-button size="mini" @click="handleDelete(scope.$index, scope.row)" style="margin-right: 5px"
+                type="danger">删除</el-button>
+              <el-dialog title="确认删除" :visible.sync="dialogDeleteFormVisible" append-to-body>
                 <div>
                   <p style="color: red; display: inline-block">
                     删除后将无法恢复
@@ -107,9 +73,7 @@
                 </div>
                 <el-input v-model="checkUid" placeholder="请输入id"></el-input>
                 <div slot="footer" class="dialog-footer">
-                  <el-button @click="dialogDeleteFormVisible = false"
-                    >取 消</el-button
-                  >
+                  <el-button @click="dialogDeleteFormVisible = false">取 消</el-button>
                   <el-button type="danger" @click="deleteUser">确 定</el-button>
                 </div>
               </el-dialog>
@@ -119,20 +83,14 @@
       </div>
     </div>
     <div class="block">
-      <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page.sync="currentPage"
-        :page-size="pageSize"
-        layout="total, prev, pager, next"
-        :total="total"
-      >
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
+        :current-page.sync="currentPage" :page-size="pageSize" layout="total, prev, pager, next" :total="total">
       </el-pagination>
     </div>
   </div>
 </template>
-      
-  <script>
+
+<script>
 export default {
   data() {
     return {
@@ -167,13 +125,13 @@ export default {
     },
     handleCurrentChange(val) {
       //console.log(`当前页: ${val}`);
-      this.currentPage =val;
+      this.currentPage = val;
       this.$request
         .get(
           "user/getUserPageByType?type=2&page=" +
-            this.currentPage +
-            "&rows=" +
-            this.pageSize
+          this.currentPage +
+          "&rows=" +
+          this.pageSize
         )
         .then((res) => {
           console.log(res);
@@ -250,9 +208,9 @@ export default {
     this.$request
       .get(
         "user/getUserPageByType?type=2&page=" +
-          this.currentPage +
-          "&rows=" +
-          this.pageSize
+        this.currentPage +
+        "&rows=" +
+        this.pageSize
       )
       .then((res) => {
         console.log(res);
@@ -262,8 +220,8 @@ export default {
   },
 };
 </script>
-    
-  <style>
+
+<style>
 .block {
   margin-top: 15px;
   display: flex;

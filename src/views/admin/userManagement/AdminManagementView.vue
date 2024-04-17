@@ -55,14 +55,6 @@
             <el-table-column label="操作" fixed="right">
               <template slot-scope="scope">
   
-                <el-button
-                  size="mini"
-                  @click="handleEdit(scope.$index, scope.row)"
-                  style="margin-right: 5px"
-                  disabled
-                  >编辑</el-button
-                >
-  
                 <el-button v-if="scope.row.id != 1"
                   size="mini"
                   @click="handleDelete(scope.$index, scope.row)"

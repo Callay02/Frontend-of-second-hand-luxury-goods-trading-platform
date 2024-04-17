@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-18 23:35:39
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-02-22 15:50:01
+ * @LastEditTime: 2024-04-17 21:17:37
  * @FilePath: \vue\src\views\admin\orderformManagement\ToBeShippedConsoleView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -46,6 +46,7 @@
                     </el-table-column>
                     <el-table-column label="发货时间" prop="deliveryTime">
                     </el-table-column>
+                    <!--
                     <el-table-column label="操作" fixed="right">
                         <template slot-scope="scope">
                             <el-button size="mini" @click="delivery(scope.$index, scope.row)"
@@ -59,6 +60,7 @@
                             </el-dialog>
                         </template>
                     </el-table-column>
+                    -->
                 </el-table>
             </div>
             <div class="block">

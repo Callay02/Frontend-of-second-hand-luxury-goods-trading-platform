@@ -49,7 +49,7 @@
                                 </template>
                             </el-table-column>
 
-                            <el-table-column label="操作">
+                            <el-table-column label="操作" fixed="right">
                                 <template slot-scope="scope">
                                     <el-button size="mini" @click="toGoodsDetail(scope.row.id)"
                                         style="margin-right: 5px;">查看</el-button>

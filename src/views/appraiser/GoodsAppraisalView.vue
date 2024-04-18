@@ -83,7 +83,9 @@ export default {
         var validsellingPrice = (rule, value, callback) => {
             if (value === '') {
                 callback(new Error('请输入售价'));
-            } else if (value < this.goodsForm.acquisitionPrice) {
+            } else if (parseFloat(value) <= parseFloat(this.goodsForm.acquisitionPrice)) {
+                console.log(value)
+                console.log(this.goodsForm.acquisitionPrice)
                 callback(new Error('售价不能低于收购价'));
             } else {
                 callback();

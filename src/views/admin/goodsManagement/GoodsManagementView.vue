@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <p style="font-size: x-large; font-weight: bolder">收购商品详情管理</p>
+      <p style="font-size: x-large; font-weight: bolder">出售商品详情管理</p>
     </div>
     <div>
       <el-button size="medium" type="primary" style="" icon="el-icon-plus" @click="goToAddGoods">添加</el-button>

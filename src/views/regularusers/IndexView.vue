@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-01-13 19:07:07
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-04-20 01:05:53
+ * @LastEditTime: 2024-04-20 03:43:35
  * @FilePath: \vue\src\views\regularusers\IndexView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -28,7 +28,7 @@
                     <el-menu-item style="float: right;" index="orderForm">购买订单</el-menu-item>
                     <el-menu-item style="float: right;" index="shoppingCart">购物车</el-menu-item>
                 </el-menu></el-header>
-            <el-main>
+            <el-main style="min-height: 100vh;">
                 <router-view />
                 
             </el-main>

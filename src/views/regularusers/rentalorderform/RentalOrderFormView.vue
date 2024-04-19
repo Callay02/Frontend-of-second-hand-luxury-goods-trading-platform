@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-03-27 15:29:14
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-03-30 00:15:48
+ * @LastEditTime: 2024-04-20 05:01:57
  * @FilePath: \vue\src\views\regularusers\rentalorderform\RentalOrderFormView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -17,7 +17,7 @@
                 <el-tab-pane label="已结算" name="settled"></el-tab-pane>
             </el-tabs>
         </div>
-        <div>
+        <div height="auto">
             <router-view></router-view>
         </div>
     </div>
@@ -57,6 +57,9 @@ export default {
         if(sessionStorage.getItem('activeName-rentalOrderForm')!== null){
             this.activeName = sessionStorage.getItem('activeName-rentalOrderForm');
         }
+    },
+    destroyed(){
+        sessionStorage.removeItem('activeName-rentalOrderForm');
     }
 };
 </script>

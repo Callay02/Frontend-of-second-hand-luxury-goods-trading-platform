@@ -2,19 +2,20 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-09 00:34:30
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-03-08 09:56:22
+ * @LastEditTime: 2024-04-20 04:59:06
  * @FilePath: \vue\src\views\regularusers\OrderFormView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <template>
     <el-container>
-        <el-header><el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-                
-                <el-menu-item index="0">订单跟踪</el-menu-item>
-                <el-menu-item index="1">审核完成</el-menu-item>
-                <el-menu-item index="2">交易成功</el-menu-item>
-                <el-menu-item index="3" style="float: right;">创建订单</el-menu-item>
-            </el-menu></el-header>
+        <el-header>
+            <el-tabs v-model="activeName" @tab-click="handleClick">
+                <el-tab-pane label="订单跟踪" name="0"></el-tab-pane>
+                <el-tab-pane label="审核完成" name="1"></el-tab-pane>
+                <el-tab-pane label="交易成功" name="2"></el-tab-pane>
+                <el-tab-pane label="创建订单" name="3" style="float: right;"></el-tab-pane>
+            </el-tabs>
+        </el-header>
         <el-main><router-view /></el-main>
     </el-container>
 </template>
@@ -23,25 +24,36 @@
 export default {
     data() {
         return {
-            activeIndex: "0"
+            activeName: "0"
         }
     },
     methods: {
-        handleSelect(key, keyPath) {
-            console.log(key, keyPath)
-            if (keyPath[0] == 3) {
-                this.$router.push('/index/sell/CreateSellOrder')
+        handleClick(tab, event){
+            if (tab.name === '0') {
+                this.$router.push('/index/sell/sellOrderTracking');
+                sessionStorage.setItem('activeName-sell', '0');
             }
-            else if (keyPath[0] == 0) {
-                this.$router.push('/index/sell/sellOrderTracking')
+            else if (tab.name === '1') {
+                this.$router.push('/index/sell/appraised');
+                sessionStorage.setItem('activeName-sell', '1');
             }
-            else if (keyPath[0] == 1) {
-                this.$router.push('/index/sell/appraised')
+            else if (tab.name === '2') {
+                this.$router.push('/index/sell/reSuccess');
+                sessionStorage.setItem('activeName-sell', '2');
             }
-            else if (keyPath[0] == 2) {
-                this.$router.push('/index/sell/reSuccess')
+            else if (tab.name === '3') {
+                this.$router.push('/index/sell/CreateSellOrder');
+                sessionStorage.setItem('activeName-sell', '3');
             }
+        },
+    },
+    beforeMount(){
+        if(sessionStorage.getItem('activeName-sell')!== null){
+            this.activeName = sessionStorage.getItem('activeName-sell');
         }
+    },
+    destroyed(){
+        sessionStorage.removeItem('activeName-sell');
     }
 
 }

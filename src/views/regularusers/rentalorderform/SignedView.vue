@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-10 13:17:32
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-04-20 01:09:22
+ * @LastEditTime: 2024-04-20 04:39:30
  * @FilePath: \vue\src\views\regularusers\orderform\ShippedView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -67,11 +67,18 @@
                 </template>
             </el-table-column>
 
-            <el-table-column label="操作" width="170px">
+            <el-table-column label="操作" width="250px">
                 <template slot-scope="scope">
                     <el-button size="mini" @click="toGoodsDetail(scope.row.gid)"
                         style="margin-right: 5px;">查看</el-button>
-                    <el-button v-if="scope.row.rentTotal < scope.row.deposit" type="primary" size="mini"
+
+                    <el-popconfirm title="确定要购买吗？保证金将返还至您的钱包" @confirm="wantBuy(scope.row.id)">
+                        <el-button v-if="scope.row.rentTotal < scope.row.deposit" size="mini" type="primary"
+                            slot="reference" style="margin-right: 5px;">我要购买</el-button>
+                    </el-popconfirm>
+
+
+                    <el-button v-if="scope.row.rentTotal < scope.row.deposit" type="danger" size="mini"
                         style="margin-right: 5px;" @click="returning(scope.row)">退回</el-button>
 
                     <el-popconfirm title="超时商品无法退回" @confirm="overdueSettlement(scope.row)">
@@ -92,7 +99,8 @@
                     </el-option>
                 </el-select>
                 <p style="width: 50px;margin-left: 15px;">物流号:</p>
-                <el-input v-model="selectOrderForm.logisticsNumber" placeholder="请输入物流号" style="width: 500px;"></el-input>
+                <el-input v-model="selectOrderForm.logisticsNumber" placeholder="请输入物流号"
+                    style="width: 500px;"></el-input>
             </div>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="dialogFormVisible = false">取 消</el-button>
@@ -161,6 +169,16 @@ export default {
                 }
             })
         },
+        wantBuy(id) {
+            this.$request.get("rentalOrderForm/userWantBuy?id=" + id).then(res => {
+                if (res.code == 200) {
+                    this.$message.success(res.msg)
+                    this.$router.go(0)
+                }else{
+                    this.$message.error(res.msg)
+                }
+            })
+        }
     }
 }
 

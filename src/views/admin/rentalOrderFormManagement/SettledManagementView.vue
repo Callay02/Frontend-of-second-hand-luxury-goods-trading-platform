@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-18 23:35:39
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-04-02 15:32:59
+ * @LastEditTime: 2024-04-20 01:13:46
  * @FilePath: \vue\src\views\admin\orderformManagement\ToBeShippedConsoleView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -15,8 +15,6 @@
             <div>
                 <el-table :data="tableData" style="width: 100%" border>
                     <el-table-column label="订单号" prop="id">
-                    </el-table-column>
-                    <el-table-column label="物流号" prop="logisticsNumber">
                     </el-table-column>
                     <el-table-column label="商品id" prop="gid">
                     </el-table-column>

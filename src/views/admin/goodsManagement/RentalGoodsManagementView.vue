@@ -121,20 +121,17 @@
             </template>
           </el-table-column>
 
-          <el-table-column label="操作" fixed="right">
+          <el-table-column label="操作" fixed="right" width="250">
             <template slot-scope="scope">
-              <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
+              <el-button :disabled="scope.row.state != 1" size="mini" @click="handleEdit(scope.$index, scope.row)"
                 style="margin-right: 5px">编辑</el-button>
-              <el-dialog title="修改" :visible.sync="dialogEditFormVisible">
-                <el-input v-model="brandName" placeholder="请输入品牌名"></el-input>
-                <div slot="footer" class="dialog-footer">
-                  <el-button @click="dialogEditFormVisible = false">取 消</el-button>
-                  <el-button type="primary" @click="editBrand">确 定</el-button>
-                </div>
-              </el-dialog>
+
+              <el-popconfirm title="确定转为出售吗？" @confirm="goodsToRentalGoods(scope.row.id)">
+                <el-button :disabled="scope.row.state != 1" size="mini" type="primary" slot="reference" style="margin-right: 5px;">转移</el-button>
+              </el-popconfirm>
 
               <el-popconfirm title="确定删除吗？" @confirm="handleDelete(scope.$index, scope.row)">
-                <el-button size="mini" type="danger" slot="reference">删除</el-button>
+                <el-button :disabled="scope.row.state != 1" size="mini" type="danger" slot="reference">删除</el-button>
               </el-popconfirm>
             </template>
           </el-table-column>
@@ -164,8 +161,6 @@ export default {
       currentPage: 1,
       pageSize: 10,
       total: 1,
-      dialogFormVisible: false,
-      dialogEditFormVisible: false,
       newBrandName: "",
       newBrandId: "",
       brandName: "",
@@ -242,51 +237,6 @@ export default {
       }
 
     },
-    addBrand() {
-      this.dialogFormVisible = false;
-      console.log(this.newBrandName);
-      this.$request
-        .post("goodsBrand/addBrand", {
-          id: this.newBrandId,
-          name: this.newBrandName,
-        })
-        .then((res) => {
-          if (res.code == 200) {
-            this.$message({
-              type: "success",
-              message: res.msg,
-            });
-            this.$router.go(0);
-          } else {
-            this.$message({
-              type: "warning",
-              message: res.msg,
-            });
-          }
-        });
-    },
-    editBrand() {
-      this.$request
-        .post("goodsBrand/updateBrand", {
-          id: sessionStorage.getItem("bid"),
-          name: this.brandName,
-        })
-        .then((res) => {
-          if (res.code == 200) {
-            this.$message({
-              type: "success",
-              message: res.msg,
-            });
-            sessionStorage.removeItem("bid");
-            this.$router.go(0);
-          } else {
-            this.$message({
-              type: "warning",
-              message: res.msg,
-            });
-          }
-        });
-    },
     goToAddGoods() {
       this.$router.push({
         path: "addGoods",
@@ -326,6 +276,21 @@ export default {
         });
       this.isSearch = 1;
     },
+    openDialog(id) {
+      this.selectedId = id;
+      this.dialogFormVisible = true;
+    },
+    goodsToRentalGoods(id) {
+      this.$request.get("rentalGoods/rentalGoodsToGoods?rgid=" + id).then((res) => {
+        if (res.code == 200) {
+          this.$message.success(res.msg);
+          this.dialogFormVisible = false;
+          this.$router.go(0);
+        } else {
+          this.$message.warning(res.msg);
+        }
+      })
+    }
   },
   beforeMount() {
     //获取商品品牌信息

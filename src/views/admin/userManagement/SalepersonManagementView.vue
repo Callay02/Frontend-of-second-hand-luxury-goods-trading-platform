@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <p style="font-size: x-large; font-weight: bolder">销售员</p>
+      <p style="font-size: x-large; font-weight: bolder">代理商</p>
     </div>
     <div>
       <el-button size="medium" type="primary" style="" icon="el-icon-plus" @click="goToAddUser">添加</el-button>

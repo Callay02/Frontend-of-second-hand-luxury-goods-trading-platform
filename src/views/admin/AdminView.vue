@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-16 23:57:03
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-04-19 09:58:58
+ * @LastEditTime: 2024-04-20 00:06:48
  * @FilePath: \vue\src\views\admin\AdminView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -54,7 +54,7 @@
                 <el-submenu index="4">
                     <template slot="title"><i class="el-icon-user"></i>用户管理</template>
                     <el-menu-item index="4-0">普通用户</el-menu-item>
-                    <el-menu-item index="4-1">销售员</el-menu-item>
+                    <el-menu-item index="4-1">代理商</el-menu-item>
                     <el-menu-item index="4-2">鉴定师</el-menu-item>
                     <el-menu-item index="4-3">管理员</el-menu-item>
                 </el-submenu>
@@ -88,6 +88,15 @@ export default {
         }
     },
     beforeMount() {
+        //获取物流公司列表
+        this.$axios.get("https://api.51Tracking.com/v4/couriers/all", {
+            headers: {
+                'Content-Type': 'application/json',
+                'Tracking-Api-Key': 'dimjf00s-z0nn-g97q-z0cg-978iei17cfcz'
+            }
+        }).then(res => {
+            sessionStorage.setItem('courierList', JSON.stringify(res.data.data))
+        })
         this.defaultActive = sessionStorage.getItem('defaultActive')
         this.aid = sessionStorage.getItem('aid')
         this.$request.get('user/getUserInfo').then(res => {

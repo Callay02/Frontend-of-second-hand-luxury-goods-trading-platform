@@ -58,7 +58,7 @@
 
     <div style="display: flex; margin-top: 15px; justify-content: center">
       <div style="width: 100%">
-        <el-table :data="goodsVoList" style="width: 100%" border>
+        <el-table :data="goodsVoList" style="width: 100%" :border="true">
           <el-table-column label="id">
             <template slot-scope="scope">
               <span style="margin-left: 10px">{{ scope.row.id }}</span>
@@ -122,20 +122,16 @@
             </template>
           </el-table-column>
 
-          <el-table-column label="操作" fixed="right">
+          <el-table-column label="操作" fixed="right" width="250px">
             <template slot-scope="scope">
-              <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
-                style="margin-right: 5px">编辑</el-button>
-              <el-dialog title="修改" :visible.sync="dialogEditFormVisible">
-                <el-input v-model="brandName" placeholder="请输入品牌名"></el-input>
-                <div slot="footer" class="dialog-footer">
-                  <el-button @click="dialogEditFormVisible = false">取 消</el-button>
-                  <el-button type="primary" @click="editBrand">确 定</el-button>
-                </div>
-              </el-dialog>
+              <el-button :disabled="scope.row.state != 1" size="mini" @click="handleEdit(scope.$index, scope.row)" style="margin-right: 5px">编辑</el-button>
+
+              <el-button :disabled="scope.row.state != 1" size="mini" style="margin-right: 5px" type="primary"
+                @click="openDialog(scope.row.id)">转为租赁</el-button>
+
 
               <el-popconfirm title="确定删除吗？" @confirm="handleDelete(scope.$index, scope.row)">
-                <el-button size="mini" type="danger" slot="reference">删除</el-button>
+                <el-button :disabled="scope.row.state != 1" size="mini" type="danger" slot="reference">删除</el-button>
               </el-popconfirm>
             </template>
           </el-table-column>
@@ -147,6 +143,15 @@
         :current-page.sync="currentPage" :page-size="pageSize" layout="total, prev, pager, next" :total="total">
       </el-pagination>
     </div>
+    <el-dialog title="确定要转移为租赁商品？请输入租金/天" :visible.sync="dialogFormVisible">
+      <div>
+        <el-input v-model="rent" placeholder="请输入租金"></el-input>
+      </div>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="goodsToRentalGoods()">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -160,16 +165,17 @@ export default {
       type: [],
       selectType: "未选择",
       inputInfo: "",
-      inputId:"",
+      inputId: "",
       goodsVoList: [],
       currentPage: 1,
       pageSize: 10,
       total: 1,
       dialogFormVisible: false,
-      dialogEditFormVisible: false,
       newBrandName: "",
       newBrandId: "",
       brandName: "",
+      rent: "",
+      selectedId: "",
     };
   },
   methods: {
@@ -243,50 +249,6 @@ export default {
       }
 
     },
-    addBrand() {
-      this.dialogFormVisible = false;
-      this.$request
-        .post("goodsBrand/addBrand", {
-          id: this.newBrandId,
-          name: this.newBrandName,
-        })
-        .then((res) => {
-          if (res.code == 200) {
-            this.$message({
-              type: "success",
-              message: res.msg,
-            });
-            this.$router.go(0);
-          } else {
-            this.$message({
-              type: "warning",
-              message: res.msg,
-            });
-          }
-        });
-    },
-    editBrand() {
-      this.$request
-        .post("goodsBrand/updateBrand", {
-          id: sessionStorage.getItem("bid"),
-          name: this.brandName,
-        })
-        .then((res) => {
-          if (res.code == 200) {
-            this.$message({
-              type: "success",
-              message: res.msg,
-            });
-            sessionStorage.removeItem("bid");
-            this.$router.go(0);
-          } else {
-            this.$message({
-              type: "warning",
-              message: res.msg,
-            });
-          }
-        });
-    },
     goToAddGoods() {
       this.$router.push({
         path: "addGoods",
@@ -326,6 +288,27 @@ export default {
         });
       this.isSearch = 1;
     },
+    openDialog(id) {
+      this.selectedId = id;
+      this.dialogFormVisible = true;
+    },
+    goodsToRentalGoods() {
+      if (this.rent == "") {
+        this.$message.warning("请输入租金");
+      } else {
+        this.$request.get("goods/goodsToRentalGoods?gid=" + this.selectedId + "&rent=" + this.rent).then((res) => {
+          if (res.code == 200) {
+            this.$message.success(res.msg);
+            this.rent = "";
+            this.selectedId = "";
+            this.dialogFormVisible = false;
+            this.$router.go(0);
+          } else {
+            this.$message.warning(res.msg);
+          }
+        })
+      }
+    }
   },
   beforeMount() {
     //获取商品品牌信息

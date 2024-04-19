@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-10 13:17:32
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-04-02 15:24:58
+ * @LastEditTime: 2024-04-20 01:12:00
  * @FilePath: \vue\src\views\regularusers\orderform\ShippedView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -10,9 +10,6 @@
     <div style="margin-top: 15px;">
         <el-table :data="tableData" tooltip-effect="dark" style="width: 100%;" :stripe=true :border=true>
             <el-table-column prop="id" label="订单号">
-            </el-table-column>
-
-            <el-table-column prop="logisticsNumber" label="物流号">
             </el-table-column>
 
             <el-table-column label="商品">

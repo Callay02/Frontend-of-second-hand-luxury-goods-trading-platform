@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-16 23:57:03
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-04-19 10:01:06
+ * @LastEditTime: 2024-04-19 17:37:19
  * @FilePath: \vue\src\views\admin\AdminView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -10,7 +10,7 @@
   <el-container style="height: 100vh; border: 1px solid #eee">
     <el-aside width="250px" style="background-color: rgb(238, 241, 246)">
       <div style="display: flex; justify-content: center">
-        <p style="font-size: xx-large; font-weight: bolder">销售员后台</p>
+        <p style="font-size: xx-large; font-weight: bolder">代理商后台</p>
       </div>
       <el-menu @select="handleSelect" :default-active="defaultIndex">
         <el-menu-item index="0">

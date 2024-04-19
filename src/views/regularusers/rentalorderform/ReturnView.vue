@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-10 13:17:32
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-04-02 14:48:11
+ * @LastEditTime: 2024-04-20 01:11:16
  * @FilePath: \vue\src\views\regularusers\orderform\ShippedView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -12,11 +12,19 @@
             <el-table-column prop="id" label="订单号">
             </el-table-column>
 
-            <el-table-column prop="logisticsNumber" label="物流号">
+            <!--显示物流信息-->
+            <el-table-column label="物流号" prop="logisticsNumber">
+                <template slot-scope="scope">
+                    <el-popover placement="bottom" title="最新物流信息" width="200" trigger="click" :content="trackingInfo">
+                        <p slot="reference" @click="getTrackingInfo(scope.row.courierCode, scope.row.logisticsNumber)">{{
+                            scope.row.courierCode }}:{{ scope.row.logisticsNumber }}</p>
+                    </el-popover>
+                </template>
             </el-table-column>
 
             <el-table-column label="商品">
-                <template slot-scope="scope"><el-image style="width: 100px; height: 100px" :src="scope.row.img" fit="cover">
+                <template slot-scope="scope"><el-image style="width: 100px; height: 100px" :src="scope.row.img"
+                        fit="cover">
                         <div slot="placeholder" class="image-slot">
                             加载中<span class="dot">...</span>
                         </div>
@@ -70,7 +78,8 @@
 export default {
     data() {
         return {
-            tableData: []
+            tableData: [],
+            trackingInfo: ""
         }
     },
     beforeMount() {
@@ -87,6 +96,16 @@ export default {
                 }
             })
         },
+        getTrackingInfo(courierCode, logisticsNumber) {
+            this.$request.get('51tracking/get?courierCode=' + courierCode + '&trackingNumber=' + logisticsNumber).then(res => {
+                console.log(res)
+                if (res.data.success.length != 0) {
+                    this.trackingInfo = "[" + res.data.success[0].latest_checkpoint_time + "]" + res.data.success[0].latest_event
+                } else {
+                    this.trackingInfo = "暂无物流信息"
+                }
+            })
+        }
     }
 }
 </script>

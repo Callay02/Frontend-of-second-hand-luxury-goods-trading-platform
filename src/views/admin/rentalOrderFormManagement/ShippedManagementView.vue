@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-18 23:35:39
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-03-29 15:48:10
+ * @LastEditTime: 2024-04-20 00:56:53
  * @FilePath: \vue\src\views\admin\orderformManagement\ToBeShippedConsoleView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -13,10 +13,17 @@
         </div>
         <div>
             <div>
-                <el-table :data="tableData" style="width: 100%" border>
+                <el-table :data="tableData" style="width: 100%" :border="true">
                     <el-table-column label="订单号" prop="id">
                     </el-table-column>
+                    <!--显示物流信息-->
                     <el-table-column label="物流号" prop="logisticsNumber">
+                        <template slot-scope="scope">
+                            <el-popover placement="bottom" title="最新物流信息" width="200" trigger="click"
+                                :content="trackingInfo">
+                                <p slot="reference" @click="getTrackingInfo(scope.row.courierCode,scope.row.logisticsNumber)">{{ scope.row.courierCode }}:{{ scope.row.logisticsNumber }}</p>
+                            </el-popover>
+                        </template>
                     </el-table-column>
                     <el-table-column label="商品id" prop="gid">
                     </el-table-column>
@@ -34,8 +41,18 @@
                         <template slot-scope="scope">
                             <el-button size="mini" @click="delivery(scope.$index, scope.row)"
                                 style="margin-right: 5px">编辑</el-button>
-                            <el-dialog title="修改" :visible.sync="dialogFormVisible" append-to-body>
-                                <el-input v-model="formData.logisticsNumber" placeholder="请输入物流号"></el-input>
+
+                            <el-dialog title="修改物流号" :visible.sync="dialogFormVisible" append-to-body>
+                                <div style="display: flex;align-items: center;justify-content: center;">
+                                    <p style="width: 70px;">物流公司:</p>
+                                    <el-select v-model="formData.courierCode" filterable placeholder="请选择">
+                                        <el-option v-for="item, index in courierList" :key="index"
+                                            :label="item.courier_name" :value="item.courier_code">
+                                        </el-option>
+                                    </el-select>
+                                    <p style="width: 50px;margin-left: 15px;">物流号:</p>
+                                    <el-input v-model="formData.logisticsNumber" placeholder="请输入物流号" style="width: 500px;"></el-input>
+                                </div>
                                 <div slot="footer" class="dialog-footer">
                                     <el-button @click="dialogFormVisible = false">取 消</el-button>
                                     <el-button type="primary" @click="submitForm">确 定</el-button>
@@ -69,7 +86,8 @@ export default {
                 logisticsNumber: [
                     { required: true, message: '请输入物流号', trigger: 'blur' },
                 ],
-            }
+            },
+            trackingInfo:""
         }
     },
     beforeMount() {
@@ -135,6 +153,16 @@ export default {
             }
                 
         },
+        getTrackingInfo(courierCode, logisticsNumber){
+            this.$request.get('51tracking/get?courierCode='+courierCode + '&trackingNumber='+logisticsNumber).then(res => {
+                console.log(res)
+                if(res.data.success.length != 0){
+                    this.trackingInfo ="["+res.data.success[0].latest_checkpoint_time + "]" + res.data.success[0].latest_event
+                }else{
+                    this.trackingInfo ="暂无物流信息"
+                }
+            })
+        }
     }
 }
 </script>

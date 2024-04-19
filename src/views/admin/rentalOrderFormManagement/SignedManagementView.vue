@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-18 23:35:39
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-04-08 14:28:35
+ * @LastEditTime: 2024-04-20 01:03:32
  * @FilePath: \vue\src\views\admin\orderformManagement\ToBeShippedConsoleView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -13,10 +13,8 @@
         </div>
         <div>
             <div>
-                <el-table :data="tableData" style="width: 100%" border>
+                <el-table :data="tableData" style="width: 100%" :border="true">
                     <el-table-column label="订单号" prop="id">
-                    </el-table-column>
-                    <el-table-column label="物流号" prop="logisticsNumber">
                     </el-table-column>
                     <el-table-column label="商品id" prop="gid">
                     </el-table-column>
@@ -56,19 +54,7 @@
                             <p v-if="scope.row.rentTotal >= scope.row.deposit" style="color: red;">已超时</p>
                         </template>
                     </el-table-column>
-                    <el-table-column label="操作" fixed="right">
-                        <template slot-scope="scope">
-                            <el-button size="mini" @click="delivery(scope.$index, scope.row)"
-                                style="margin-right: 5px">编辑</el-button>
-                            <el-dialog title="修改" :visible.sync="dialogFormVisible" append-to-body>
-                                <el-input v-model="formData.logisticsNumber" placeholder="请输入物流号"></el-input>
-                                <div slot="footer" class="dialog-footer">
-                                    <el-button @click="dialogFormVisible = false">取 消</el-button>
-                                    <el-button type="primary" @click="submitForm">确 定</el-button>
-                                </div>
-                            </el-dialog>
-                        </template>
-                    </el-table-column>
+                    <el-table-column label="操作"></el-table-column>
                 </el-table>
             </div>
             <div class="block">
@@ -120,6 +106,7 @@ export default {
         },
         handleCurrentChange(val) {
             //console.log(`当前页: ${val}`);
+            this.currentPage = val;
             this.$request
                 .get(
                     "rentalOrderForm/getOrderFormPageByState?state=2&page=" +
@@ -132,38 +119,6 @@ export default {
                     this.tableData = res.data.data;
                 });
         },
-        delivery(index, row) {
-            this.dialogFormVisible = true
-            this.formData = row
-            //console.log(this.formData)
-        },
-        submitForm() {
-            if (this.formData.logisticsNumber == null)
-                this.$message({
-                    type: 'warning',
-                    message: "请输入物流号"
-                })
-            else {
-                console.log(this.formData)
-                this.$request.post('orderForm/updateShippedOrderFormById', this.formData).then(res => {
-                    if (res.code == 200) {
-                        this.$message({
-                            type: "success",
-                            message: res.msg
-                        })
-                        this.dialogFormVisible = false
-                    } else {
-                        this.$message({
-                            type: "warning",
-                            message: res.msg
-                        })
-                    }
-                })
-
-            }
-
-        },
-
     }
 }
 </script>

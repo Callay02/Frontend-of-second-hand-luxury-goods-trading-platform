@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-01-09 21:43:38
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-04-17 18:00:49
+ * @LastEditTime: 2024-04-19 17:38:34
  * @FilePath: \vue\src\views\LoginView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -33,7 +33,7 @@
                         <el-form-item prop="type" style="text-align: right;">
                             <el-select v-model="user.type" placeholder="请选择账户类型" size="mini" style="width: 130px;">
                                 <el-option label="普通用户" value=0></el-option>
-                                <el-option label="销售员" value=1></el-option>
+                                <el-option label="代理商" value=1></el-option>
                                 <el-option label="鉴定师" value=2></el-option>
                                 <el-option label="管理员" value=3></el-option>
                             </el-select>
@@ -101,7 +101,7 @@ export default {
                                 else if (this.user.type == 1) {
                                     this.$notify({
                                         title: '登录成功',
-                                        message: '销售员' + this.user.name + '欢迎回来',
+                                        message: '代理商' + this.user.name + '欢迎回来',
                                         type: 'success',
                                     });
                                     this.$router.push('/salesperson/salespersonGeneralSituation')

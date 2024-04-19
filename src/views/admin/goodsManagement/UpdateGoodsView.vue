@@ -50,7 +50,7 @@
                             <el-input v-model="goodsForm.fineness"></el-input>
                         </el-form-item>
                         <el-form-item label="防伪码" prop="antiCounterfeitingCode">
-                            <el-input disabled v-model="goodsForm.antiCounterfeitingCode"></el-input>
+                            <el-input v-model="goodsForm.antiCounterfeitingCode"></el-input>
                         </el-form-item>
                         <el-form-item v-if="goodType=='出售'" label="价格" prop="price">
                             <el-input v-model="goodsForm.price"></el-input>
@@ -111,7 +111,8 @@ export default {
                 img: "",
                 userId:"",
                 deposit:"",
-                rent:""
+                rent:"",
+                antiCounterfeitingCode:""
             },
             rules: {
                 info: [
@@ -135,6 +136,9 @@ export default {
                 rent: [
                     { required: true, message: '请输入租金', trigger: 'blur' }
                 ],
+                antiCounterfeitingCode: [
+                    { required: true, message: '请输入防伪码', trigger: 'blur' }
+                ]
 
             }
         };

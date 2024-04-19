@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-18 23:35:39
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-04-17 21:17:37
+ * @LastEditTime: 2024-04-20 00:18:48
  * @FilePath: \vue\src\views\admin\orderformManagement\ToBeShippedConsoleView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -13,54 +13,35 @@
         </div>
         <div>
             <div>
-                <el-table :data="tableData" style="width: 100%">
-                    <el-table-column type="expand">
-                        <template slot-scope="props">
-                            <el-form label-position="left" inline class="demo-table-expand">
-                                <el-form-item label="商品名称:">
-                                    <span>{{ props.row.info }}</span>
-                                </el-form-item>
-                                <el-form-item label="品牌:">
-                                    <span>{{ props.row.typeName }}</span>
-                                </el-form-item>
-                                <el-form-item label="类型:">
-                                    <span>{{ props.row.brandName }}</span>
-                                </el-form-item>
-                                <el-form-item label="用户名称:">
-                                    <span>{{ props.row.name }}</span>
-                                </el-form-item>
-                            </el-form>
-                        </template>
-                    </el-table-column>
+                <el-table :data="tableData" style="width: 100%" :border="true">
                     <el-table-column label="订单号" prop="id">
                     </el-table-column>
+
+                    <el-table-column label="商品名称" prop="info">
+                    </el-table-column>
+
+                    <el-table-column label="品牌" prop="brandName">
+                    </el-table-column>
+
+                    <el-table-column label="类型" prop="typeName">
+                    </el-table-column>
+
                     <el-table-column label="物流号" prop="logisticsNumber">
                     </el-table-column>
                     <el-table-column label="商品id" prop="gid">
                     </el-table-column>
                     <el-table-column label="用户id" prop="uid">
                     </el-table-column>
+
+                    <el-table-column label="用户名称" prop="name">
+                    </el-table-column>
+                    
                     <el-table-column label="联系电话" prop="phone">
                     </el-table-column>
                     <el-table-column label="地址" prop="address">
                     </el-table-column>
                     <el-table-column label="发货时间" prop="deliveryTime">
                     </el-table-column>
-                    <!--
-                    <el-table-column label="操作" fixed="right">
-                        <template slot-scope="scope">
-                            <el-button size="mini" @click="delivery(scope.$index, scope.row)"
-                                style="margin-right: 5px">编辑</el-button>
-                            <el-dialog title="修改" :visible.sync="dialogFormVisible" append-to-body>
-                                <el-input v-model="formData.logisticsNumber" placeholder="请输入物流号"></el-input>
-                                <div slot="footer" class="dialog-footer">
-                                    <el-button @click="dialogFormVisible = false">取 消</el-button>
-                                    <el-button type="primary" @click="submitForm">确 定</el-button>
-                                </div>
-                            </el-dialog>
-                        </template>
-                    </el-table-column>
-                    -->
                 </el-table>
             </div>
             <div class="block">

@@ -104,7 +104,7 @@ export default {
                                         message: '销售员' + this.user.name + '欢迎回来',
                                         type: 'success',
                                     });
-                                    this.$router.push('/salesperson')
+                                    this.$router.push('/salesperson/salespersonGeneralSituation')
                                     sessionStorage.setItem("sid", res.data.loginId)
                                 }
                                 else if (this.user.type == 2) {

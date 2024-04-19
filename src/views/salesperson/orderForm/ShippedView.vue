@@ -13,13 +13,13 @@
         </div>
         <div style="margin-top: 15px;">
             <el-table :data="tableData" tooltip-effect="dark" style="width: 100;" :stripe=true :border=true>
-                <el-table-column prop="id" label="订单号" width="200">
+                <el-table-column prop="id" label="订单号">
                 </el-table-column>
 
-                <el-table-column prop="logisticsNumber" label="物流号" width="200">
+                <el-table-column prop="logisticsNumber" label="物流号">
                 </el-table-column>
 
-                <el-table-column label="商品" width="125">
+                <el-table-column label="商品">
                     <template slot-scope="scope"><el-image style="width: 100px; height: 100px" :src="scope.row.img"
                             fit="cover">
                             <div slot="placeholder" class="image-slot">
@@ -28,31 +28,31 @@
                         </el-image></template>
                 </el-table-column>
 
-                <el-table-column prop="info" label="详情" width="200">
+                <el-table-column prop="info" label="详情">
                 </el-table-column>
 
-                <el-table-column label="成色" width="100">
+                <el-table-column label="成色">
                     <template slot-scope="scope">
                         <p>{{ scope.row.fineness }} 新</p>
                     </template>
                 </el-table-column>
 
-                <el-table-column prop="brandName" label="品牌" width="200">
+                <el-table-column prop="brandName" label="品牌">
                 </el-table-column>
 
-                <el-table-column prop="typeName" label="类型" width="100">
+                <el-table-column prop="typeName" label="类型">
                 </el-table-column>
 
-                <el-table-column prop="price" label="价格" width="150" sortable>
+                <el-table-column prop="price" label="价格" sortable>
                     <template slot-scope="scope">
                         <p>¥ {{ scope.row.price }}</p>
                     </template>
                 </el-table-column>
 
-                <el-table-column prop="address" label="收货地址" width="200">
+                <el-table-column prop="address" label="收货地址">
                 </el-table-column>
 
-                <el-table-column prop="createTime" label="创建时间" width="200" sortable>
+                <el-table-column prop="createTime" label="创建时间" sortable>
                 </el-table-column>
 
                 <el-table-column label="操作" fixed="right">

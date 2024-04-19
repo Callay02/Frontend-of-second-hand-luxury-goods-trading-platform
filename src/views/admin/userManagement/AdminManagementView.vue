@@ -111,7 +111,6 @@
         pageSize: 10,
         total: 0,
         dialogDeleteFormVisible: false,
-        dialogRechargeFormVisible: false,
         selectUser: "",
         checkUid: "",
         money: "",
@@ -127,10 +126,6 @@
         //console.log(index, row);
         this.selectUser = row;
         this.dialogDeleteFormVisible = true;
-      },
-      handleRecharge(index, row) {
-        this.selectUser = row;
-        this.dialogRechargeFormVisible = true;
       },
       handleSizeChange(val) {
         console.log(`每页 ${val} 条`);
@@ -186,33 +181,6 @@
         }
         this.checkUid = "";
         this.dialogDeleteFormVisible = false;
-      },
-      recharge() {
-        if (this.money != "") {
-          this.selectUser.money = this.money;
-          this.$request
-            .post("regularUser/recharge", this.selectUser)
-            .then((res) => {
-              if (res.code == 200) {
-                this.$message({
-                  type: "success",
-                  message: res.msg,
-                });
-                this.$router.go(0);
-                this.money = "";
-              } else {
-                this.$message({
-                  type: "warning",
-                  message: res.msg,
-                });
-              }
-            });
-        } else {
-          this.$message({
-            type: "warning",
-            message: "充值金额不能为空",
-          });
-        }
       },
     },
     beforeMount() {

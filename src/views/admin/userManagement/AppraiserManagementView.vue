@@ -47,19 +47,6 @@
 
           <el-table-column label="操作" fixed="right">
             <template slot-scope="scope">
-              <el-button size="mini" @click="handleRecharge(scope.$index, scope.row)"
-                style="margin-right: 5px">充值</el-button>
-              <el-dialog title="充值" :visible.sync="dialogRechargeFormVisible" append-to-body>
-                <div>
-                  <p style="display: inline-block">充值金额</p>
-                </div>
-                <el-input v-model="money" placeholder="请输入金额"></el-input>
-                <div slot="footer" class="dialog-footer">
-                  <el-button @click="dialogRechargeFormVisible = false">取 消</el-button>
-                  <el-button type="primary" @click="recharge">确 定</el-button>
-                </div>
-              </el-dialog>
-
               <el-button size="mini" @click="handleDelete(scope.$index, scope.row)" style="margin-right: 5px"
                 type="danger">删除</el-button>
               <el-dialog title="确认删除" :visible.sync="dialogDeleteFormVisible" append-to-body>
@@ -99,7 +86,6 @@ export default {
       pageSize: 10,
       total: 0,
       dialogDeleteFormVisible: false,
-      dialogRechargeFormVisible: false,
       selectUser: "",
       checkUid: "",
       money: "",
@@ -115,10 +101,6 @@ export default {
       //console.log(index, row);
       this.selectUser = row;
       this.dialogDeleteFormVisible = true;
-    },
-    handleRecharge(index, row) {
-      this.selectUser = row;
-      this.dialogRechargeFormVisible = true;
     },
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`);
@@ -174,33 +156,6 @@ export default {
       }
       this.checkUid = "";
       this.dialogDeleteFormVisible = false;
-    },
-    recharge() {
-      if (this.money != "") {
-        this.selectUser.money = this.money;
-        this.$request
-          .post("regularUser/recharge", this.selectUser)
-          .then((res) => {
-            if (res.code == 200) {
-              this.$message({
-                type: "success",
-                message: res.msg,
-              });
-              this.$router.go(0);
-              this.money = "";
-            } else {
-              this.$message({
-                type: "warning",
-                message: res.msg,
-              });
-            }
-          });
-      } else {
-        this.$message({
-          type: "warning",
-          message: "充值金额不能为空",
-        });
-      }
     },
   },
   beforeMount() {

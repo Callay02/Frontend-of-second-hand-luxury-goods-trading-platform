@@ -103,6 +103,12 @@
             </template>
           </el-table-column>
 
+          <el-table-column label="防伪码">
+            <template slot-scope="scope">
+              <span style="margin-left: 10px">{{ scope.row.antiCounterfeitingCode }}</span>
+            </template>
+          </el-table-column>
+
           <el-table-column label="添加时间">
             <template slot-scope="scope">
               <span style="margin-left: 10px">{{ scope.row.addTime }}</span>

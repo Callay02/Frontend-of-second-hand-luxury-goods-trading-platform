@@ -140,7 +140,7 @@ export default {
             this.formData = row
         },
         submitForm() {
-            if (this.formData.logisticsNumber == null || this.courierCode == null)
+            if (this.formData.logisticsNumber == "" || this.courierCode == "")
                 this.$message({
                     type: 'warning',
                     message: "请输入物流号"

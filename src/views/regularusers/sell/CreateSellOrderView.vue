@@ -96,7 +96,7 @@ export default {
       this.$router.back();
     },
     createOrderForm() {
-      console.log(this.purchaseOrderForm)
+      //console.log(this.purchaseOrderForm)
       if (this.purchaseOrderForm.logisticsNumber != "" && this.purchaseOrderForm.courierCode != "") {
         this.$request.post('purchaseOrderForm/createOrderForm', this.purchaseOrderForm).then(res => {
           if (res.code == 200) {

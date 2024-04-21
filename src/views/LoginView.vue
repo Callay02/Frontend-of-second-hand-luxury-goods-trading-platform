@@ -137,7 +137,11 @@ export default {
                         })
                     }
                     catch(err){
-                        console.log(err)
+                        this.$notify({
+                            title: '登录失败',
+                            message: 'res.msg',
+                            type: 'warning',
+                        });
                     }
                     
                 }

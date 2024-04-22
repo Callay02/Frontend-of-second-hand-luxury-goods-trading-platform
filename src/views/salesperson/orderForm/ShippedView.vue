@@ -16,8 +16,15 @@
                 <el-table-column prop="id" label="订单号">
                 </el-table-column>
 
-                <el-table-column prop="logisticsNumber" label="物流号">
-                </el-table-column>
+                <!--显示物流信息-->
+                <el-table-column label="物流号" prop="logisticsNumber">
+                        <template slot-scope="scope">
+                            <el-popover placement="bottom" title="最新物流信息" width="200" trigger="click"
+                                :content="trackingInfo">
+                                <p slot="reference" @click="getTrackingInfo(scope.row.courierCode,scope.row.logisticsNumber)">{{ scope.row.courierCode }}:{{ scope.row.logisticsNumber }}</p>
+                            </el-popover>
+                        </template>
+                    </el-table-column>
 
                 <el-table-column label="商品">
                     <template slot-scope="scope"><el-image style="width: 100px; height: 100px" :src="scope.row.img"
@@ -57,7 +64,7 @@
 
                 <el-table-column label="操作" fixed="right">
                     <template slot-scope="scope">
-                        <el-button size="mini" @click="SignById(scope.row.id)" style="margin-right: 5px;">签收</el-button>
+                        <el-button size="mini" @click="SignById(scope.row.id)" style="margin-right: 5px;" type="primary">签收</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -71,7 +78,8 @@
 export default {
     data() {
         return {
-            tableData: []
+            tableData: [],
+            trackingInfo: ""
         }
     },
     beforeMount() {
@@ -109,6 +117,16 @@ export default {
                         message: res.msg,
                         type: 'warning'
                     })
+                }
+            })
+        },
+        getTrackingInfo(courierCode, logisticsNumber){
+            this.$request.get('51tracking/get?courierCode='+courierCode + '&trackingNumber='+logisticsNumber).then(res => {
+                console.log(res)
+                if(res.data.success.length != 0){
+                    this.trackingInfo ="["+res.data.success[0].latest_checkpoint_time + "]" + res.data.success[0].latest_event
+                }else{
+                    this.trackingInfo ="暂无物流信息"
                 }
             })
         }

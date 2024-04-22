@@ -23,7 +23,7 @@
             </el-table-column>
 
 
-            <el-table-column label="商品" width="125">
+            <el-table-column label="商品">
                 <template slot-scope="scope"><el-image style="width: 100px; height: 100px" :src="scope.row.img"
                         fit="cover">
                         <div slot="placeholder" class="image-slot">
@@ -32,35 +32,35 @@
                     </el-image></template>
             </el-table-column>
 
-            <el-table-column prop="info" label="详情" width="200">
+            <el-table-column prop="info" label="详情">
             </el-table-column>
 
-            <el-table-column label="成色" width="100">
+            <el-table-column label="成色">
                 <template slot-scope="scope">
                     <p>{{ scope.row.fineness }} 新</p>
                 </template>
             </el-table-column>
 
-            <el-table-column prop="brandName" label="品牌" width="200">
+            <el-table-column prop="brandName" label="品牌">
             </el-table-column>
 
-            <el-table-column prop="typeName" label="类型" width="100">
+            <el-table-column prop="typeName" label="类型">
             </el-table-column>
 
-            <el-table-column prop="price" label="价格" width="150" sortable>
+            <el-table-column prop="price" label="价格" sortable>
                 <template slot-scope="scope">
                     <p>¥ {{ scope.row.price }}</p>
                 </template>
             </el-table-column>
 
-            <el-table-column prop="createTime" label="创建时间" width="100">
+            <el-table-column prop="createTime" label="创建时间">
             </el-table-column>
 
-            <el-table-column label="操作">
+            <el-table-column label="操作" width="200">
                 <template slot-scope="scope">
                     <el-button size="mini" @click="toGoodsDetail(scope.row.gid)"
                         style="margin-right: 5px;">查看</el-button>
-                    <el-button size="mini" @click="SignById(scope.row.id)" style="margin-right: 5px;">签收</el-button>
+                    <el-button size="mini" @click="SignById(scope.row.id)" style="margin-right: 5px;" type="primary">签收</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -87,7 +87,7 @@ export default {
             this.$router.push({
                 path: "/index/goodsdetail",
                 query: {
-                    goodsId: gid
+                    gid: gid
                 }
             })
         },

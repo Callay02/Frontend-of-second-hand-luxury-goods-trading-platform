@@ -13,6 +13,9 @@
             </el-table-column>
 
             <el-table-column prop="logisticsNumber" label="物流号" width="150">
+                <template slot-scope="scope">
+                    <p>{{ scope.row.courierCode }}:{{ scope.row.logisticsNumber }}</p>
+                </template>
             </el-table-column>
 
             <el-table-column label="商品" width="125">

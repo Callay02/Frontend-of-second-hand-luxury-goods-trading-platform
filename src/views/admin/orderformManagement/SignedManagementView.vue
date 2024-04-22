@@ -27,7 +27,11 @@
                     </el-table-column>
 
                     <el-table-column label="物流号" prop="logisticsNumber">
+                        <template slot-scope="scope">
+                            <p>{{ scope.row.courierCode }}:{{ scope.row.logisticsNumber }}</p>
+                        </template>
                     </el-table-column>
+
                     <el-table-column label="商品id" prop="gid">
                     </el-table-column>
                     <el-table-column label="用户id" prop="uid">

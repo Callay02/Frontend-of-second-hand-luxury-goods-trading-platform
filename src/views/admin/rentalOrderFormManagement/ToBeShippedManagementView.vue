@@ -31,7 +31,7 @@
                     <el-table-column label="操作" fixed="right">
                         <template slot-scope="scope">
                             <el-button size="mini" @click="delivery(scope.$index, scope.row)"
-                                style="margin-right: 5px">发货</el-button>
+                                style="margin-right: 5px" type="primary">发货</el-button>
                             
                             <el-dialog title="填写物流号" :visible.sync="dialogFormVisible" append-to-body>
                                 <div style="display: flex;align-items: center;justify-content: center;">

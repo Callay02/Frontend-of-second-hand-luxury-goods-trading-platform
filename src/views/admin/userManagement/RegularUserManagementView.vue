@@ -8,7 +8,7 @@
     </div>
     <div style="display: flex; margin-top: 15px; justify-content: center">
       <div style="width: 100%">
-        <el-table :data="userVoList" style="width: 100%" border>
+        <el-table :data="userVoList" style="width: 100%" :border="true">
           <el-table-column label="id">
             <template slot-scope="scope">
               <span style="margin-left: 10px">{{ scope.row.id }}</span>
@@ -58,7 +58,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column label="操作" fixed="right">
+          <el-table-column label="操作" fixed="right" width="250px">
             <template slot-scope="scope">
               <el-button size="mini" @click="handleRecharge(scope.$index, scope.row)"
                 style="margin-right: 5px">充值</el-button>
@@ -70,6 +70,21 @@
                 <div slot="footer" class="dialog-footer">
                   <el-button @click="dialogRechargeFormVisible = false">取 消</el-button>
                   <el-button type="primary" @click="recharge">确 定</el-button>
+                </div>
+              </el-dialog>
+
+              <el-button size="mini" @click="changePassword(scope.$index, scope.row)" style="margin-right: 5px"
+                type="primary">修改密码</el-button>
+                <el-dialog title="修改密码" :visible.sync="dialogChangePasswordVisible" append-to-body>
+                  <div>
+                    <div style="display: flex; justify-content: center;align-items: center;">
+                      <p>密码：</p>
+                      <el-input type="password" v-model="selectUser.password" style="width: 300px;" show-password></el-input>
+                    </div>
+                  </div>
+                <div slot="footer" class="dialog-footer">
+                  <el-button @click="dialogChangePasswordVisible = false">取 消</el-button>
+                  <el-button type="primary" @click="changePasswordSubmit">确 定</el-button>
                 </div>
               </el-dialog>
 
@@ -111,10 +126,27 @@ export default {
       dialogRechargeFormVisible: false,
       selectUser: "",
       checkUid: "",
-      money: ""
+      money: "",
+      dialogChangePasswordVisible: false,
     };
   },
   methods: {
+    changePasswordSubmit(){
+      this.$request.post("user/adminChangePasswordById", this.selectUser).then((res) => {
+        if(res.code == 200){
+          this.$message.success(res.msg)
+          this.selectUser="",
+          this.dialogChangePasswordVisible = false
+        }else{
+          this.$message.error(res.msg)
+        }
+      });
+    },
+    changePassword(index, row) {
+      this.dialogChangePasswordVisible = true;
+      this.selectUser = row;
+      this.selectUser.password=""
+    },
     handleEdit(index, row) {
       //console.log(index, row);
       sessionStorage.setItem('gid', row.id)

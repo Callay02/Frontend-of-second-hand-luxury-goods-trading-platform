@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-16 23:57:03
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-04-19 09:59:41
+ * @LastEditTime: 2024-04-24 14:43:14
  * @FilePath: \vue\src\views\admin\AdminView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -13,11 +13,6 @@
                 <p style="font-size: xx-large;font-weight: bolder;">鉴定师后台</p>
             </div>
             <el-menu @select="handleSelect" default-active="0">
-                <el-menu-item index="0">
-                    <i class="el-icon-pie-chart"></i>
-                    <span slot="title">概况</span>
-                </el-menu-item>
-
                 <el-menu-item index="1">
                     <i class="el-icon-tickets"></i>
                     <span slot="title">待鉴定订单</span>
@@ -65,12 +60,8 @@ export default {
     },
     methods:{
         handleSelect(key, keyPath) {
-            console.log(key, keyPath);
-            //概况
-            if(keyPath[0]==0)
-                this.$router.push('/appraiser/generalSituation')
             //待鉴定
-            else if(keyPath[0]==1){
+            if(keyPath[0]==1){
                 this.$router.push('/appraiser/toBeAppraised')
             }
             //已鉴定

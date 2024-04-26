@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-16 23:57:03
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-04-20 00:06:48
+ * @LastEditTime: 2024-04-26 22:34:10
  * @FilePath: \vue\src\views\admin\AdminView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -92,10 +92,10 @@ export default {
         this.$axios.get("https://api.51Tracking.com/v4/couriers/all", {
             headers: {
                 'Content-Type': 'application/json',
-                'Tracking-Api-Key': 'dimjf00s-z0nn-g97q-z0cg-978iei17cfcz'
+                'Tracking-Api-Key': this.trackingApiKey
             }
         }).then(res => {
-            sessionStorage.setItem('courierList', JSON.stringify(res.data.data))
+            sessionStorage.setItem('courierList', JSON.stringify(res.data.data))  
         })
         this.defaultActive = sessionStorage.getItem('defaultActive')
         this.aid = sessionStorage.getItem('aid')

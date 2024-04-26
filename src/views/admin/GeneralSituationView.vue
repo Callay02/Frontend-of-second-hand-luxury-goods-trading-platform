@@ -2,15 +2,12 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-02-16 23:57:03
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-04-16 00:06:40
+ * @LastEditTime: 2024-04-26 23:46:26
  * @FilePath: \vue\src\views\admin\GeneralSituationView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <template>
     <div>
-        <div style="display: flex;flex-direction: column;align-items: center;">
-            <p style="font-size: xx-large;font-weight: bolder;">概况</p>
-        </div>
         <div style="margin-top: 15px;">
             <el-row :gutter="20">
                 <el-col :span="11">
@@ -56,6 +53,59 @@
                                     </el-date-picker>
                                 </div>
                                 <div id="salesVolume" style="height: 400px;margin-top: 10px;"></div>
+                            </el-card>
+                        </div>
+                        <div style="margin-top: 15px;">
+                            <el-card shadow="hover" style="height: 245px;">
+                                <div>
+                                    <el-descriptions class="margin-top" title="在线用户数" :column="4" size="medium"
+                                        :border="true">
+                                        <el-descriptions-item>
+                                            <template slot="label">
+                                                <i class="el-icon-user"></i>
+                                                普通用户
+                                            </template>
+                                            {{ onlineUserNumber.regularUser }}
+                                        </el-descriptions-item>
+                                        <el-descriptions-item>
+                                            <template slot="label">
+                                                <i class="el-icon-user"></i>
+                                                销售员
+                                            </template>
+                                            {{ onlineUserNumber.salesperson }}
+                                        </el-descriptions-item>
+                                        <el-descriptions-item>
+                                            <template slot="label">
+                                                <i class="el-icon-user"></i>
+                                                鉴定师
+                                            </template>
+                                            {{ onlineUserNumber.appraiser }}
+                                        </el-descriptions-item>
+                                        <el-descriptions-item>
+                                            <template slot="label">
+                                                <i class="el-icon-user"></i>
+                                                管理员
+                                            </template>
+                                            {{ onlineUserNumber.admin }}
+                                        </el-descriptions-item>
+                                    </el-descriptions>
+                                </div>
+                                <p></p>
+                                <div>
+                                    <el-descriptions class="margin-top" title="系统运行时间" :column="4" size="medium"
+                                        :border="true">
+                                        <el-descriptions-item>
+                                            <template slot="label">
+                                                <i class="el-icon-time"></i>
+                                                系统运行时间
+                                            </template>
+                                            {{ formatDuring(this.runTime) }}
+                                        </el-descriptions-item>
+                                    </el-descriptions>
+                                </div>
+                                <div>
+
+                                </div>
                             </el-card>
                         </div>
                     </div>
@@ -157,6 +207,8 @@ export default {
                     }
                 }]
             },
+            onlineUserNumber: {},
+            runTime: ""
         };
     },
     watch: {
@@ -239,7 +291,22 @@ export default {
         getEndTime() {
             var now = new Date()
             return now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate()
+        },
+        formatDuring(mss) {
+            var days = parseInt(mss / (1000 * 60 * 60 * 24));
+            var hours = parseInt((mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = parseInt((mss % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = (mss % (1000 * 60)) / 1000;
+            return days + " 天 " + hours + " 小时 " + minutes + " 分钟 " + seconds.toString().split(".")[0] + " 秒 ";
+        },
+        addTime() {
+            setInterval(() => {
+                this.runTime+=1000
+            }, 1000)
         }
+    },
+    created() {
+        this.addTime()
     },
     mounted() {
         this.drawSalesVolumePie()
@@ -272,11 +339,27 @@ export default {
         })
 
         this.salesVolumeDate = [new Date(this.getBeginTime()), new Date(this.getEndTime())]
-        console.log(this.salesVolumeDate)
+        //console.log(this.salesVolumeDate)
         //获取本月销量
         this.$request.get('orderForm/getSalesVolume?beginTime=' + this.salesVolumeDate[0].getTime() + '&endTime=' + this.salesVolumeDate[1].getTime()).then(res => {
             if (res.code == 200) {
                 this.drawSalesVolumePie(res.data)
+            }
+        })
+        this.$request.get('user/getOnlineUserNumber').then(res => {
+            if (res.code == 200) {
+                this.onlineUserNumber = res.data;
+            }
+            else {
+                this.$message.error(res.msg);
+            }
+        })
+        //获取系统运行时间
+        this.$request.get('system/getRuntime').then(res => {
+            if (res.code == 200) {
+                this.runTime=res.data;
+            } else {
+                this.$message.error(res.msg);
             }
         })
     },

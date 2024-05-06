@@ -105,6 +105,7 @@ export default {
               message: res.msg
             })
             this.dialogFormVisible = false
+            this.$router.go(0)
           } else {
             this.$message({
               type: "warning",

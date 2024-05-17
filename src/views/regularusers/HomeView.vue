@@ -28,8 +28,8 @@
                 </div>
               </el-image>
             </div>
-            <div style="padding: 14px">
-              <div style="line-height: 5px">
+            <div style="padding: 20px">
+              <div style="line-height: 20px">
                 <p>{{ item.brandName }}</p>
                 <p>{{ item.typeName }}</p>
               </div>

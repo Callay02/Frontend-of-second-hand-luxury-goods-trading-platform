@@ -70,7 +70,7 @@
                                         <el-descriptions-item>
                                             <template slot="label">
                                                 <i class="el-icon-user"></i>
-                                                销售员
+                                                代理商
                                             </template>
                                             {{ onlineUserNumber.salesperson }}
                                         </el-descriptions-item>
@@ -122,7 +122,7 @@
                                 <el-table-column prop="outTradeNo" label="订单号">
                                 </el-table-column>
 
-                                <el-table-column prop="subject" label="交易名称" width="100" :filters="subjectFilters"
+                                <el-table-column prop="subject" label="交易名称" width="90" :filters="subjectFilters"
                                     :filter-method="filterSubject" filter-placement="bottom-end">
                                     <template slot-scope="scope">
                                         <el-tag :type="scope.row.subject === '充值' ? 'primary' : 'success'"
@@ -131,12 +131,12 @@
                                 </el-table-column>
 
 
-                                <el-table-column prop="userId" label="用户id" width="110">
+                                <el-table-column prop="userId" label="用户id" width="100">
                                 </el-table-column>
-                                <el-table-column prop="totalAmount" label="金额" width="100">
+                                <el-table-column prop="totalAmount" label="金额" width="90">
                                 </el-table-column>
 
-                                <el-table-column prop="source" label="来源" width="100" :filters="sourceFilters"
+                                <el-table-column prop="source" label="来源" width="80" :filters="sourceFilters"
                                     :filter-method="filterSource" filter-placement="bottom-end">
                                     <template slot-scope="scope">
                                         <el-tag :type="scope.row.source === '支付宝' ? 'primary' : 'success'"
@@ -149,7 +149,7 @@
                             </el-table>
                             <div class="block">
                                 <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
-                                    :current-page="currentPage" :page-sizes="[10, 20, 30, 40]" :page-size="100"
+                                    :current-page="currentPage" :page-sizes="[6, 12, 18, 24]" :page-size="100"
                                     layout="total, sizes, prev, pager, next, jumper" :total="total">
                                 </el-pagination>
                             </div>
@@ -172,7 +172,7 @@ export default {
             admin: 0,
             flowTableData: [],
             currentPage: 0,
-            pageSize: 10,
+            pageSize: 6,
             total: 0,
             sourceFilters: [{ text: '支付宝', value: '支付宝' }, { text: '微信', value: '微信' }],
             subjectFilters: [{ text: '充值', value: '充值' }, { text: '购买商品', value: '购买商品' }],

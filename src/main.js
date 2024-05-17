@@ -20,7 +20,7 @@ Vue.prototype.$echarts = echarts;
 Vue.config.productionTip = false
 Vue.prototype.$request = request
 Vue.prototype.$axios = axios
-Vue.prototype.trackingApiKey="qndii55v-toxq-nqye-e6hb-2axjup4ikst0"
+Vue.prototype.trackingApiKey="p237dgkw-mgg0-0ic6-kc4p-38vkrvbps0nb"
 Vue.use(ElementUI);
 
 new Vue({

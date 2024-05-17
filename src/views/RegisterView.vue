@@ -15,47 +15,47 @@
             <div class="registerer">
                 <div style="margin-top: 4vh;width: 25vw;">
                     <el-page-header @back="goBack" content="欢迎注册"></el-page-header>
-                    <el-form :model="user" style="margin-top: 5vh;width: 100%" :rules="rules" ref="registerRef">
+                    <el-form :model="user" style="margin-top: 5px;width: 100%" :rules="rules" ref="registerRef">
                         <!--<div style="font-size: 30px; font-weight: bold; text-align: center; margin-bottom: 20px">欢迎注册</div>-->
                         <el-form-item prop="name" label="用户名：">
-                            <el-input prefix-icon="el-icon-user" size="medium" placeholder="请输入用户名"
+                            <el-input prefix-icon="el-icon-user" size="small" placeholder="请输入用户名"
                                 v-model="user.name"></el-input>
                         </el-form-item>
 
                         <el-form-item prop="password" label="密码：" :required=true>
-                            <el-input prefix-icon="el-icon-lock" size="medium" show-password placeholder="请输入密码"
+                            <el-input prefix-icon="el-icon-lock" size="small" show-password placeholder="请输入密码"
                                 v-model="user.password"></el-input>
                         </el-form-item>
 
                         <el-form-item prop="checkPass" label="确认密码：" :required=true>
-                            <el-input prefix-icon="el-icon-lock" size="medium" show-password placeholder="请再次输入密码"
+                            <el-input prefix-icon="el-icon-lock" size="small" show-password placeholder="请再次输入密码"
                                 v-model="user.checkPass"></el-input>
                         </el-form-item>
 
                         <el-form-item prop="email" label="邮箱：">
-                            <el-input prefix-icon="el-icon-message" size="medium" placeholder="请输入邮箱"
+                            <el-input prefix-icon="el-icon-message" size="small" placeholder="请输入邮箱"
                                 v-model="user.email"></el-input>
 
                         </el-form-item>
 
                         <el-form-item style="text-align: right;">
-                            <el-input style="width: 18%;margin-left: 1%;" size="medium" placeholder="验证码"
+                            <el-input style="width: 20%;margin-left: 1%;" size="small" placeholder="验证码"
                                 v-model="verificationCode"></el-input>
-                            <el-button size="medium" style="width: 15%;margin-left: 1%;" @click="getCode">获取</el-button>
+                            <el-button size="small" style="width: 20%;margin-left: 1%;" @click="getCode">获取</el-button>
                         </el-form-item>
 
                         <el-form-item prop="idCard" label="居民身份证：">
-                            <el-input prefix-icon="el-icon-postcard" size="medium" placeholder="请输入身份证号"
+                            <el-input prefix-icon="el-icon-postcard" size="small" placeholder="请输入身份证号"
                                 v-model="user.idCard"></el-input>
                         </el-form-item>
 
                         <el-form-item prop="realName" label="真实姓名：">
-                            <el-input prefix-icon="el-icon-postcard" size="medium" placeholder="请输入真实姓名"
+                            <el-input prefix-icon="el-icon-postcard" size="small" placeholder="请输入真实姓名"
                                 v-model="user.realName"></el-input>
                         </el-form-item>
                         <!--用户类型-->
                         <el-form-item prop="type" style="text-align: right;">
-                            <el-select v-model="user.type" placeholder="请选择账户类型" size="mini" style="width: 130px;">
+                            <el-select v-model="user.type" placeholder="请选择账户类型" size="small" style="width: 40%;">
                                 <el-option label="普通用户" value=0></el-option>
                                 <el-option label="代理商" value=1></el-option>
                             </el-select>
@@ -197,10 +197,14 @@ export default {
 }
 
 .registerer {
+    height: 100vh;
     display: flex;
     width: 30vw;
     justify-content: center;
     backdrop-filter: blur(20px);
     background-color: rgba(255, 255, 255, 0.5);
+}
+.el-form-item {
+    margin-bottom: 0px;
 }
 </style>

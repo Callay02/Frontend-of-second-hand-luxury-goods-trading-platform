@@ -25,34 +25,34 @@
             </div>
 
 
-            <hr style="width: 30%;">
-            <div style="display: flex;justify-content: center;">
+            <hr style="width: 30%;margin-top: 5px">
+            <div style="display: flex;justify-content: center;margin-top: 5px">
                 <p style="width: 100px;font-size: medium;font-weight: bold;">手机号:</p><el-input v-model="userInfo.phone"
                     placeholder="请输入手机号"></el-input>
             </div>
-            <div style="display: flex;justify-content: center;">
+            <div style="display: flex;justify-content: center;margin-top: 5px">
                 <p style="width: 100px;font-size: medium;font-weight: bold;">邮箱:</p><el-input v-model="userInfo.email"
                     placeholder="请输入邮箱"></el-input>
             </div>
-            <div style="display: flex;justify-content: center;">
+            <div style="display: flex;justify-content: center;margin-top: 5px">
                 <p style="width: 100px;font-size: medium;font-weight: bold;">地址:</p><el-input v-model="userInfo.address"
                     placeholder="请输入地址"></el-input>
             </div>
-            <div style="display: flex;justify-content: center;">
+            <div style="display: flex;justify-content: center;margin-top: 5px">
                 <p style="width: 100px;font-size: medium;font-weight: bold;">密码:</p><el-input type="password"
                     v-model="userInfo.password" placeholder="请输入密码" show-password></el-input>
             </div>
-            <hr style="width:30%">
+            <hr style="width:30%;margin-top: 5px">
             <p style="font-size: large;font-weight: bold;">实名信息</p>
-            <div style="display: flex;justify-content: center;">
+            <div style="display: flex;justify-content: center;margin-top: 5px">
                 <p style="width: 100px;font-size: medium;font-weight: bold;">身份证:</p><el-input v-model="userInfo.idCard"
                     disabled></el-input>
             </div>
-            <div style="display: flex;justify-content: center;">
+            <div style="display: flex;justify-content: center;margin-top: 5px">
                 <p style="width: 100px;font-size: medium;font-weight: bold;">真实姓名:</p><el-input
                     v-model="userInfo.realName" disabled></el-input>
             </div>
-            <hr style="width:30%">
+            <hr style="width:30%;margin-top: 5px">
             <el-button type="primary" style="margin-top: 10px;" @click="submit">修改</el-button>
         </div>
     </div>

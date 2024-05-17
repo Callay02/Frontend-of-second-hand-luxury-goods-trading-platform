@@ -28,7 +28,7 @@
                     </el-table-column>
                     <el-table-column label="创建时间" prop="createTime">
                     </el-table-column>
-                    <el-table-column label="操作" fixed="right">
+                    <el-table-column label="操作" fixed="right" width="180">
                         <template slot-scope="scope">
                             <el-button size="mini" @click="delivery(scope.$index, scope.row)"
                                 style="margin-right: 5px" type="primary">发货</el-button>

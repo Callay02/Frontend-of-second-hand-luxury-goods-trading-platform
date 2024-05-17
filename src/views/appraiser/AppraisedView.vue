@@ -13,7 +13,7 @@
           <p style="font-size: x-large; font-weight: bolder">已鉴定订单</p>
         </div>
         <div>
-          <el-table :data="tableData" border style="width: 100%">
+          <el-table :data="tableData" :border="true" style="width: 100%">
             <el-table-column prop="id" label="id"> </el-table-column>
             <el-table-column prop="logisticsNumber" label="物流号">
             </el-table-column>

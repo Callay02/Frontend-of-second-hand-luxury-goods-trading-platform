@@ -216,7 +216,7 @@ export default {
       if (this.isSearch == 0) {
         this.$request
           .get(
-            "goods/getGoodsPageByState?state=&page=" +
+            "goods/getGoodsPageByState?state=1&page=" +
             this.currentPage +
             "&rows=" +
             this.pageSize
@@ -337,7 +337,7 @@ export default {
       this.currentPage = 1;
       this.$request
         .get(
-          "goods/getGoodsPageByState?state=&page=" +
+          "goods/getGoodsPageByState?state=1&page=" +
           this.currentPage +
           "&rows=" +
           this.pageSize

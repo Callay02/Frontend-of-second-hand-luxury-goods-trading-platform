@@ -45,7 +45,7 @@
     </div>
     <div style="margin-top: 15px">
       <div style="width: 100%">
-        <el-table :data="goodsVoList" style="width: 100%" border>
+        <el-table :data="goodsVoList" style="width: 100%" :border="true">
           <el-table-column label="id" width="100">
             <template slot-scope="scope">
               <span style="margin-left: 10px">{{ scope.row.id }}</span>
@@ -60,7 +60,7 @@
               </el-image></template>
           </el-table-column>
 
-          <el-table-column label="详情" width="400">
+          <el-table-column label="详情" width="300">
             <template slot-scope="scope">
               <span style="margin-left: 10px">{{ scope.row.info }}</span>
             </template>
@@ -72,7 +72,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column label="品牌" width="200">
+          <el-table-column label="品牌" width="130">
             <template slot-scope="scope">
               <span style="margin-left: 10px">{{ scope.row.brandName }}</span>
             </template>
@@ -84,19 +84,19 @@
             </template>
           </el-table-column>
 
-          <el-table-column label="价格" width="130">
+          <el-table-column label="价格" width="100">
             <template slot-scope="scope">
               <span style="margin-left: 10px">{{ scope.row.price }}</span>
             </template>
           </el-table-column>
 
-          <el-table-column label="上架时间" width="250">
+          <el-table-column label="上架时间" width="150">
             <template slot-scope="scope">
               <span style="margin-left: 10px">{{ scope.row.addTime }}</span>
             </template>
           </el-table-column>
 
-          <el-table-column label="状态" width="120">
+          <el-table-column label="状态" width="60">
             <template slot-scope="scope">
               <span style="margin-left: 10px; color: blue" v-if="scope.row.state == 1">在售</span>
               <span style="margin-left: 10px; color: red" v-else-if="scope.row.state == 0">已售</span>

@@ -2,7 +2,7 @@
  * @Author: Callay 2415993100@qq.com
  * @Date: 2024-01-09 21:39:03
  * @LastEditors: Callay 2415993100@qq.com
- * @LastEditTime: 2024-05-16 10:04:46
+ * @LastEditTime: 2024-06-26 13:02:09
  * @FilePath: \vue\src\main.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -20,7 +20,8 @@ Vue.prototype.$echarts = echarts;
 Vue.config.productionTip = false
 Vue.prototype.$request = request
 Vue.prototype.$axios = axios
-Vue.prototype.trackingApiKey="p237dgkw-mgg0-0ic6-kc4p-38vkrvbps0nb"
+//trackingApiKey
+Vue.prototype.trackingApiKey=""
 Vue.use(ElementUI);
 
 new Vue({
